@@ -333,49 +333,47 @@ export default function PerformanceAnalysisPage() {
     return (
       <div className="min-h-screen bg-black flex items-center justify-center">
         <div className="text-center">
-          <div className="relative w-16 h-16 mx-auto mb-4">
-            <div className="absolute inset-0 border-4 border-blue-600/30 rounded-full"></div>
-            <div className="absolute inset-0 border-4 border-transparent border-t-blue-600 rounded-full animate-spin"></div>
-          </div>
-          <p className="text-white font-semibold">Loading performance data...</p>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-white/20 mx-auto mb-4"></div>
+          <p className="text-white/50">Loading performance data...</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-[#1e1e2e]">
+    <div className="min-h-screen bg-black">
       {/* Header */}
-      <header className="border-b border-white/10 bg-[#27293d] sticky top-0 z-50">
-        <div className="container mx-auto px-8 py-5">
+      <header className="border-b border-white/5 bg-black/80 backdrop-blur-sm sticky top-0 z-50">
+        <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
-            <div className="flex items-center gap-4">
-              <div className="p-2.5 bg-gradient-to-br from-blue-500/10 to-purple-500/10 rounded-lg border border-blue-500/20">
-                <TrendingUp className="h-6 w-6 text-blue-400" />
+            <div className="flex items-center gap-3">
+              <div className="p-2 bg-white/5 rounded-md">
+                <TrendingUp className="h-5 w-5 text-white" />
               </div>
               <div>
-                <h1 className="text-xl font-semibold text-white tracking-tight">
+                <h1 className="text-xl font-medium text-white">
                   Performance Analysis
                 </h1>
-                <p className="text-sm text-white/50 mt-0.5">Advanced metrics and insights dashboard</p>
+                <p className="text-sm text-white/50">Advanced metrics and insights dashboard</p>
               </div>
             </div>
             <Button 
-              variant="outline" 
+              variant="ghost" 
+              size="sm"
               onClick={() => router.push('/dashboard')}
               className="gap-2"
             >
               <ArrowLeft className="h-4 w-4" />
-              Back to Dashboard
+              Back
             </Button>
           </div>
         </div>
       </header>
 
       {/* Main Content */}
-      <main className="container mx-auto px-8 py-8 max-w-[1600px]">
+      <main className="container mx-auto px-4 py-8">
         {/* Athlete Selector */}
-        <div className="mb-8">
+        <div className="mb-6">
           <div className="max-w-md">
             <AthleteSelector
               athletes={athletes}
@@ -389,156 +387,156 @@ export default function PerformanceAnalysisPage() {
         </div>
 
         {!selectedAthlete ? (
-          <Card className="border-white/10 bg-[#27293d]">
+          <Card>
             <CardContent className="py-20 text-center">
-              <div className="h-24 w-24 rounded-2xl bg-gradient-to-br from-blue-500/10 to-purple-500/10 flex items-center justify-center mx-auto mb-6 border border-blue-500/20">
-                <TrendingUp className="h-12 w-12 text-blue-400" />
+              <div className="h-20 w-20 bg-white/5 rounded-md flex items-center justify-center mx-auto mb-6">
+                <TrendingUp className="h-10 w-10 text-white/70" />
               </div>
-              <h3 className="text-2xl font-semibold text-white mb-3">
+              <h3 className="text-xl font-medium text-white mb-2">
                 Select an Athlete
               </h3>
-              <p className="text-white/50 mb-8 max-w-md mx-auto">
+              <p className="text-sm text-white/50 max-w-md mx-auto">
                 Choose an athlete from the dropdown to view their comprehensive performance analysis
               </p>
             </CardContent>
           </Card>
         ) : !metrics ? (
-          <Card className="border-white/10 bg-[#27293d]">
+          <Card>
             <CardContent className="py-20 text-center">
-              <div className="h-24 w-24 rounded-2xl bg-gradient-to-br from-amber-500/10 to-orange-500/10 flex items-center justify-center mx-auto mb-6 border border-amber-500/20">
-                <Activity className="h-12 w-12 text-amber-400" />
+              <div className="h-20 w-20 bg-white/5 rounded-md flex items-center justify-center mx-auto mb-6">
+                <Activity className="h-10 w-10 text-white/70" />
               </div>
-              <h3 className="text-2xl font-semibold text-white mb-3">
+              <h3 className="text-xl font-medium text-white mb-2">
                 No Activity Data
               </h3>
-              <p className="text-white/50 mb-8 max-w-md mx-auto">
+              <p className="text-sm text-white/50 mb-6 max-w-md mx-auto">
                 {selectedAthlete.name} hasn't logged any activities yet. Start tracking to see detailed performance metrics.
               </p>
-              <Button onClick={() => router.push('/injury-analysis')} size="lg">
-                <Plus className="h-5 w-5 mr-2" />
+              <Button onClick={() => router.push('/injury-analysis')}>
+                <Plus className="h-4 w-4 mr-2" />
                 Log First Activity
               </Button>
             </CardContent>
           </Card>
         ) : (
-          <div className="space-y-8">
+          <div className="space-y-6">
             {/* Key Performance Indicators */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
               {/* Total Activities */}
-              <Card className="border-white/10 bg-gradient-to-br from-[#27293d] to-[#1e1e2e]">
-                <CardContent className="p-6">
-                  <div className="flex items-start justify-between mb-4">
-                    <div className="p-3 bg-blue-500/10 rounded-xl border border-blue-500/20">
-                      <Activity className="h-6 w-6 text-blue-400" />
+              <Card className="group hover:border-white/10 transition-colors border-blue-500/20">
+                <CardHeader>
+                  <div className="flex items-start justify-between">
+                    <div className="h-10 w-10 bg-blue-500/10 rounded-md flex items-center justify-center group-hover:bg-blue-500/20 transition-colors">
+                      <Activity className="h-5 w-5 text-blue-400" />
                     </div>
                     {metrics.activityTrend !== 0 && (
-                      <div className={`flex items-center gap-1 text-xs font-medium px-2 py-1 rounded-full ${
+                      <div className={`inline-flex items-center gap-1 text-xs px-1.5 py-0.5 rounded ${
                         metrics.activityTrend > 0 
-                          ? 'bg-green-500/10 text-green-400 border border-green-500/20' 
-                          : 'bg-red-500/10 text-red-400 border border-red-500/20'
+                          ? 'text-green-400' 
+                          : 'text-red-400'
                       }`}>
                         {metrics.activityTrend > 0 ? <TrendingUp className="h-3 w-3" /> : <TrendingDown className="h-3 w-3" />}
                         {Math.abs(metrics.activityTrend)}
                       </div>
                     )}
                   </div>
-                  <div className="space-y-1">
-                    <p className="text-4xl font-bold text-white tracking-tight">{metrics.lastWeekCount}</p>
-                    <p className="text-sm text-white/60 font-medium">This Week</p>
-                    <p className="text-xs text-white/40">{metrics.totalActivities} total logged</p>
-                  </div>
+                </CardHeader>
+                <CardContent>
+                  <div className="text-3xl font-bold text-white mb-1">{metrics.lastWeekCount}</div>
+                  <CardDescription>This Week</CardDescription>
+                  <p className="text-xs text-white/40 mt-2">{metrics.totalActivities} total logged</p>
                 </CardContent>
               </Card>
 
               {/* Training Volume */}
-              <Card className="border-white/10 bg-gradient-to-br from-[#27293d] to-[#1e1e2e]">
-                <CardContent className="p-6">
-                  <div className="flex items-start justify-between mb-4">
-                    <div className="p-3 bg-purple-500/10 rounded-xl border border-purple-500/20">
-                      <Timer className="h-6 w-6 text-purple-400" />
+              <Card className="group hover:border-white/10 transition-colors border-purple-500/20">
+                <CardHeader>
+                  <div className="flex items-start justify-between">
+                    <div className="h-10 w-10 bg-purple-500/10 rounded-md flex items-center justify-center group-hover:bg-purple-500/20 transition-colors">
+                      <Timer className="h-5 w-5 text-purple-400" />
                     </div>
                     {metrics.durationTrend !== 0 && (
-                      <div className={`flex items-center gap-1 text-xs font-medium px-2 py-1 rounded-full ${
+                      <div className={`inline-flex items-center gap-1 text-xs px-1.5 py-0.5 rounded ${
                         metrics.durationTrend > 0 
-                          ? 'bg-green-500/10 text-green-400 border border-green-500/20' 
-                          : 'bg-red-500/10 text-red-400 border border-red-500/20'
+                          ? 'text-green-400' 
+                          : 'text-red-400'
                       }`}>
                         {metrics.durationTrend > 0 ? <TrendingUp className="h-3 w-3" /> : <TrendingDown className="h-3 w-3" />}
                         {Math.abs(metrics.durationTrend)}h
                       </div>
                     )}
                   </div>
-                  <div className="space-y-1">
-                    <p className="text-4xl font-bold text-white tracking-tight">{metrics.totalDuration}h</p>
-                    <p className="text-sm text-white/60 font-medium">Total Time</p>
-                    <p className="text-xs text-white/40">{metrics.avgDuration} min avg session</p>
-                  </div>
+                </CardHeader>
+                <CardContent>
+                  <div className="text-3xl font-bold text-white mb-1">{metrics.totalDuration}h</div>
+                  <CardDescription>Total Time</CardDescription>
+                  <p className="text-xs text-white/40 mt-2">{metrics.avgDuration} min avg session</p>
                 </CardContent>
               </Card>
 
               {/* Heart Rate */}
-              <Card className="border-white/10 bg-gradient-to-br from-[#27293d] to-[#1e1e2e]">
-                <CardContent className="p-6">
-                  <div className="flex items-start justify-between mb-4">
-                    <div className="p-3 bg-red-500/10 rounded-xl border border-red-500/20">
-                      <Heart className="h-6 w-6 text-red-400" />
+              <Card className="group hover:border-white/10 transition-colors border-red-500/20">
+                <CardHeader>
+                  <div className="flex items-start justify-between">
+                    <div className="h-10 w-10 bg-red-500/10 rounded-md flex items-center justify-center group-hover:bg-red-500/20 transition-colors">
+                      <Heart className="h-5 w-5 text-red-400" />
                     </div>
-                    <div className="flex items-center gap-1 text-xs font-medium px-2 py-1 rounded-full bg-white/5 text-white/60 border border-white/10">
+                    <div className="inline-flex items-center gap-1 text-xs text-white/50 px-1.5 py-0.5">
                       <Zap className="h-3 w-3" />
-                      Peak {metrics.maxHeartRate}
+                      {metrics.maxHeartRate}
                     </div>
                   </div>
-                  <div className="space-y-1">
-                    <p className="text-4xl font-bold text-white tracking-tight">
-                      {metrics.avgHeartRate > 0 ? metrics.avgHeartRate : '-'}
-                    </p>
-                    <p className="text-sm text-white/60 font-medium">Avg Heart Rate</p>
-                    <p className="text-xs text-white/40">BPM</p>
+                </CardHeader>
+                <CardContent>
+                  <div className="text-3xl font-bold text-white mb-1">
+                    {metrics.avgHeartRate > 0 ? metrics.avgHeartRate : '-'}
                   </div>
+                  <CardDescription>Avg Heart Rate</CardDescription>
+                  <p className="text-xs text-white/40 mt-2">BPM</p>
                 </CardContent>
               </Card>
 
               {/* Calories */}
-              <Card className="border-white/10 bg-gradient-to-br from-[#27293d] to-[#1e1e2e]">
-                <CardContent className="p-6">
-                  <div className="flex items-start justify-between mb-4">
-                    <div className="p-3 bg-orange-500/10 rounded-xl border border-orange-500/20">
-                      <Flame className="h-6 w-6 text-orange-400" />
+              <Card className="group hover:border-white/10 transition-colors border-orange-500/20">
+                <CardHeader>
+                  <div className="flex items-start justify-between">
+                    <div className="h-10 w-10 bg-orange-500/10 rounded-md flex items-center justify-center group-hover:bg-orange-500/20 transition-colors">
+                      <Flame className="h-5 w-5 text-orange-400" />
                     </div>
-                    <div className="flex items-center gap-1 text-xs font-medium px-2 py-1 rounded-full bg-white/5 text-white/60 border border-white/10">
+                    <div className="inline-flex items-center gap-1 text-xs text-white/50 px-1.5 py-0.5">
                       <Target className="h-3 w-3" />
-                      {metrics.avgCalories}/session
+                      {metrics.avgCalories}
                     </div>
                   </div>
-                  <div className="space-y-1">
-                    <p className="text-4xl font-bold text-white tracking-tight">
-                      {(metrics.totalCalories / 1000).toFixed(1)}k
-                    </p>
-                    <p className="text-sm text-white/60 font-medium">Total Calories</p>
-                    <p className="text-xs text-white/40">Burned</p>
+                </CardHeader>
+                <CardContent>
+                  <div className="text-3xl font-bold text-white mb-1">
+                    {(metrics.totalCalories / 1000).toFixed(1)}k
                   </div>
+                  <CardDescription>Total Calories</CardDescription>
+                  <p className="text-xs text-white/40 mt-2">Burned</p>
                 </CardContent>
               </Card>
             </div>
 
             {/* Main Charts Row */}
-            <div className="grid lg:grid-cols-2 gap-6">
+            <div className="grid lg:grid-cols-2 gap-4">
               {/* Daily Activity Pattern */}
-            <Card className="border-white/10 bg-[#27293d]">
-              <CardHeader className="border-b border-white/5 pb-4">
-                <div>
-                  <CardTitle className="text-white text-lg font-semibold flex items-center gap-2">
-                    <div className="p-2 bg-blue-500/10 rounded-lg border border-blue-500/20">
-                      <TrendingUp className="h-4 w-4 text-blue-400" />
-                    </div>
-                    {allExamples.performanceTrend.title}
-                  </CardTitle>
-                  <CardDescription className="mt-2 text-white/40">
-                    {allExamples.performanceTrend.description}
-                  </CardDescription>
+            <Card>
+              <CardHeader>
+                <div className="flex items-center gap-3">
+                  <div className="h-9 w-9 bg-blue-500/10 rounded-md flex items-center justify-center">
+                    <TrendingUp className="h-4 w-4 text-blue-400" />
+                  </div>
+                  <div>
+                    <CardTitle className="text-base">{allExamples.performanceTrend.title}</CardTitle>
+                  </div>
                 </div>
+                <CardDescription className="mt-2">
+                  {allExamples.performanceTrend.description}
+                </CardDescription>
               </CardHeader>
-              <CardContent className="pt-6">
+              <CardContent>
                 <div className="h-[300px]">
                   <Line
                     ref={chart1Ref}
@@ -554,23 +552,22 @@ export default function PerformanceAnalysisPage() {
               </CardContent>
             </Card>
 
-
               {/* Weekly Volume */}
-              <Card className="border-white/10 bg-[#27293d]">
-              <CardHeader className="border-b border-white/5 pb-4">
-                <div>
-                  <CardTitle className="text-white text-lg font-semibold flex items-center gap-2">
-                    <div className="p-2 bg-purple-500/10 rounded-lg border border-purple-500/20">
-                      <BarChart3 className="h-4 w-4 text-purple-400" />
-                    </div>
-                    {allExamples.trainingVolume.title}
-                  </CardTitle>
-                  <CardDescription className="mt-2 text-white/40">
-                    {allExamples.trainingVolume.description}
-                  </CardDescription>
+              <Card>
+              <CardHeader>
+                <div className="flex items-center gap-3">
+                  <div className="h-9 w-9 bg-purple-500/10 rounded-md flex items-center justify-center">
+                    <BarChart3 className="h-4 w-4 text-purple-400" />
+                  </div>
+                  <div>
+                    <CardTitle className="text-base">{allExamples.trainingVolume.title}</CardTitle>
+                  </div>
                 </div>
+                <CardDescription className="mt-2">
+                  {allExamples.trainingVolume.description}
+                </CardDescription>
               </CardHeader>
-              <CardContent className="pt-6">
+              <CardContent>
                 <div className="h-[300px]">
                   <Bar
                     ref={chart2Ref}
@@ -588,24 +585,24 @@ export default function PerformanceAnalysisPage() {
             </div>
 
             {/* Risk and Body Part Analysis */}
-            <div className="grid lg:grid-cols-2 gap-6">
+            <div className="grid lg:grid-cols-2 gap-4">
               {/* Injury Risk Trend */}
               {riskLoadData.labels.length > 0 && (
-            <Card className="border-white/10 bg-[#27293d]">
-            <CardHeader className="border-b border-white/5 pb-4">
-              <div>
-                <CardTitle className="text-white text-lg font-semibold flex items-center gap-2">
-                  <div className="p-2 bg-green-500/10 rounded-lg border border-green-500/20">
-                    <Heart className="h-4 w-4 text-green-400" />
-                  </div>
-                  {allExamples.recoveryStatus.title}
-                </CardTitle>
-                <CardDescription className="mt-2 text-white/40">
-                  {allExamples.recoveryStatus.description}
-                </CardDescription>
+            <Card>
+            <CardHeader>
+              <div className="flex items-center gap-3">
+                <div className="h-9 w-9 bg-green-500/10 rounded-md flex items-center justify-center">
+                  <Heart className="h-4 w-4 text-green-400" />
+                </div>
+                <div>
+                  <CardTitle className="text-base">{allExamples.recoveryStatus.title}</CardTitle>
+                </div>
               </div>
+              <CardDescription className="mt-2">
+                {allExamples.recoveryStatus.description}
+              </CardDescription>
             </CardHeader>
-            <CardContent className="pt-6">
+            <CardContent>
               <div className="h-[300px]">
                 <Line
                   ref={chart3Ref}
@@ -624,21 +621,21 @@ export default function PerformanceAnalysisPage() {
 
               {/* Body Part Risk */}
               {bodyPartData.labels.length > 0 && (
-            <Card className="border-white/10 bg-[#27293d]">
-            <CardHeader className="border-b border-white/5 pb-4">
-              <div>
-                <CardTitle className="text-white text-lg font-semibold flex items-center gap-2">
-                  <div className="p-2 bg-pink-500/10 rounded-lg border border-pink-500/20">
-                    <AlertTriangle className="h-4 w-4 text-pink-400" />
-                  </div>
-                  {allExamples.injuryRisk.title}
-                </CardTitle>
-                <CardDescription className="mt-2 text-white/40">
-                  {allExamples.injuryRisk.description}
-                </CardDescription>
+            <Card>
+            <CardHeader>
+              <div className="flex items-center gap-3">
+                <div className="h-9 w-9 bg-pink-500/10 rounded-md flex items-center justify-center">
+                  <AlertTriangle className="h-4 w-4 text-pink-400" />
+                </div>
+                <div>
+                  <CardTitle className="text-base">{allExamples.injuryRisk.title}</CardTitle>
+                </div>
               </div>
+              <CardDescription className="mt-2">
+                {allExamples.injuryRisk.description}
+              </CardDescription>
             </CardHeader>
-            <CardContent className="pt-6">
+            <CardContent>
               <div className="h-[300px]">
                 <Line
                   ref={chart6Ref}
@@ -656,21 +653,21 @@ export default function PerformanceAnalysisPage() {
               )}
             </div>
 
-            <Card className="border-white/10 bg-[#27293d]">
-            <CardHeader className="border-b border-white/5 pb-4">
-              <div>
-                <CardTitle className="text-white text-lg font-semibold flex items-center gap-2">
-                  <div className="p-2 bg-blue-500/10 rounded-lg border border-blue-500/20">
-                    <Activity className="h-4 w-4 text-blue-400" />
-                  </div>
-                  {allExamples.multiMetric.title}
-                </CardTitle>
-                <CardDescription className="mt-2 text-white/40">
-                  {allExamples.multiMetric.description}
-                </CardDescription>
+            <Card>
+            <CardHeader>
+              <div className="flex items-center gap-3">
+                <div className="h-9 w-9 bg-blue-500/10 rounded-md flex items-center justify-center">
+                  <Activity className="h-4 w-4 text-blue-400" />
+                </div>
+                <div>
+                  <CardTitle className="text-base">{allExamples.multiMetric.title}</CardTitle>
+                </div>
               </div>
+              <CardDescription className="mt-2">
+                {allExamples.multiMetric.description}
+              </CardDescription>
             </CardHeader>
-            <CardContent className="pt-6">
+            <CardContent>
               <div className="h-[400px]">
                 <Line
                   ref={chart4Ref}
@@ -686,57 +683,59 @@ export default function PerformanceAnalysisPage() {
           </Card>
 
             {/* Summary Stats */}
-            <Card className="border-white/10 bg-[#27293d]">
-              <CardHeader className="border-b border-white/5">
-                <CardTitle className="text-white text-lg font-semibold flex items-center gap-2">
-                  <div className="p-2 bg-green-500/10 rounded-lg border border-green-500/20">
+            <Card>
+              <CardHeader>
+                <div className="flex items-center gap-3">
+                  <div className="h-9 w-9 bg-green-500/10 rounded-md flex items-center justify-center">
                     <Trophy className="h-4 w-4 text-green-400" />
                   </div>
-                  Performance Summary
-                </CardTitle>
+                  <div>
+                    <CardTitle className="text-base">Performance Summary</CardTitle>
+                  </div>
+                </div>
               </CardHeader>
-              <CardContent className="pt-6">
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-                  <div className="text-center p-6 bg-gradient-to-br from-blue-500/5 to-blue-500/0 rounded-xl border border-blue-500/10">
-                    <div className="flex justify-center mb-3">
-                      <div className="p-3 bg-blue-500/10 rounded-xl border border-blue-500/20">
-                        <Activity className="h-6 w-6 text-blue-400" />
+              <CardContent>
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                  <div className="text-center p-4 bg-white/[0.02] rounded-lg border border-white/5">
+                    <div className="flex justify-center mb-2">
+                      <div className="h-9 w-9 bg-blue-500/10 rounded-md flex items-center justify-center">
+                        <Activity className="h-4 w-4 text-blue-400" />
                       </div>
                     </div>
-                    <p className="text-3xl font-bold text-white mb-1">{metrics.workoutCount}</p>
-                    <p className="text-sm text-white/60 font-medium">Total Workouts</p>
+                    <p className="text-2xl font-bold text-white mb-1">{metrics.workoutCount}</p>
+                    <p className="text-xs text-white/60">Total Workouts</p>
                   </div>
 
-                  <div className="text-center p-6 bg-gradient-to-br from-purple-500/5 to-purple-500/0 rounded-xl border border-purple-500/10">
-                    <div className="flex justify-center mb-3">
-                      <div className="p-3 bg-purple-500/10 rounded-xl border border-purple-500/20">
-                        <Trophy className="h-6 w-6 text-purple-400" />
+                  <div className="text-center p-4 bg-white/[0.02] rounded-lg border border-white/5">
+                    <div className="flex justify-center mb-2">
+                      <div className="h-9 w-9 bg-purple-500/10 rounded-md flex items-center justify-center">
+                        <Trophy className="h-4 w-4 text-purple-400" />
                       </div>
                     </div>
-                    <p className="text-3xl font-bold text-white mb-1">{metrics.sportsCount}</p>
-                    <p className="text-sm text-white/60 font-medium">Sports Activities</p>
+                    <p className="text-2xl font-bold text-white mb-1">{metrics.sportsCount}</p>
+                    <p className="text-xs text-white/60">Sports Activities</p>
                   </div>
 
-                  <div className="text-center p-6 bg-gradient-to-br from-green-500/5 to-green-500/0 rounded-xl border border-green-500/10">
-                    <div className="flex justify-center mb-3">
-                      <div className="p-3 bg-green-500/10 rounded-xl border border-green-500/20">
-                        <CheckCircle className="h-6 w-6 text-green-400" />
+                  <div className="text-center p-4 bg-white/[0.02] rounded-lg border border-white/5">
+                    <div className="flex justify-center mb-2">
+                      <div className="h-9 w-9 bg-green-500/10 rounded-md flex items-center justify-center">
+                        <CheckCircle className="h-4 w-4 text-green-400" />
                       </div>
                     </div>
-                    <p className="text-3xl font-bold text-white mb-1">{metrics.recentCount}</p>
-                    <p className="text-sm text-white/60 font-medium">Last 30 Days</p>
+                    <p className="text-2xl font-bold text-white mb-1">{metrics.recentCount}</p>
+                    <p className="text-xs text-white/60">Last 30 Days</p>
                   </div>
 
-                  <div className="text-center p-6 bg-gradient-to-br from-orange-500/5 to-orange-500/0 rounded-xl border border-orange-500/10">
-                    <div className="flex justify-center mb-3">
-                      <div className="p-3 bg-orange-500/10 rounded-xl border border-orange-500/20">
-                        <Target className="h-6 w-6 text-orange-400" />
+                  <div className="text-center p-4 bg-white/[0.02] rounded-lg border border-white/5">
+                    <div className="flex justify-center mb-2">
+                      <div className="h-9 w-9 bg-orange-500/10 rounded-md flex items-center justify-center">
+                        <Target className="h-4 w-4 text-orange-400" />
                       </div>
                     </div>
-                    <p className="text-3xl font-bold text-white mb-1">
+                    <p className="text-2xl font-bold text-white mb-1">
                       {metrics.recentCount >= 20 ? 'Elite' : metrics.recentCount >= 12 ? 'High' : metrics.recentCount >= 6 ? 'Moderate' : 'Low'}
                     </p>
-                    <p className="text-sm text-white/60 font-medium">Activity Level</p>
+                    <p className="text-xs text-white/60">Activity Level</p>
                   </div>
                 </div>
               </CardContent>

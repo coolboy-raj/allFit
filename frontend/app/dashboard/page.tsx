@@ -190,40 +190,6 @@ export default function DashboardPage() {
             </div>
           </div>
 
-          {/* Developer Tools */}
-          <div>
-            <h2 className="text-xl font-medium text-white mb-4">Developer Tools</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {/* Charts Demo */}
-              <Card 
-                className="group hover:border-white/10 transition-colors cursor-pointer"
-                onClick={() => router.push('/charts-demo')}
-              >
-                <CardHeader>
-                  <div className="flex items-center gap-3">
-                    <div className="h-9 w-9 bg-blue-500/10 rounded-md flex items-center justify-center group-hover:bg-blue-500/20 transition-colors">
-                      <BarChart3 className="h-4 w-4 text-blue-400" />
-                    </div>
-                    <div className="flex-1">
-                      <div className="flex items-center gap-2">
-                        <CardTitle className="text-base">Charts Showcase</CardTitle>
-                        <div className="inline-flex items-center gap-1 px-1.5 py-0.5 bg-blue-500/10 border border-blue-500/20 rounded text-[10px] font-medium text-blue-400">
-                          <Activity className="h-2.5 w-2.5" />
-                          Demo
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-sm text-white/60">
-                    View all available chart types and styling options
-                  </p>
-                </CardContent>
-              </Card>
-            </div>
-          </div>
-
           {/* Coming Soon Features */}
           <div>
             <h2 className="text-xl font-medium text-white mb-4">Coming Soon</h2>
