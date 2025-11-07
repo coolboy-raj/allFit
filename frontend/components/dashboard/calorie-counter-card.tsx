@@ -9,7 +9,7 @@ export function CalorieCounterCard() {
   const router = useRouter();
 
   return (
-    <Card className="border-2 hover:shadow-lg transition-all cursor-pointer" onClick={() => window.location.href = '/calorie-calculator.html'}>
+    <Card className="border-2 hover:shadow-lg transition-all cursor-pointer" onClick={() => router.push('/calorie-counter')}>
       <CardHeader>
         <div className="flex items-center justify-between">
           <CardTitle className="text-lg text-blue-900 dark:text-blue-100 flex items-center gap-2">
@@ -35,7 +35,7 @@ export function CalorieCounterCard() {
             className="w-full"
             onClick={(e) => {
               e.stopPropagation();
-              window.location.href = '/calorie-calculator.html';
+              router.push('/calorie-counter');
             }}
           >
             Track Calories

@@ -96,7 +96,7 @@ export default function SettingsPage() {
       {/* Main Content */}
       <main className="container mx-auto px-4 py-8 max-w-4xl">
         <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-2">Settings</h1>
-        <p className="text-gray-600 dark:text-gray-300 mb-8">Manage your profile and preferences</p>
+        <p className="text-gray-600 dark:text-gray-300 mb-8">Manage your coach profile and platform preferences</p>
 
         <div className="space-y-6">
           {/* Profile Card */}
@@ -104,7 +104,7 @@ export default function SettingsPage() {
             <CardHeader>
               <CardTitle className="flex items-center gap-2 text-blue-900 dark:text-blue-100">
                 <User className="h-5 w-5 text-blue-600" />
-                Profile Information
+                Coach Profile
               </CardTitle>
               <CardDescription>Your account details</CardDescription>
             </CardHeader>
@@ -130,9 +130,9 @@ export default function SettingsPage() {
             <CardHeader>
               <CardTitle className="flex items-center gap-2 text-blue-900 dark:text-blue-100">
                 <Target className="h-5 w-5 text-green-600" />
-                Daily Goals
+                Default Athlete Goals
               </CardTitle>
-              <CardDescription>Set your daily activity targets</CardDescription>
+              <CardDescription>Set default targets for new athlete profiles</CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
               <div>

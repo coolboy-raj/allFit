@@ -14,13 +14,13 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "TotalFit - AI Health Advisor for Google Fit Users",
-  description: "Connect your Google Fit app and get AI-powered health insights, injury risk warnings, and personalized recommendations based on your daily activity data.",
-  keywords: ["fitness", "health", "AI", "Google Fit", "injury prevention", "health tracking"],
+  title: "TotalFit - Professional Athlete Management Platform",
+  description: "AI-powered athlete management platform for coaches and trainers. Track performance, prevent injuries, and optimize training with real-time insights.",
+  keywords: ["athlete management", "coaching", "sports analytics", "injury prevention", "training optimization", "AI coaching"],
   authors: [{ name: "TotalFit" }],
   openGraph: {
-    title: "TotalFit - AI Health Advisor",
-    description: "Turn your fitness data into actionable insights with AI-powered health analysis.",
+    title: "TotalFit - Professional Athlete Management",
+    description: "Manage athletes, prevent injuries, and optimize performance with AI-powered insights.",
     type: "website",
   },
 };

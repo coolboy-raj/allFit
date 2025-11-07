@@ -46,10 +46,10 @@ export default function AuthCompletePage() {
       <div className="text-center">
         <Activity className="h-16 w-16 text-blue-600 mx-auto mb-4 animate-pulse" />
         <h1 className="text-2xl font-bold text-gray-900 mb-2">
-          Connecting to Google Fit...
+          Setting Up Your Coach Account...
         </h1>
         <p className="text-gray-600">
-          Please wait while we set up your account
+          Please wait while we prepare your dashboard
         </p>
         <div className="mt-6">
           <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto"></div>

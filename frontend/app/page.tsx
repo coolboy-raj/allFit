@@ -50,15 +50,15 @@ export default function Home() {
           </div>
           
           <h1 className="text-5xl md:text-6xl font-bold leading-tight text-gray-900 dark:text-gray-100">
-            Track Your Health Journey With
+            Manage Your Athletes With
             <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
               {" "}AI-Powered Insights
             </span>
           </h1>
           
           <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-            Log your daily activity, sleep, and exercise data to get personalized AI health insights, 
-            injury risk warnings, and expert recommendations tailored just for you.
+            Professional athlete management platform for coaches and trainers. Track performance, 
+            prevent injuries, and optimize training with AI-powered analysis.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center pt-6">
@@ -102,10 +102,10 @@ export default function Home() {
       <section className="container mx-auto px-4 py-20">
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-gray-100 mb-4">
-            Everything You Need to Stay Healthy
+            Everything You Need to Manage Your Team
           </h2>
           <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-            Simple, privacy-focused health tracking. Just log your daily activity and get AI-powered insights.
+            Professional athlete management platform. Track multiple athletes, prevent injuries, and optimize performance.
           </p>
         </div>
 
@@ -115,9 +115,9 @@ export default function Home() {
               <div className="h-12 w-12 bg-blue-100 dark:bg-blue-900/30 rounded-lg flex items-center justify-center mb-4">
                 <Activity className="h-6 w-6 text-blue-600 dark:text-blue-400" />
               </div>
-              <CardTitle className="text-blue-900 dark:text-blue-100">Health Score</CardTitle>
+              <CardTitle className="text-blue-900 dark:text-blue-100">Athlete Dashboard</CardTitle>
               <CardDescription>
-                Get a daily health score (0-100) based on your activity, sleep, and recovery patterns.
+                Comprehensive dashboard for each athlete showing performance metrics, health scores, and training load.
               </CardDescription>
             </CardHeader>
           </Card>
@@ -129,7 +129,7 @@ export default function Home() {
               </div>
               <CardTitle className="text-blue-900 dark:text-blue-100">Injury Risk Detection</CardTitle>
               <CardDescription>
-                AI analyzes your training patterns to warn you before injuries happen.
+                AI analyzes training patterns for each athlete to predict and prevent injuries before they happen.
               </CardDescription>
             </CardHeader>
           </Card>
@@ -141,7 +141,7 @@ export default function Home() {
               </div>
               <CardTitle className="text-blue-900 dark:text-blue-100">AI Recommendations</CardTitle>
               <CardDescription>
-                Get personalized advice on rest, activity, nutrition, and hydration daily.
+                Personalized training recommendations for each athlete based on workload, recovery, and performance data.
               </CardDescription>
             </CardHeader>
           </Card>
@@ -151,9 +151,9 @@ export default function Home() {
               <div className="h-12 w-12 bg-green-100 dark:bg-green-900/30 rounded-lg flex items-center justify-center mb-4">
                 <Heart className="h-6 w-6 text-green-600 dark:text-green-400" />
               </div>
-              <CardTitle className="text-blue-900 dark:text-blue-100">Recovery Tracking</CardTitle>
+              <CardTitle className="text-blue-900 dark:text-blue-100">Multi-Athlete Management</CardTitle>
               <CardDescription>
-                Monitor your recovery score and get alerts when you need rest.
+                Manage entire rosters, teams, or individual clients. Switch between athletes seamlessly.
               </CardDescription>
             </CardHeader>
           </Card>
@@ -163,9 +163,9 @@ export default function Home() {
               <div className="h-12 w-12 bg-yellow-100 dark:bg-yellow-900/30 rounded-lg flex items-center justify-center mb-4">
                 <TrendingUp className="h-6 w-6 text-yellow-600 dark:text-yellow-400" />
               </div>
-              <CardTitle className="text-blue-900 dark:text-blue-100">Weekly Analytics</CardTitle>
+              <CardTitle className="text-blue-900 dark:text-blue-100">Performance Analytics</CardTitle>
               <CardDescription>
-                Beautiful charts showing your activity trends, sleep patterns, and progress.
+                Beautiful charts showing training load, workload distribution, and body part stress over time.
               </CardDescription>
             </CardHeader>
           </Card>
@@ -177,7 +177,7 @@ export default function Home() {
               </div>
               <CardTitle className="text-blue-900 dark:text-blue-100">Smart Alerts</CardTitle>
               <CardDescription>
-                Get notified when injury risk is high or your health score drops significantly.
+                Instant notifications when any athlete's injury risk is elevated or needs attention.
               </CardDescription>
             </CardHeader>
           </Card>
@@ -200,9 +200,9 @@ export default function Home() {
             <div className="h-16 w-16 bg-blue-600 text-white rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4">
               1
             </div>
-            <h3 className="text-xl font-semibold mb-2 dark:text-gray-100">Create Your Account</h3>
+            <h3 className="text-xl font-semibold mb-2 dark:text-gray-100">Setup Your Profile</h3>
             <p className="text-gray-600 dark:text-gray-300">
-              Sign in with Google. Quick, secure, and free forever.
+              Create your coach account and set up your profile in minutes.
             </p>
           </div>
 
@@ -210,9 +210,9 @@ export default function Home() {
             <div className="h-16 w-16 bg-purple-600 text-white rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4">
               2
             </div>
-            <h3 className="text-xl font-semibold mb-2 dark:text-gray-100">Log Your Activity</h3>
+            <h3 className="text-xl font-semibold mb-2 dark:text-gray-100">Add Your Athletes</h3>
             <p className="text-gray-600 dark:text-gray-300">
-              Enter your daily steps, sleep, and exercise in seconds.
+              Create athlete profiles and log their training activities and sports data.
             </p>
           </div>
 
@@ -222,7 +222,7 @@ export default function Home() {
             </div>
             <h3 className="text-xl font-semibold mb-2 dark:text-gray-100">Get AI Insights</h3>
             <p className="text-gray-600 dark:text-gray-300">
-              Receive personalized health recommendations and injury warnings.
+              Receive injury predictions, workload analysis, and training recommendations.
             </p>
           </div>
         </div>
@@ -232,10 +232,10 @@ export default function Home() {
       <section className="container mx-auto px-4 py-20 text-center">
         <div className="max-w-3xl mx-auto bg-gradient-to-r from-blue-600 to-purple-600 rounded-3xl p-12 text-white">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            Ready to Optimize Your Health?
+            Ready to Optimize Your Athletes' Performance?
           </h2>
           <p className="text-xl mb-8 text-blue-100">
-            Join athletes using TotalFit to prevent injuries, track progress, and optimize their health journey.
+            Join professional coaches and trainers using TotalFit to prevent injuries and maximize athletic performance.
           </p>
           <Button 
             size="xl" 
