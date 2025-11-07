@@ -23,7 +23,7 @@ export function ThemeToggle() {
         aria-label="Toggle theme"
         disabled
       >
-        <Sun className="h-4 w-4 text-gray-400" />
+        <Sun className="h-4 w-4 text-white/40" />
       </Button>
     );
   }
@@ -36,11 +36,7 @@ export function ThemeToggle() {
       className="relative h-9 w-9"
       aria-label="Toggle theme"
     >
-      {theme === "light" ? (
-        <Moon className="h-4 w-4 text-gray-700 dark:text-gray-300" />
-      ) : (
-        <Sun className="h-4 w-4 text-yellow-500" />
-      )}
+      <Sun className="h-4 w-4 text-white" />
     </Button>
   );
 }

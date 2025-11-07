@@ -38,6 +38,7 @@ export function AthleteSelector({
       {/* Selected Athlete Display */}
       <Button
         variant="outline"
+        size="lg"
         onClick={() => setIsOpen(!isOpen)}
         className="w-full justify-between bg-gray-900 border-gray-700 text-white hover:bg-gray-800 hover:border-gray-600"
       >

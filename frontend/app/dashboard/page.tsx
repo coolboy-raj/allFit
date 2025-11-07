@@ -47,31 +47,29 @@ export default function DashboardPage() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-blue-50 to-purple-50 dark:from-slate-950 dark:via-slate-900 dark:to-indigo-950 flex items-center justify-center">
+      <div className="min-h-screen bg-black flex items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 dark:border-blue-400 mx-auto mb-4"></div>
-          <p className="text-gray-600 dark:text-gray-300">Loading your dashboard...</p>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-white/20 mx-auto mb-4"></div>
+          <p className="text-white/50">Loading your dashboard...</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-blue-50 to-purple-50 dark:from-slate-950 dark:via-slate-900 dark:to-indigo-950">
+    <div className="min-h-screen bg-black">
       {/* Header/Navigation */}
-      <header className="border-b border-indigo-100 dark:border-indigo-900/50 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md sticky top-0 z-50 shadow-sm">
+      <header className="border-b border-white/5 bg-black/80 backdrop-blur-sm sticky top-0 z-50">
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <Activity className="h-8 w-8 text-blue-600" />
-              <span className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+              <Activity className="h-6 w-6 text-white" />
+              <span className="text-xl font-medium text-white">
                 TotalFit
               </span>
             </div>
 
-            <div className="flex items-center gap-3">
-              <ThemeToggle />
-              
+            <div className="flex items-center gap-2">
               <Button 
                 variant="ghost" 
                 size="sm" 
@@ -91,28 +89,26 @@ export default function DashboardPage() {
 
           {/* User Info Bar */}
           {user && (
-            <div className="mt-4 flex items-center justify-between py-3 px-4 bg-gradient-to-r from-indigo-100 via-blue-100 to-purple-100 dark:from-indigo-900/40 dark:via-blue-900/40 dark:to-purple-900/40 rounded-xl border border-indigo-200/50 dark:border-indigo-700/30 shadow-sm">
-              <div className="flex items-center gap-3">
+            <div className="mt-6 flex items-center justify-between py-6 px-6 bg-white/[0.03] rounded-lg border border-white/10">
+              <div className="flex items-center gap-4">
                 {user.picture ? (
-                  <img src={user.picture} alt={user.name} className="h-10 w-10 rounded-full" />
+                  <img src={user.picture} alt={user.name} className="h-14 w-14 rounded-full ring-2 ring-white/10" />
                 ) : (
-                  <div className="h-10 w-10 bg-blue-600 rounded-full flex items-center justify-center text-white font-semibold">
+                  <div className="h-14 w-14 bg-white/10 rounded-full flex items-center justify-center text-white text-xl font-medium ring-2 ring-white/10">
                     {user.name?.charAt(0) || 'C'}
                   </div>
                 )}
                 <div>
-                  <div className="font-semibold text-gray-900 dark:text-gray-100">
-                    Welcome, Coach {user.name}!
+                  <div className="font-medium text-white text-lg mb-0.5">
+                    Coach {user.name}
                   </div>
-                  <div className="text-sm text-gray-600 dark:text-gray-300">
+                  <div className="text-sm text-white/50">
                     Professional Athlete Management Dashboard
                   </div>
                 </div>
               </div>
-              <div className="text-sm text-gray-600 dark:text-gray-300">
-                <span className="font-medium text-gray-900 dark:text-gray-100">
-                  {new Date().toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}
-                </span>
+              <div className="text-sm text-white/50 font-medium">
+                {new Date().toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' })}
               </div>
             </div>
           )}
@@ -124,61 +120,64 @@ export default function DashboardPage() {
         <div className="space-y-8">
           {/* Quick Access Cards */}
           <div>
-            <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-4">Quick Access</h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <h2 className="text-xl font-medium text-white mb-4">Quick Access</h2>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               {/* Injury Analysis - ACTIVE */}
               <Card 
-                className="border-2 border-red-300 dark:border-red-700 hover:border-red-400 dark:hover:border-red-600 transition-all cursor-pointer hover:shadow-lg bg-gradient-to-br from-red-50 to-orange-50 dark:from-red-950/30 dark:to-orange-950/30"
+                className="group hover:border-white/10 transition-colors cursor-pointer border-red-500/20"
                 onClick={() => router.push('/injury-analysis')}
               >
                 <CardHeader>
-                  <div className="h-12 w-12 bg-red-500 text-white rounded-lg flex items-center justify-center mb-4">
-                    <Shield className="h-6 w-6" />
+                  <div className="h-10 w-10 bg-red-500/10 rounded-md flex items-center justify-center mb-4 group-hover:bg-red-500/20 transition-colors">
+                    <Shield className="h-5 w-5 text-red-400" />
                   </div>
-                  <CardTitle className="text-red-900 dark:text-red-100">Injury Analysis</CardTitle>
-                  <CardDescription className="text-red-700 dark:text-red-300">
+                  <CardTitle>Injury Analysis</CardTitle>
+                  <CardDescription>
                     AI-powered injury prediction and prevention
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <div className="text-sm font-semibold text-red-600 dark:text-red-400">
-                    ✓ ACTIVE
+                  <div className="inline-flex items-center gap-1.5 px-2 py-1 bg-green-500/10 border border-green-500/20 rounded-md">
+                    <div className="h-1.5 w-1.5 bg-green-400 rounded-full animate-pulse"></div>
+                    <span className="text-xs font-medium text-green-400">Active</span>
                   </div>
                 </CardContent>
               </Card>
 
               {/* Athlete Roster - Coming Soon */}
-              <Card className="border-2 border-gray-300 dark:border-gray-700 hover:border-blue-400 dark:hover:border-blue-600 transition-all cursor-pointer hover:shadow-lg opacity-60">
+              <Card className="group hover:border-white/10 transition-colors relative">
                 <CardHeader>
-                  <div className="h-12 w-12 bg-gray-400 text-white rounded-lg flex items-center justify-center mb-4">
-                    <Users className="h-6 w-6" />
+                  <div className="h-10 w-10 bg-blue-500/10 rounded-md flex items-center justify-center mb-4 group-hover:bg-blue-500/20 transition-colors">
+                    <Users className="h-5 w-5 text-blue-400" />
                   </div>
-                  <CardTitle className="text-gray-900 dark:text-gray-100">Athlete Roster</CardTitle>
+                  <CardTitle>Athlete Roster</CardTitle>
                   <CardDescription>
                     Manage all your athletes in one place
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <div className="text-sm font-semibold text-gray-500 dark:text-gray-400">
-                    Coming Soon
+                  <div className="inline-flex items-center gap-1.5 px-2 py-1 bg-white/5 border border-white/10 rounded-md">
+                    <Clock className="h-3 w-3 text-white/50" />
+                    <span className="text-xs font-medium text-white/50">Coming Soon</span>
                   </div>
                 </CardContent>
               </Card>
 
               {/* Recovery Monitoring - Coming Soon */}
-              <Card className="border-2 border-gray-300 dark:border-gray-700 hover:border-blue-400 dark:hover:border-blue-600 transition-all cursor-pointer hover:shadow-lg opacity-60">
+              <Card className="group hover:border-white/10 transition-colors relative">
                 <CardHeader>
-                  <div className="h-12 w-12 bg-gray-400 text-white rounded-lg flex items-center justify-center mb-4">
-                    <Clock className="h-6 w-6" />
+                  <div className="h-10 w-10 bg-purple-500/10 rounded-md flex items-center justify-center mb-4 group-hover:bg-purple-500/20 transition-colors">
+                    <Clock className="h-5 w-5 text-purple-400" />
                   </div>
-                  <CardTitle className="text-gray-900 dark:text-gray-100">Recovery Monitoring</CardTitle>
+                  <CardTitle>Recovery Monitoring</CardTitle>
                   <CardDescription>
                     Track recovery metrics and optimize rest periods
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <div className="text-sm font-semibold text-gray-500 dark:text-gray-400">
-                    Coming Soon
+                  <div className="inline-flex items-center gap-1.5 px-2 py-1 bg-white/5 border border-white/10 rounded-md">
+                    <Clock className="h-3 w-3 text-white/50" />
+                    <span className="text-xs font-medium text-white/50">Coming Soon</span>
                   </div>
                 </CardContent>
               </Card>
@@ -187,43 +186,53 @@ export default function DashboardPage() {
 
           {/* Coming Soon Features */}
           <div>
-            <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-4">Coming Soon</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <h2 className="text-xl font-medium text-white mb-4">Coming Soon</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {/* Schedule Management */}
-              <Card className="border-2 border-gray-200 dark:border-gray-800 opacity-60">
+              <Card className="group hover:border-white/10 transition-colors">
                 <CardHeader>
                   <div className="flex items-center gap-3">
-                    <div className="h-10 w-10 bg-blue-100 dark:bg-blue-900/30 rounded-lg flex items-center justify-center">
-                      <Calendar className="h-5 w-5 text-blue-600 dark:text-blue-400" />
+                    <div className="h-9 w-9 bg-green-500/10 rounded-md flex items-center justify-center group-hover:bg-green-500/20 transition-colors">
+                      <Calendar className="h-4 w-4 text-green-400" />
                     </div>
-                    <div>
-                      <CardTitle className="text-lg">Schedule Management</CardTitle>
-                      <CardDescription className="text-sm">Coming Soon</CardDescription>
+                    <div className="flex-1">
+                      <div className="flex items-center gap-2">
+                        <CardTitle className="text-base">Schedule Management</CardTitle>
+                        <div className="inline-flex items-center gap-1 px-1.5 py-0.5 bg-white/5 border border-white/10 rounded text-[10px] font-medium text-white/50">
+                          <Clock className="h-2.5 w-2.5" />
+                          Soon
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">
+                  <p className="text-sm text-white/60">
                     Manage training schedules, competitions, and recovery periods
                   </p>
                 </CardContent>
               </Card>
 
               {/* Nutrition Planning */}
-              <Card className="border-2 border-gray-200 dark:border-gray-800 opacity-60">
+              <Card className="group hover:border-white/10 transition-colors">
                 <CardHeader>
                   <div className="flex items-center gap-3">
-                    <div className="h-10 w-10 bg-green-100 dark:bg-green-900/30 rounded-lg flex items-center justify-center">
-                      <Award className="h-5 w-5 text-green-600 dark:text-green-400" />
+                    <div className="h-9 w-9 bg-amber-500/10 rounded-md flex items-center justify-center group-hover:bg-amber-500/20 transition-colors">
+                      <Award className="h-4 w-4 text-amber-400" />
                     </div>
-                    <div>
-                      <CardTitle className="text-lg">Nutrition Planning</CardTitle>
-                      <CardDescription className="text-sm">Coming Soon</CardDescription>
+                    <div className="flex-1">
+                      <div className="flex items-center gap-2">
+                        <CardTitle className="text-base">Nutrition Planning</CardTitle>
+                        <div className="inline-flex items-center gap-1 px-1.5 py-0.5 bg-white/5 border border-white/10 rounded text-[10px] font-medium text-white/50">
+                          <Clock className="h-2.5 w-2.5" />
+                          Soon
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">
+                  <p className="text-sm text-white/60">
                     Create personalized nutrition plans for optimal performance
                   </p>
                 </CardContent>
@@ -234,13 +243,13 @@ export default function DashboardPage() {
       </main>
 
       {/* Footer */}
-      <footer className="border-t border-indigo-100 dark:border-indigo-900/50 bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm mt-16">
+      <footer className="border-t border-white/5 bg-black mt-16">
         <div className="container mx-auto px-4 py-6">
-          <div className="flex flex-col md:flex-row items-center justify-between text-sm text-gray-600 dark:text-gray-400">
+          <div className="flex flex-col md:flex-row items-center justify-between text-xs text-white/30">
             <div className="flex items-center gap-2">
-              <Activity className="h-5 w-5 text-blue-600 dark:text-blue-400" />
-              <span className="font-semibold text-gray-900 dark:text-gray-100">TotalFit</span>
-              <span className="text-gray-400 dark:text-gray-500">|</span>
+              <Activity className="h-4 w-4" />
+              <span className="font-medium text-white/50">TotalFit</span>
+              <span>|</span>
               <span>Professional Athlete Management</span>
             </div>
             <div className="mt-2 md:mt-0">

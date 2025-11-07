@@ -87,7 +87,7 @@ export function ActivityDetailModal({
       case 'moderate': return 'text-yellow-500';
       case 'light': return 'text-green-500';
       case 'very-light': return 'text-emerald-500';
-      default: return 'text-gray-400';
+      default: return 'text-white/40';
     }
   };
 
@@ -95,12 +95,12 @@ export function ActivityDetailModal({
     switch (status) {
       case 'excellent': return 'text-green-500';
       case 'good': return 'text-green-400';
-      case 'normal': return 'text-gray-400';
+      case 'normal': return 'text-white/40';
       case 'mild-soreness': return 'text-amber-500';
       case 'significant-fatigue': return 'text-orange-500';
       case 'concerning': return 'text-red-500';
       case 'injured': return 'text-red-600';
-      default: return 'text-gray-400';
+      default: return 'text-white/40';
     }
   };
 
@@ -112,11 +112,11 @@ export function ActivityDetailModal({
       title={
         <div className="flex items-center gap-3">
           {isWorkout ? (
-            <div className="p-2 bg-blue-600 rounded-lg">
+            <div className="p-2 bg-white/5 rounded-md">
               <Dumbbell className="h-5 w-5 text-white" />
             </div>
           ) : (
-            <div className="p-2 bg-purple-600 rounded-lg">
+            <div className="p-2 bg-white/5 rounded-md">
               <Trophy className="h-5 w-5 text-white" />
             </div>
           )}
@@ -124,7 +124,7 @@ export function ActivityDetailModal({
             <h2 className="text-xl font-bold text-white">
               {isWorkout ? activity.workout_type?.toUpperCase() : activity.sport?.toUpperCase()}
             </h2>
-            <p className="text-xs text-gray-400">
+            <p className="text-xs text-white/40">
               {isWorkout ? 'Workout Session' : 'Sports Activity'} • {formatDate(activity.date)}
             </p>
           </div>
@@ -134,35 +134,35 @@ export function ActivityDetailModal({
     >
       <div className="space-y-6">
         {/* Basic Information */}
-        <div className="bg-gray-900/50 border border-gray-800 rounded-lg p-4">
-          <h3 className="text-sm font-semibold text-gray-300 uppercase tracking-wide mb-3 flex items-center gap-2">
+        <div className="bg-white/[0.02] border border-white/5 rounded-md p-4">
+          <h3 className="text-sm font-semibold text-white/70 uppercase tracking-wide mb-3 flex items-center gap-2">
             <Activity className="h-4 w-4" />
             Session Details
           </h3>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             <div>
-              <div className="flex items-center gap-1.5 text-gray-400 text-xs mb-1">
+              <div className="flex items-center gap-1.5 text-white/40 text-xs mb-1">
                 <Calendar className="h-3 w-3" />
                 Date
               </div>
               <p className="text-white font-medium">{new Date(activity.date).toLocaleDateString()}</p>
             </div>
             <div>
-              <div className="flex items-center gap-1.5 text-gray-400 text-xs mb-1">
+              <div className="flex items-center gap-1.5 text-white/40 text-xs mb-1">
                 <Clock className="h-3 w-3" />
                 Start Time
               </div>
               <p className="text-white font-medium">{activity.start_time || 'N/A'}</p>
             </div>
             <div>
-              <div className="flex items-center gap-1.5 text-gray-400 text-xs mb-1">
+              <div className="flex items-center gap-1.5 text-white/40 text-xs mb-1">
                 <Timer className="h-3 w-3" />
                 Duration
               </div>
               <p className="text-white font-medium">{activity.duration} minutes</p>
             </div>
             <div>
-              <div className="flex items-center gap-1.5 text-gray-400 text-xs mb-1">
+              <div className="flex items-center gap-1.5 text-white/40 text-xs mb-1">
                 <TrendingUp className="h-3 w-3" />
                 Intensity
               </div>
@@ -171,7 +171,7 @@ export function ActivityDetailModal({
               </p>
             </div>
             <div>
-              <div className="text-gray-400 text-xs mb-1">Weather</div>
+              <div className="text-white/40 text-xs mb-1">Weather</div>
               <p className="text-white font-medium capitalize">{activity.weather_conditions ? activity.weather_conditions.replace('-', ' ') : 'N/A'}</p>
             </div>
           </div>
@@ -180,15 +180,15 @@ export function ActivityDetailModal({
         {/* Workout Specific Details */}
         {isWorkout && (
           <>
-            <div className="bg-gray-900/50 border border-gray-800 rounded-lg p-4">
-              <h3 className="text-sm font-semibold text-gray-300 uppercase tracking-wide mb-3 flex items-center gap-2">
+            <div className="bg-white/[0.02] border border-white/5 rounded-lg p-4">
+              <h3 className="text-sm font-semibold text-white/70 uppercase tracking-wide mb-3 flex items-center gap-2">
                 <Dumbbell className="h-4 w-4" />
                 Exercises {activity.exercises && activity.exercises.length > 0 ? `(${activity.exercises.length})` : '(0)'}
               </h3>
               {activity.exercises && activity.exercises.length > 0 ? (
                 <div className="space-y-3">
                   {activity.exercises.map((exercise: any, index: number) => (
-                    <div key={index} className="bg-gray-950/50 rounded-lg p-3 border border-gray-700">
+                    <div key={index} className="bg-white/[0.02] rounded-lg p-3 border border-white/5">
                       <div className="flex items-start justify-between mb-2">
                         <h4 className="font-semibold text-white">{exercise.exercise || 'Unknown Exercise'}</h4>
                         <span className={`text-xs font-medium capitalize ${getIntensityColor(exercise.intensity)}`}>
@@ -197,32 +197,32 @@ export function ActivityDetailModal({
                       </div>
                       <div className="grid grid-cols-3 gap-3 text-sm">
                         <div>
-                          <span className="text-gray-400">Sets:</span>
+                          <span className="text-white/40">Sets:</span>
                           <span className="text-white ml-2 font-medium">{exercise.sets || '-'}</span>
                         </div>
                         <div>
-                          <span className="text-gray-400">Reps:</span>
+                          <span className="text-white/40">Reps:</span>
                           <span className="text-white ml-2 font-medium">{exercise.reps || '-'}</span>
                         </div>
                         <div>
-                          <span className="text-gray-400">Weight:</span>
+                          <span className="text-white/40">Weight:</span>
                           <span className="text-white ml-2 font-medium">{exercise.weight ? `${exercise.weight} lbs` : '-'}</span>
                         </div>
                       </div>
                       {exercise.notes && (
-                        <p className="text-xs text-gray-400 mt-2 italic">{exercise.notes}</p>
+                        <p className="text-xs text-white/40 mt-2 italic">{exercise.notes}</p>
                       )}
                     </div>
                   ))}
                 </div>
               ) : (
-                <p className="text-sm text-gray-400 text-center py-3">No exercises logged</p>
+                <p className="text-sm text-white/40 text-center py-3">No exercises logged</p>
               )}
             </div>
 
             {/* Equipment Used */}
-            <div className="bg-gray-900/50 border border-gray-800 rounded-lg p-4">
-              <h3 className="text-sm font-semibold text-gray-300 uppercase tracking-wide mb-3">
+            <div className="bg-white/[0.02] border border-white/5 rounded-lg p-4">
+              <h3 className="text-sm font-semibold text-white/70 uppercase tracking-wide mb-3">
                 Equipment Used
               </h3>
               {activityData.equipment_used && activityData.equipment_used.length > 0 ? (
@@ -237,7 +237,7 @@ export function ActivityDetailModal({
                   ))}
                 </div>
               ) : (
-                <p className="text-sm text-gray-400 text-center py-2">No equipment tracked</p>
+                <p className="text-sm text-white/40 text-center py-2">No equipment tracked</p>
               )}
             </div>
           </>
@@ -247,83 +247,83 @@ export function ActivityDetailModal({
         {isSports && (
           <>
             {/* Match Context */}
-            <div className="bg-gray-900/50 border border-gray-800 rounded-lg p-4">
-              <h3 className="text-sm font-semibold text-gray-300 uppercase tracking-wide mb-3 flex items-center gap-2">
+            <div className="bg-white/[0.02] border border-white/5 rounded-lg p-4">
+              <h3 className="text-sm font-semibold text-white/70 uppercase tracking-wide mb-3 flex items-center gap-2">
                 <Trophy className="h-4 w-4" />
                 Match Information
               </h3>
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <div className="text-gray-400 text-xs mb-1">Position</div>
+                  <div className="text-white/40 text-xs mb-1">Position</div>
                   <p className="text-white font-medium">{activity.position || 'N/A'}</p>
                 </div>
                 <div>
-                  <div className="text-gray-400 text-xs mb-1">Match Type</div>
+                  <div className="text-white/40 text-xs mb-1">Match Type</div>
                   <p className="text-white font-medium capitalize">{activity.match_type || 'N/A'}</p>
                 </div>
                 <div>
-                  <div className="flex items-center gap-1.5 text-gray-400 text-xs mb-1">
+                  <div className="flex items-center gap-1.5 text-white/40 text-xs mb-1">
                     <MapPin className="h-3 w-3" />
                     Location
                   </div>
                   <p className="text-white font-medium">{activity.location || 'N/A'}</p>
                 </div>
                 <div>
-                  <div className="flex items-center gap-1.5 text-gray-400 text-xs mb-1">
+                  <div className="flex items-center gap-1.5 text-white/40 text-xs mb-1">
                     <Users className="h-3 w-3" />
                     Opponent
                   </div>
                   <p className="text-white font-medium">{activity.opponent || 'N/A'}</p>
                 </div>
                 <div>
-                  <div className="text-gray-400 text-xs mb-1">Result</div>
+                  <div className="text-white/40 text-xs mb-1">Result</div>
                   <p className="text-white font-medium">{activity.result || 'N/A'}</p>
                 </div>
                 <div>
-                  <div className="text-gray-400 text-xs mb-1">Minutes Played</div>
+                  <div className="text-white/40 text-xs mb-1">Minutes Played</div>
                   <p className="text-white font-medium">{activity.minutes_played ? `${activity.minutes_played} min` : 'N/A'}</p>
                 </div>
                 <div>
-                  <div className="text-gray-400 text-xs mb-1">Surface Type</div>
+                  <div className="text-white/40 text-xs mb-1">Surface Type</div>
                   <p className="text-white font-medium capitalize">{activity.surface_type ? activity.surface_type.replace('-', ' ') : 'N/A'}</p>
                 </div>
                 <div>
-                  <div className="text-gray-400 text-xs mb-1">Medical Attention</div>
+                  <div className="text-white/40 text-xs mb-1">Medical Attention</div>
                   <p className="text-white font-medium capitalize">{activity.medical_attention ? activity.medical_attention.replace('-', ' ') : 'None'}</p>
                 </div>
               </div>
             </div>
 
             {/* Performance Metrics */}
-            <div className="bg-gray-900/50 border border-gray-800 rounded-lg p-4">
-              <h3 className="text-sm font-semibold text-gray-300 uppercase tracking-wide mb-3 flex items-center gap-2">
+            <div className="bg-white/[0.02] border border-white/5 rounded-lg p-4">
+              <h3 className="text-sm font-semibold text-white/70 uppercase tracking-wide mb-3 flex items-center gap-2">
                 <Target className="h-4 w-4" />
                 Performance Metrics
               </h3>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                <div className="text-center p-3 bg-gray-950/50 rounded-lg">
+                <div className="text-center p-3 bg-white/[0.02] rounded-lg">
                   <p className="text-2xl font-bold text-blue-400">
                     {activity.performance_metrics?.sprintDistance || '-'}
                   </p>
-                  <p className="text-xs text-gray-400 mt-1">Sprint Distance (m)</p>
+                  <p className="text-xs text-white/40 mt-1">Sprint Distance (m)</p>
                 </div>
-                <div className="text-center p-3 bg-gray-950/50 rounded-lg">
+                <div className="text-center p-3 bg-white/[0.02] rounded-lg">
                   <p className="text-2xl font-bold text-green-400">
                     {activity.performance_metrics?.topSpeed || '-'}
                   </p>
-                  <p className="text-xs text-gray-400 mt-1">Top Speed (km/h)</p>
+                  <p className="text-xs text-white/40 mt-1">Top Speed (km/h)</p>
                 </div>
-                <div className="text-center p-3 bg-gray-950/50 rounded-lg">
+                <div className="text-center p-3 bg-white/[0.02] rounded-lg">
                   <p className="text-2xl font-bold text-purple-400">
                     {activity.performance_metrics?.jumps || '-'}
                   </p>
-                  <p className="text-xs text-gray-400 mt-1">Jumps</p>
+                  <p className="text-xs text-white/40 mt-1">Jumps</p>
                 </div>
-                <div className="text-center p-3 bg-gray-950/50 rounded-lg">
+                <div className="text-center p-3 bg-white/[0.02] rounded-lg">
                   <p className="text-2xl font-bold text-orange-400">
                     {activity.performance_metrics?.tackles || '-'}
                   </p>
-                  <p className="text-xs text-gray-400 mt-1">Tackles</p>
+                  <p className="text-xs text-white/40 mt-1">Tackles</p>
                 </div>
               </div>
             </div>
@@ -337,7 +337,7 @@ export function ActivityDetailModal({
               {activity.injuries && activity.injuries.length > 0 ? (
                 <div className="space-y-3">
                   {activity.injuries.map((injury: any, index: number) => (
-                    <div key={index} className="bg-gray-950/50 rounded-lg p-3 border border-red-700/50">
+                    <div key={index} className="bg-white/[0.02] rounded-lg p-3 border border-red-700/50">
                       <div className="flex items-start justify-between mb-2">
                         <h4 className="font-semibold text-white capitalize">{injury.bodyPart?.replace('-', ' ') || 'Unknown'}</h4>
                         <span className={`text-xs font-bold uppercase ${
@@ -349,63 +349,63 @@ export function ActivityDetailModal({
                         </span>
                       </div>
                       <div className="space-y-1 text-sm">
-                        <p className="text-gray-300"><span className="text-gray-400">Type:</span> {injury.injuryType || 'N/A'}</p>
-                        <p className="text-gray-300"><span className="text-gray-400">Time Occurred:</span> {injury.timeOccurred || 'N/A'}</p>
-                        <p className="text-gray-300"><span className="text-gray-400">Mechanism:</span> {injury.mechanism || 'N/A'}</p>
+                        <p className="text-white/70"><span className="text-white/40">Type:</span> {injury.injuryType || 'N/A'}</p>
+                        <p className="text-white/70"><span className="text-white/40">Time Occurred:</span> {injury.timeOccurred || 'N/A'}</p>
+                        <p className="text-white/70"><span className="text-white/40">Mechanism:</span> {injury.mechanism || 'N/A'}</p>
                         {injury.notes && (
-                          <p className="text-xs text-gray-400 mt-2 italic">{injury.notes}</p>
+                          <p className="text-xs text-white/40 mt-2 italic">{injury.notes}</p>
                         )}
                       </div>
                     </div>
                   ))}
                 </div>
               ) : (
-                <p className="text-sm text-gray-400 text-center py-3">No injuries reported for this activity</p>
+                <p className="text-sm text-white/40 text-center py-3">No injuries reported for this activity</p>
               )}
             </div>
           </>
         )}
 
         {/* Physiological Data */}
-        <div className="bg-gray-900/50 border border-gray-800 rounded-lg p-4">
-          <h3 className="text-sm font-semibold text-gray-300 uppercase tracking-wide mb-3 flex items-center gap-2">
+        <div className="bg-white/[0.02] border border-white/5 rounded-lg p-4">
+          <h3 className="text-sm font-semibold text-white/70 uppercase tracking-wide mb-3 flex items-center gap-2">
             <Heart className="h-4 w-4" />
             Physiological Data
           </h3>
           <div className="grid grid-cols-3 gap-4">
-            <div className="text-center p-3 bg-gray-950/50 rounded-lg">
+            <div className="text-center p-3 bg-white/[0.02] rounded-lg">
               <p className="text-2xl font-bold text-red-400">{activity.heart_rate_avg || '-'}</p>
-              <p className="text-xs text-gray-400 mt-1">Avg HR (bpm)</p>
+              <p className="text-xs text-white/40 mt-1">Avg HR (bpm)</p>
             </div>
-            <div className="text-center p-3 bg-gray-950/50 rounded-lg">
+            <div className="text-center p-3 bg-white/[0.02] rounded-lg">
               <p className="text-2xl font-bold text-orange-400">{activity.heart_rate_max || '-'}</p>
-              <p className="text-xs text-gray-400 mt-1">Max HR (bpm)</p>
+              <p className="text-xs text-white/40 mt-1">Max HR (bpm)</p>
             </div>
-            <div className="text-center p-3 bg-gray-950/50 rounded-lg">
+            <div className="text-center p-3 bg-white/[0.02] rounded-lg">
               <div className="flex items-center justify-center gap-1">
                 <Flame className="h-5 w-5 text-amber-400" />
                 <p className="text-2xl font-bold text-amber-400">{activity.calories_burned || '-'}</p>
               </div>
-              <p className="text-xs text-gray-400 mt-1">Calories</p>
+              <p className="text-xs text-white/40 mt-1">Calories</p>
             </div>
           </div>
         </div>
 
         {/* Recovery & Fatigue */}
-        <div className="bg-gray-900/50 border border-gray-800 rounded-lg p-4">
-          <h3 className="text-sm font-semibold text-gray-300 uppercase tracking-wide mb-3 flex items-center gap-2">
+        <div className="bg-white/[0.02] border border-white/5 rounded-lg p-4">
+          <h3 className="text-sm font-semibold text-white/70 uppercase tracking-wide mb-3 flex items-center gap-2">
             <Shield className="h-4 w-4" />
             Recovery Status
           </h3>
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <div className="text-gray-400 text-xs mb-1">Recovery Status</div>
+              <div className="text-white/40 text-xs mb-1">Recovery Status</div>
               <p className={`font-medium capitalize ${getRecoveryColor(activityData.recovery_status)}`}>
                 {activityData.recovery_status?.replace('-', ' ') || 'Normal'}
               </p>
             </div>
             <div>
-              <div className="text-gray-400 text-xs mb-1">Fatigue Level</div>
+              <div className="text-white/40 text-xs mb-1">Fatigue Level</div>
               {activity.fatigue_level ? (
                 <div className="flex items-center gap-2">
                   <div className="flex-1 h-2 bg-gray-700 rounded-full overflow-hidden">
@@ -424,8 +424,8 @@ export function ActivityDetailModal({
         </div>
 
         {/* Affected Body Parts */}
-        <div className="bg-gray-900/50 border border-gray-800 rounded-lg p-4">
-          <h3 className="text-sm font-semibold text-gray-300 uppercase tracking-wide mb-3">
+        <div className="bg-white/[0.02] border border-white/5 rounded-lg p-4">
+          <h3 className="text-sm font-semibold text-white/70 uppercase tracking-wide mb-3">
             Affected Body Parts
           </h3>
           {activityData.affected_body_parts && activityData.affected_body_parts.length > 0 ? (
@@ -440,30 +440,30 @@ export function ActivityDetailModal({
               ))}
             </div>
           ) : (
-            <p className="text-sm text-gray-400 text-center py-2">No affected body parts tracked</p>
+            <p className="text-sm text-white/40 text-center py-2">No affected body parts tracked</p>
           )}
         </div>
 
         {/* Notes */}
-        <div className="bg-gray-900/50 border border-gray-800 rounded-lg p-4">
-          <h3 className="text-sm font-semibold text-gray-300 uppercase tracking-wide mb-3">
+        <div className="bg-white/[0.02] border border-white/5 rounded-lg p-4">
+          <h3 className="text-sm font-semibold text-white/70 uppercase tracking-wide mb-3">
             Notes & Feedback
           </h3>
           <div className="mb-3">
-            <p className="text-xs text-gray-400 mb-1">Performance Notes:</p>
-            <p className="text-sm text-gray-300">{activity.notes || 'No notes provided'}</p>
+            <p className="text-xs text-white/40 mb-1">Performance Notes:</p>
+            <p className="text-sm text-white/70">{activity.notes || 'No notes provided'}</p>
           </div>
           {isSports && (
             <div>
-              <p className="text-xs text-gray-400 mb-1">Coach Feedback:</p>
-              <p className="text-sm text-gray-300">{activity.coach_feedback || 'No feedback provided'}</p>
+              <p className="text-xs text-white/40 mb-1">Coach Feedback:</p>
+              <p className="text-sm text-white/70">{activity.coach_feedback || 'No feedback provided'}</p>
             </div>
           )}
         </div>
       </div>
 
       {/* Actions */}
-      <div className="flex items-center justify-between gap-3 mt-6 pt-6 border-t border-gray-200 dark:border-gray-700">
+      <div className="flex items-center justify-between gap-3 mt-6 pt-6 border-t border-gray-200 dark:border-white/5">
         {!showDeleteConfirm ? (
           <>
             <Button 

@@ -65,26 +65,25 @@ export default function SettingsPage() {
 
   if (!user) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 flex items-center justify-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+      <div className="min-h-screen bg-black flex items-center justify-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-white/20"></div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
+    <div className="min-h-screen bg-black">
       {/* Header */}
-      <header className="border-b border-gray-200 dark:border-gray-700 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm sticky top-0 z-50">
+      <header className="border-b border-white/5 bg-black/80 backdrop-blur-sm sticky top-0 z-50">
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <Activity className="h-8 w-8 text-blue-600" />
-              <span className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+              <Activity className="h-6 w-6 text-white" />
+              <span className="text-xl font-medium text-white">
                 TotalFit
               </span>
             </div>
             <div className="flex items-center gap-3">
-              <ThemeToggle />
               <Button variant="outline" size="sm" onClick={() => router.push('/dashboard')}>
                 Back to Dashboard
               </Button>
@@ -95,15 +94,15 @@ export default function SettingsPage() {
 
       {/* Main Content */}
       <main className="container mx-auto px-4 py-8 max-w-4xl">
-        <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-2">Settings</h1>
-        <p className="text-gray-600 dark:text-gray-300 mb-8">Manage your coach profile and platform preferences</p>
+        <h1 className="text-2xl font-medium text-white mb-2">Settings</h1>
+        <p className="text-sm text-white/50 mb-8">Manage your coach profile and platform preferences</p>
 
         <div className="space-y-6">
           {/* Profile Card */}
           <Card>
             <CardHeader>
-              <CardTitle className="flex items-center gap-2 text-blue-900 dark:text-blue-100">
-                <User className="h-5 w-5 text-blue-600" />
+              <CardTitle className="flex items-center gap-2">
+                <User className="h-4 w-4 text-white" />
                 Coach Profile
               </CardTitle>
               <CardDescription>Your account details</CardDescription>
@@ -114,12 +113,12 @@ export default function SettingsPage() {
                   <img
                     src={user.picture}
                     alt={user.name}
-                    className="h-16 w-16 rounded-full"
+                    className="h-12 w-12 rounded-full"
                   />
                 )}
                 <div>
-                  <div className="font-semibold text-lg text-gray-900 dark:text-gray-100">{user.name}</div>
-                  <div className="text-sm text-gray-600 dark:text-gray-400">{user.email}</div>
+                  <div className="font-medium text-white">{user.name}</div>
+                  <div className="text-sm text-white/50">{user.email}</div>
                 </div>
               </div>
             </CardContent>
@@ -128,15 +127,15 @@ export default function SettingsPage() {
           {/* Goals Card */}
           <Card>
             <CardHeader>
-              <CardTitle className="flex items-center gap-2 text-blue-900 dark:text-blue-100">
-                <Target className="h-5 w-5 text-green-600" />
+              <CardTitle className="flex items-center gap-2">
+                <Target className="h-4 w-4 text-white" />
                 Default Athlete Goals
               </CardTitle>
               <CardDescription>Set default targets for new athlete profiles</CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                <label className="block text-sm font-medium text-white/70 mb-2">
                   Daily Step Goal
                 </label>
                 <input
@@ -146,12 +145,12 @@ export default function SettingsPage() {
                   step="1000"
                   value={settings.dailyStepGoal}
                   onChange={(e) => handleChange('dailyStepGoal', parseInt(e.target.value))}
-                  className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-700"
+                  className="w-full px-3 py-2 border border-white/10 rounded-md focus:ring-1 focus:ring-white/20 focus:border-white/20 text-white bg-black"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                <label className="block text-sm font-medium text-white/70 mb-2">
                   Daily Active Minutes Goal
                 </label>
                 <input
@@ -161,12 +160,12 @@ export default function SettingsPage() {
                   step="5"
                   value={settings.dailyActiveMinutesGoal}
                   onChange={(e) => handleChange('dailyActiveMinutesGoal', parseInt(e.target.value))}
-                  className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-700"
+                  className="w-full px-3 py-2 border border-white/10 rounded-md focus:ring-1 focus:ring-white/20 focus:border-white/20 text-white bg-black"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                <label className="block text-sm font-medium text-white/70 mb-2">
                   Sleep Goal (hours)
                 </label>
                 <input
@@ -176,7 +175,7 @@ export default function SettingsPage() {
                   step="0.5"
                   value={settings.sleepGoal}
                   onChange={(e) => handleChange('sleepGoal', parseFloat(e.target.value))}
-                  className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-700"
+                  className="w-full px-3 py-2 border border-white/10 rounded-md focus:ring-1 focus:ring-white/20 focus:border-white/20 text-white bg-black"
                 />
               </div>
             </CardContent>
@@ -185,31 +184,31 @@ export default function SettingsPage() {
           {/* Preferences Card */}
           <Card>
             <CardHeader>
-              <CardTitle className="flex items-center gap-2 text-blue-900 dark:text-blue-100">
-                <Bell className="h-5 w-5 text-purple-600" />
+              <CardTitle className="flex items-center gap-2">
+                <Bell className="h-4 w-4 text-white" />
                 Preferences
               </CardTitle>
               <CardDescription>Customize your experience</CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                <label className="block text-sm font-medium text-white/70 mb-2">
                   Units
                 </label>
                 <select
                   value={settings.units}
                   onChange={(e) => handleChange('units', e.target.value)}
-                  className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-700"
+                  className="w-full px-3 py-2 border border-white/10 rounded-md focus:ring-1 focus:ring-white/20 focus:border-white/20 text-white bg-black"
                 >
                   <option value="metric">Metric (km, kg)</option>
                   <option value="imperial">Imperial (miles, lbs)</option>
                 </select>
               </div>
 
-              <div className="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
+              <div className="flex items-center justify-between p-3 bg-white/[0.02] rounded-md border border-white/5">
                 <div>
-                  <div className="font-medium text-gray-900 dark:text-gray-100">Daily Notifications</div>
-                  <div className="text-sm text-gray-600 dark:text-gray-400">
+                  <div className="font-medium text-white text-sm">Daily Notifications</div>
+                  <div className="text-xs text-white/40">
                     Receive reminders to log your data
                   </div>
                 </div>
@@ -217,14 +216,14 @@ export default function SettingsPage() {
                   type="checkbox"
                   checked={settings.notifications}
                   onChange={(e) => handleChange('notifications', e.target.checked)}
-                  className="h-5 w-5 text-blue-600 focus:ring-blue-500 border-gray-300 dark:border-gray-600 rounded"
+                  className="h-4 w-4 rounded border-white/10"
                 />
               </div>
 
-              <div className="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
+              <div className="flex items-center justify-between p-3 bg-white/[0.02] rounded-md border border-white/5">
                 <div>
-                  <div className="font-medium text-gray-900 dark:text-gray-100">Weekly Reports</div>
-                  <div className="text-sm text-gray-600 dark:text-gray-400">
+                  <div className="font-medium text-white text-sm">Weekly Reports</div>
+                  <div className="text-xs text-white/40">
                     Get weekly health summaries via email
                   </div>
                 </div>
@@ -232,16 +231,15 @@ export default function SettingsPage() {
                   type="checkbox"
                   checked={settings.weeklyReports}
                   onChange={(e) => handleChange('weeklyReports', e.target.checked)}
-                  className="h-5 w-5 text-blue-600 focus:ring-blue-500 border-gray-300 dark:border-gray-600 rounded"
+                  className="h-4 w-4 rounded border-white/10"
                 />
               </div>
             </CardContent>
           </Card>
 
           {/* Actions */}
-          <div className="flex gap-4">
+          <div className="flex gap-3">
             <Button
-              variant="gradient"
               onClick={handleSaveSettings}
               disabled={loading}
               className="flex-1 gap-2"

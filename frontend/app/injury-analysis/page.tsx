@@ -507,10 +507,10 @@ export default function InjuryAnalysisPage() {
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case "active": return "bg-green-900/30 text-green-300";
-      case "recovering": return "bg-amber-900/30 text-amber-300";
-      case "injured": return "bg-red-900/30 text-red-300";
-      default: return "bg-gray-800 text-gray-300";
+      case "active": return "bg-green-500/10 text-green-400 border border-green-500/20";
+      case "recovering": return "bg-amber-500/10 text-amber-400 border border-amber-500/20";
+      case "injured": return "bg-red-500/10 text-red-400 border border-red-500/20";
+      default: return "bg-white/5 text-white/50 border border-white/10";
     }
   };
 
@@ -520,7 +520,7 @@ export default function InjuryAnalysisPage() {
       <div className="min-h-screen bg-black flex items-center justify-center">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500 mx-auto mb-4"></div>
-          <p className="text-gray-400">Loading...</p>
+          <p className="text-white/50">Loading...</p>
         </div>
       </div>
     );
@@ -576,7 +576,7 @@ export default function InjuryAnalysisPage() {
                 <div className="absolute inset-0 border-4 border-transparent border-t-blue-600 rounded-full animate-spin"></div>
               </div>
               <p className="text-white font-semibold">Loading athlete data...</p>
-              <p className="text-sm text-gray-400 mt-2">Connecting to injury analysis system</p>
+              <p className="text-sm text-white/50 mt-2">Connecting to injury analysis system</p>
             </div>
           </div>
         )}
@@ -603,26 +603,26 @@ export default function InjuryAnalysisPage() {
                 </div>
                 
                 <h3 className="text-xl font-bold text-white mb-2">Processing Activity Data</h3>
-                <p className="text-sm text-gray-400 mb-1">Analyzing injury risk patterns...</p>
-                <p className="text-xs text-gray-500">This may take a few seconds</p>
+                <p className="text-sm text-white/50 mb-1">Analyzing injury risk patterns...</p>
+                <p className="text-xs text-white/40">This may take a few seconds</p>
               </div>
             </div>
           </div>
         )}
 
         {/* Header */}
-        <header className="border-b border-gray-800 bg-black/95 backdrop-blur-sm sticky top-0 z-50">
+        <header className="border-b border-white/5 bg-black/80 backdrop-blur-sm sticky top-0 z-50">
           <div className="container mx-auto px-6 py-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
-                <div className="p-2 bg-blue-600 rounded-lg">
-                  <Shield className="h-6 w-6 text-white" />
+                <div className="p-2 bg-white/5 rounded-md">
+                  <Shield className="h-5 w-5 text-white" />
                 </div>
                 <div>
-                  <h1 className="text-xl font-bold text-white">
+                  <h1 className="text-lg font-medium text-white">
                     Injury Analysis System
                   </h1>
-                  <p className="text-xs text-gray-400">Professional Athlete Monitoring</p>
+                  <p className="text-xs text-white/40">Professional Athlete Monitoring</p>
                 </div>
               </div>
               <div className="flex items-center gap-3">
@@ -630,7 +630,6 @@ export default function InjuryAnalysisPage() {
                   variant="outline" 
                   size="sm" 
                   onClick={() => router.push('/dashboard')}
-                  className="border-gray-700 bg-gray-900 text-gray-300 hover:bg-gray-800 hover:text-white"
                 >
                   <ArrowLeft className="h-4 w-4 mr-2" />
                   Dashboard
@@ -643,12 +642,12 @@ export default function InjuryAnalysisPage() {
         {/* Main Content */}
         <main className="container mx-auto px-8 md:px-12 lg:px-16 py-8 max-w-[1400px]">
           {/* Quick Action Bar */}
-          <div className="mb-6 flex items-center justify-between gap-4">
+          <div className="mb-8 flex items-center justify-between gap-4">
             <div className="flex-1">
-              <h2 className="text-2xl font-bold text-white">
+              <h2 className="text-2xl font-medium text-white">
                 Athlete Health Dashboard
               </h2>
-              <p className="text-sm text-gray-400 mt-1">
+              <p className="text-sm text-white/50 mt-1">
                 Real-time injury risk assessment and performance tracking
               </p>
             </div>
@@ -677,10 +676,9 @@ export default function InjuryAnalysisPage() {
               size="lg"
               onClick={() => setIsModalOpen(true)}
               disabled={!selectedAthlete}
-              className="bg-blue-600 hover:bg-blue-700 text-white shadow-lg shadow-blue-900/50 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               <Plus className="h-5 w-5 mr-2" />
-              Log New Activity
+              Log Activity
             </Button>
           </div>
 
@@ -690,57 +688,57 @@ export default function InjuryAnalysisPage() {
             <div className="space-y-4">
               {/* Athlete Profile */}
               {selectedAthlete && (
-                <Card className="border border-gray-800 bg-gray-900/50 backdrop-blur-sm shadow-xl">
-                  <CardHeader className="bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-t-xl pb-6">
+                <Card className="border-blue-500/20">
+                  <CardHeader className="border-b border-white/10 pb-5">
                     <div className="flex items-start justify-between">
                         <div className="flex items-center gap-4">
-                        <div className="h-16 w-16 rounded-full bg-white/20 flex items-center justify-center text-2xl font-bold">
+                        <div className="h-14 w-14 rounded-md bg-blue-500/10 flex items-center justify-center text-xl font-medium text-blue-400 ring-2 ring-blue-500/20">
                           {selectedAthlete.name.split(' ').map((n: string) => n[0]).join('')}
                         </div>
                         <div>
-                          <h3 className="text-2xl font-bold">{selectedAthlete.name}</h3>
-                          <p className="text-blue-100 text-sm">ID: {selectedAthlete.id.substring(0, 13)}...</p>
+                          <h3 className="text-xl font-medium text-white mb-1">{selectedAthlete.name}</h3>
+                          <p className="text-white/50 text-xs">ID: {selectedAthlete.id.substring(0, 13)}...</p>
                         </div>
                       </div>
-                      <div className={`px-3 py-1 rounded-full text-xs font-semibold ${getStatusColor(selectedAthlete.status)} backdrop-blur-sm`}>
+                      <div className={`px-3 py-1.5 rounded-md text-xs font-medium ${getStatusColor(selectedAthlete.status)}`}>
                         {selectedAthlete.status.toUpperCase()}
                       </div>
                     </div>
                   </CardHeader>
                   <CardContent className="pt-6">
-                    <div className="grid grid-cols-2 gap-4">
-                      <div className="space-y-1">
-                        <p className="text-xs text-gray-400 flex items-center gap-1">
-                          <User className="h-3 w-3" />
+                    <div className="grid grid-cols-2 gap-6">
+                      <div className="space-y-1.5">
+                        <p className="text-xs text-white/50 flex items-center gap-1.5 font-medium">
+                          <User className="h-3.5 w-3.5 text-blue-400" />
                           Age
                         </p>
-                        <p className="font-semibold text-white">{selectedAthlete.age || '-'} years</p>
+                        <p className="font-medium text-white text-base">{selectedAthlete.age || '-'} years</p>
                       </div>
-                      <div className="space-y-1">
-                        <p className="text-xs text-gray-400 flex items-center gap-1">
-                          <Trophy className="h-3 w-3" />
+                      <div className="space-y-1.5">
+                        <p className="text-xs text-white/50 flex items-center gap-1.5 font-medium">
+                          <Trophy className="h-3.5 w-3.5 text-amber-400" />
                           Sport
                         </p>
-                        <p className="font-semibold text-white">{selectedAthlete.primary_sport || '-'}</p>
+                        <p className="font-medium text-white text-base">{selectedAthlete.primary_sport || '-'}</p>
                       </div>
-                      <div className="space-y-1">
-                        <p className="text-xs text-gray-400 flex items-center gap-1">
-                          <Target className="h-3 w-3" />
+                      <div className="space-y-1.5">
+                        <p className="text-xs text-white/50 flex items-center gap-1.5 font-medium">
+                          <Target className="h-3.5 w-3.5 text-purple-400" />
                           Position
                         </p>
-                        <p className="font-semibold text-white">{selectedAthlete.position || '-'}</p>
+                        <p className="font-medium text-white text-base">{selectedAthlete.position || '-'}</p>
                       </div>
-                      <div className="space-y-1">
-                        <p className="text-xs text-gray-400">Team</p>
-                        <p className="font-semibold text-white">{selectedAthlete.team || '-'}</p>
+                      <div className="space-y-1.5">
+                        <p className="text-xs text-white/50 font-medium">Team</p>
+                        <p className="font-medium text-white text-base">{selectedAthlete.team || '-'}</p>
                       </div>
-                      <div className="space-y-1">
-                        <p className="text-xs text-gray-400">Height</p>
-                        <p className="font-semibold text-white">{selectedAthlete.height || '-'}</p>
+                      <div className="space-y-1.5">
+                        <p className="text-xs text-white/50 font-medium">Height</p>
+                        <p className="font-medium text-white text-base">{selectedAthlete.height || '-'}</p>
                       </div>
-                      <div className="space-y-1">
-                        <p className="text-xs text-gray-400">Weight</p>
-                        <p className="font-semibold text-white">{selectedAthlete.weight || '-'}</p>
+                      <div className="space-y-1.5">
+                        <p className="text-xs text-white/50 font-medium">Weight</p>
+                        <p className="font-medium text-white text-base">{selectedAthlete.weight || '-'}</p>
                       </div>
                     </div>
                   </CardContent>
@@ -749,33 +747,25 @@ export default function InjuryAnalysisPage() {
 
               {/* Injury Risk Gauge */}
               {showResults && injuryRiskData.length > 0 && (
-                <Card className={`border bg-gray-900/50 backdrop-blur-sm bg-gradient-to-br ${
-                  (() => {
-                    const avgRisk = Math.round(
-                      injuryRiskData.reduce((sum, r) => sum + r.percentage, 0) / injuryRiskData.length
-                    );
-                    if (avgRisk >= 70) return 'from-red-950/30 to-red-900/30 border-red-900/50';
-                    if (avgRisk >= 50) return 'from-orange-950/30 to-orange-900/30 border-orange-900/50';
-                    if (avgRisk >= 30) return 'from-amber-950/30 to-amber-900/30 border-amber-900/50';
-                    return 'from-green-950/30 to-green-900/30 border-green-900/50';
-                  })()
-                }`}>
-                  <CardHeader className="pb-3">
-                    <CardTitle className="text-white flex items-center gap-2 text-base">
-                      <AlertOctagon className={`h-4 w-4 ${
-                        (() => {
-                          const avgRisk = Math.round(
-                            injuryRiskData.reduce((sum, r) => sum + r.percentage, 0) / injuryRiskData.length
-                          );
-                          if (avgRisk >= 70) return 'text-red-600';
-                          if (avgRisk >= 50) return 'text-orange-600';
-                          if (avgRisk >= 30) return 'text-amber-600';
-                          return 'text-green-600';
-                        })()
-                      }`} />
+                <Card className="border-red-500/20">
+                  <CardHeader className="pb-4 border-b border-white/10">
+                    <CardTitle className="text-white flex items-center gap-2 text-lg">
+                      <div className="h-8 w-8 rounded-md bg-red-500/10 flex items-center justify-center">
+                        <AlertOctagon className={`h-4 w-4 ${
+                          (() => {
+                            const avgRisk = Math.round(
+                              injuryRiskData.reduce((sum, r) => sum + r.percentage, 0) / injuryRiskData.length
+                            );
+                            if (avgRisk >= 70) return 'text-red-400';
+                            if (avgRisk >= 50) return 'text-orange-400';
+                            if (avgRisk >= 30) return 'text-amber-400';
+                            return 'text-green-400';
+                          })()
+                        }`} />
+                      </div>
                       Injury Risk Level
                     </CardTitle>
-                    <CardDescription className="text-xs">AI-powered risk assessment</CardDescription>
+                    <CardDescription className="text-xs mt-1">AI-powered risk assessment</CardDescription>
                   </CardHeader>
                   <CardContent>
                     {(() => {
@@ -788,28 +778,28 @@ export default function InjuryAnalysisPage() {
                       // Define color classes based on risk level
                       const getColorClasses = () => {
                         if (avgRisk >= 70) return {
-                          text: 'text-red-500',
-                          bg: 'bg-red-100 dark:bg-red-900/30',
-                          textBadge: 'text-red-700 dark:text-red-300',
-                          stroke: '#ef4444', // red-500
+                          text: 'text-red-400',
+                          bg: 'bg-red-500/10',
+                          textBadge: 'text-red-400',
+                          stroke: '#f87171', // red-400
                         };
                         if (avgRisk >= 50) return {
-                          text: 'text-orange-500',
-                          bg: 'bg-orange-100 dark:bg-orange-900/30',
-                          textBadge: 'text-orange-700 dark:text-orange-300',
-                          stroke: '#f97316', // orange-500
+                          text: 'text-orange-400',
+                          bg: 'bg-orange-500/10',
+                          textBadge: 'text-orange-400',
+                          stroke: '#fb923c', // orange-400
                         };
                         if (avgRisk >= 30) return {
-                          text: 'text-amber-500',
-                          bg: 'bg-amber-100 dark:bg-amber-900/30',
-                          textBadge: 'text-amber-700 dark:text-amber-300',
-                          stroke: '#f59e0b', // amber-500
+                          text: 'text-amber-400',
+                          bg: 'bg-amber-500/10',
+                          textBadge: 'text-amber-400',
+                          stroke: '#fbbf24', // amber-400
                         };
                         return {
-                          text: 'text-green-500',
-                          bg: 'bg-green-100 dark:bg-green-900/30',
-                          textBadge: 'text-green-700 dark:text-green-300',
-                          stroke: '#22c55e', // green-500
+                          text: 'text-green-400',
+                          bg: 'bg-green-500/10',
+                          textBadge: 'text-green-400',
+                          stroke: '#4ade80', // green-400
                         };
                       };
 
@@ -828,7 +818,7 @@ export default function InjuryAnalysisPage() {
                                   stroke="currentColor"
                                   strokeWidth="12"
                                   fill="none"
-                                  className="text-gray-200 dark:text-gray-700"
+                                  className="text-white/5"
                                 />
                                 <circle
                                   cx="64"
@@ -846,7 +836,7 @@ export default function InjuryAnalysisPage() {
                               <div className="absolute inset-0 flex items-center justify-center">
                                 <div className="text-center">
                                   <p className={`text-3xl font-bold ${colors.text} transition-colors duration-500`}>{avgRisk}</p>
-                                  <p className="text-xs text-gray-400">/ 100</p>
+                                  <p className="text-xs text-white/50">/ 100</p>
                                 </div>
                               </div>
                             </div>
@@ -855,7 +845,7 @@ export default function InjuryAnalysisPage() {
                               <span className={`px-4 py-2 ${colors.bg} ${colors.textBadge} text-sm font-semibold rounded-full transition-colors duration-500`}>
                                 {riskLabel}
                               </span>
-                              <p className="text-xs text-gray-400 mt-3">
+                              <p className="text-xs text-white/50 mt-3">
                                 {avgRisk >= 60 ? 'High risk detected. Consider rest and recovery.' : 
                                  avgRisk >= 40 ? 'Moderate fatigue detected. Monitor training load.' :
                                  'Training load within safe limits.'}
@@ -864,27 +854,27 @@ export default function InjuryAnalysisPage() {
                           </div>
 
                           {/* Risk Factors */}
-                          <div className={`mt-4 pt-4 border-t ${
-                            avgRisk >= 70 ? 'border-red-200 dark:border-red-800' :
-                            avgRisk >= 50 ? 'border-orange-200 dark:border-orange-800' :
-                            avgRisk >= 30 ? 'border-amber-200 dark:border-amber-800' :
-                            'border-green-200 dark:border-green-800'
+                          <div className={`mt-5 pt-5 border-t ${
+                            avgRisk >= 70 ? 'border-red-500/20' :
+                            avgRisk >= 50 ? 'border-orange-500/20' :
+                            avgRisk >= 30 ? 'border-amber-500/20' :
+                            'border-green-500/20'
                           }`}>
                             {/* Injured Parts - Priority Display */}
                             {injuryRiskData.filter(r => r.isInjured).length > 0 && (
                               <>
-                                <p className="text-xs font-semibold text-purple-300 mb-2 flex items-center gap-1">
-                                  <AlertTriangle className="h-3 w-3" />
-                                  Active Injuries:
+                                <p className="text-xs font-medium text-purple-400 mb-3 flex items-center gap-1.5">
+                                  <AlertTriangle className="h-3.5 w-3.5" />
+                                  Active Injuries
                                 </p>
-                                <div className="space-y-2 mb-3">
+                                <div className="space-y-2 mb-4">
                                   {injuryRiskData
                                     .filter(r => r.isInjured)
                                     .slice(0, 3)
                                     .map((risk, idx) => (
-                                      <div key={idx} className="flex items-center gap-2 bg-purple-950/30 p-2 rounded border border-purple-800/50">
-                                        <div className="w-2 h-2 rounded-full bg-purple-500 animate-pulse"></div>
-                                        <span className="text-xs text-purple-200 capitalize font-medium">{risk.part.replace('-', ' ')}</span>
+                                      <div key={idx} className="flex items-center gap-2 bg-purple-500/10 p-2.5 rounded-md border border-purple-500/20">
+                                        <div className="w-2 h-2 rounded-full bg-purple-400 animate-pulse"></div>
+                                        <span className="text-xs text-purple-300 capitalize font-medium">{risk.part.replace('-', ' ')}</span>
                                       </div>
                                     ))}
                                 </div>
@@ -892,19 +882,22 @@ export default function InjuryAnalysisPage() {
                             )}
                             
                             {/* High Risk Areas */}
-                            <p className="text-xs font-semibold text-gray-300 mb-2">High Risk Body Parts:</p>
+                            <p className="text-xs font-medium text-white/70 mb-3">High Risk Body Parts</p>
                             <div className="space-y-2">
                               {injuryRiskData
                                 .filter(r => !r.isInjured && r.percentage >= 50)
                                 .slice(0, 3)
                                 .map((risk, idx) => (
-                                  <div key={idx} className="flex items-center gap-2">
-                                    <div className={`w-2 h-2 rounded-full ${risk.percentage >= 70 ? 'bg-red-500' : risk.percentage >= 60 ? 'bg-orange-500' : 'bg-amber-500'}`}></div>
-                                    <span className="text-xs text-gray-400 capitalize">{risk.part.replace('-', ' ')}: {risk.percentage}%</span>
+                                  <div key={idx} className="flex items-center justify-between gap-2">
+                                    <div className="flex items-center gap-2">
+                                      <div className={`w-2 h-2 rounded-full ${risk.percentage >= 70 ? 'bg-red-400' : risk.percentage >= 60 ? 'bg-orange-400' : 'bg-amber-400'}`}></div>
+                                      <span className="text-sm text-white/70 capitalize">{risk.part.replace('-', ' ')}</span>
+                                    </div>
+                                    <span className={`text-sm font-medium ${risk.percentage >= 70 ? 'text-red-400' : risk.percentage >= 60 ? 'text-orange-400' : 'text-amber-400'}`}>{risk.percentage}%</span>
                                   </div>
                                 ))}
                               {injuryRiskData.filter(r => !r.isInjured && r.percentage >= 50).length === 0 && (
-                                <p className="text-xs text-gray-500">No high-risk areas detected</p>
+                                <p className="text-xs text-white/40">No high-risk areas detected</p>
                               )}
                             </div>
                           </div>
@@ -917,56 +910,58 @@ export default function InjuryAnalysisPage() {
 
               {/* Weekly Summary Stats */}
               {showResults && logs.length > 0 && (
-                <Card className="border border-gray-800 bg-gray-900/50 backdrop-blur-sm bg-gradient-to-br from-purple-950/30 to-pink-950/30 border border-purple-900/50">
-                  <CardHeader className="pb-3">
-                    <CardTitle className="text-white flex items-center gap-2 text-base">
-                      <BarChart3 className="h-4 w-4 text-purple-600" />
+                <Card className="border-purple-500/20">
+                  <CardHeader className="pb-4 border-b border-white/10">
+                    <CardTitle className="text-white flex items-center gap-2 text-lg">
+                      <div className="h-8 w-8 rounded-md bg-purple-500/10 flex items-center justify-center">
+                        <BarChart3 className="h-4 w-4 text-purple-400" />
+                      </div>
                       Activity Summary
                     </CardTitle>
                   </CardHeader>
-                  <CardContent>
-                    <div className="grid grid-cols-2 gap-3">
-                      <div className="text-center p-3 bg-gray-800/60 rounded-lg">
-                        <p className="text-2xl font-bold text-purple-600">{logs.length}</p>
-                        <p className="text-xs text-gray-400 mt-1">Total Logged</p>
+                  <CardContent className="pt-5">
+                    <div className="grid grid-cols-2 gap-4">
+                      <div className="text-center p-4 bg-purple-500/5 rounded-lg border border-purple-500/10">
+                        <p className="text-3xl font-bold text-purple-400">{logs.length}</p>
+                        <p className="text-xs text-white/50 mt-2 font-medium">Total Logged</p>
                       </div>
-                      <div className="text-center p-3 bg-gray-800/60 rounded-lg">
-                        <p className="text-2xl font-bold text-pink-600">
+                      <div className="text-center p-4 bg-pink-500/5 rounded-lg border border-pink-500/10">
+                        <p className="text-3xl font-bold text-pink-400">
                           {logs.filter((l: any) => 'sport' in l).length}
                         </p>
-                        <p className="text-xs text-gray-400 mt-1">Sports</p>
+                        <p className="text-xs text-white/50 mt-2 font-medium">Sports</p>
                       </div>
-                      <div className="text-center p-3 bg-gray-800/60 rounded-lg">
-                        <p className="text-2xl font-bold text-indigo-600">
+                      <div className="text-center p-4 bg-blue-500/5 rounded-lg border border-blue-500/10">
+                        <p className="text-3xl font-bold text-blue-400">
                           {logs.filter((l: any) => 'workoutType' in l).length}
                         </p>
-                        <p className="text-xs text-gray-400 mt-1">Workouts</p>
+                        <p className="text-xs text-white/50 mt-2 font-medium">Workouts</p>
                       </div>
-                      <div className="text-center p-3 bg-gray-800/60 rounded-lg">
-                        <p className="text-2xl font-bold text-blue-600">
+                      <div className="text-center p-4 bg-indigo-500/5 rounded-lg border border-indigo-500/10">
+                        <p className="text-3xl font-bold text-indigo-400">
                           {Math.round(logs.reduce((sum: number, l: any) => sum + (l.duration || 0), 0) / 60)}
                         </p>
-                        <p className="text-xs text-gray-400 mt-1">Total Hours</p>
+                        <p className="text-xs text-white/50 mt-2 font-medium">Total Hours</p>
                       </div>
                     </div>
                     
                     {injuryRiskData.filter(r => r.percentage >= 60).length === 0 && (
-                      <div className="mt-4 p-3 bg-gray-800/60 rounded-lg border border-green-200 dark:border-green-800">
+                      <div className="mt-5 p-4 bg-green-500/5 rounded-lg border border-green-500/20">
                         <div className="flex items-center gap-2">
-                          <CheckCircle2 className="h-4 w-4 text-green-600" />
-                          <p className="text-xs text-gray-300">
-                            <span className="font-semibold">All clear</span> - No high-risk areas detected
+                          <CheckCircle2 className="h-4 w-4 text-green-400" />
+                          <p className="text-sm text-white/70">
+                            <span className="font-semibold text-green-400">All clear</span> - No high-risk areas detected
                           </p>
                         </div>
                       </div>
                     )}
                     
                     {injuryRiskData.filter(r => r.percentage >= 60).length > 0 && (
-                      <div className="mt-4 p-3 bg-gray-800/60 rounded-lg border border-red-200 dark:border-red-800">
+                      <div className="mt-5 p-4 bg-red-500/5 rounded-lg border border-red-500/20">
                         <div className="flex items-center gap-2">
-                          <AlertTriangle className="h-4 w-4 text-red-600" />
-                          <p className="text-xs text-gray-300">
-                            <span className="font-semibold">Warning:</span> {injuryRiskData.filter(r => r.percentage >= 60).length} high-risk area(s)
+                          <AlertTriangle className="h-4 w-4 text-red-400" />
+                          <p className="text-sm text-white/70">
+                            <span className="font-semibold text-red-400">Warning:</span> {injuryRiskData.filter(r => r.percentage >= 60).length} high-risk area(s)
                           </p>
                         </div>
                       </div>
@@ -977,28 +972,30 @@ export default function InjuryAnalysisPage() {
 
               {/* AI Recommendations */}
               {showResults && injuryRiskData.length > 0 && (
-                <Card className="border border-gray-800 bg-gray-900/50 backdrop-blur-sm bg-gradient-to-br from-green-950/30 to-emerald-950/30 border border-green-900/50">
-                  <CardHeader className="pb-3">
-                    <CardTitle className="text-green-100 flex items-center gap-2 text-base">
-                      <Shield className="h-4 w-4 text-green-600" />
+                <Card className="border-green-500/20">
+                  <CardHeader className="pb-4 border-b border-white/10">
+                    <CardTitle className="text-white flex items-center gap-2 text-lg">
+                      <div className="h-8 w-8 rounded-md bg-green-500/10 flex items-center justify-center">
+                        <Shield className="h-4 w-4 text-green-400" />
+                      </div>
                       AI Recommendations
                     </CardTitle>
-                    <CardDescription className="text-xs text-green-800 dark:text-green-200">
+                    <CardDescription className="text-xs mt-1">
                       Personalized injury prevention strategies
                     </CardDescription>
                   </CardHeader>
-                  <CardContent>
-                    <div className="space-y-3">
+                  <CardContent className="pt-5">
+                    <div className="space-y-4">
                       {injuryRiskData.filter(r => r.percentage >= 60).length > 0 && (
-                        <div className="flex gap-2">
-                          <div className="flex-shrink-0 w-6 h-6 rounded-full bg-green-600 text-white flex items-center justify-center font-bold text-xs">
+                        <div className="flex gap-3">
+                          <div className="flex-shrink-0 w-7 h-7 rounded-full bg-green-500/10 text-green-400 flex items-center justify-center font-bold text-xs border border-green-500/20">
                             1
                           </div>
                           <div>
-                            <h4 className="font-semibold text-white text-sm mb-1">
+                            <h4 className="font-medium text-white text-sm mb-1.5">
                               Immediate Rest Required
                             </h4>
-                            <p className="text-xs text-gray-300">
+                            <p className="text-sm text-white/60 leading-relaxed">
                               High risk detected in {injuryRiskData.filter(r => r.percentage >= 60).length} area(s). 
                               Take 2-3 days of complete rest for affected body parts. Consider ice therapy and gentle mobility work.
                             </p>
@@ -1007,41 +1004,41 @@ export default function InjuryAnalysisPage() {
                       )}
 
                       {injuryRiskData.filter(r => r.percentage >= 40 && r.percentage < 60).length > 0 && (
-                        <div className="flex gap-2">
-                          <div className="flex-shrink-0 w-6 h-6 rounded-full bg-green-600 text-white flex items-center justify-center font-bold text-xs">
+                        <div className="flex gap-3">
+                          <div className="flex-shrink-0 w-7 h-7 rounded-full bg-green-500/10 text-green-400 flex items-center justify-center font-bold text-xs border border-green-500/20">
                             {injuryRiskData.filter(r => r.percentage >= 60).length > 0 ? '2' : '1'}
                           </div>
                           <div>
-                            <h4 className="font-semibold text-white text-sm mb-1">
+                            <h4 className="font-medium text-white text-sm mb-1.5">
                               Reduce Training Volume
                             </h4>
-                            <p className="text-xs text-gray-300">
+                            <p className="text-sm text-white/60 leading-relaxed">
                               Moderate fatigue detected. Reduce training intensity by 20-30% for affected areas in the next 3-5 days.
                             </p>
                           </div>
                         </div>
                       )}
 
-                      <div className="flex gap-2">
-                        <div className="flex-shrink-0 w-6 h-6 rounded-full bg-green-600 text-white flex items-center justify-center font-bold text-xs">
+                      <div className="flex gap-3">
+                        <div className="flex-shrink-0 w-7 h-7 rounded-full bg-green-500/10 text-green-400 flex items-center justify-center font-bold text-xs border border-green-500/20">
                           {injuryRiskData.filter(r => r.percentage >= 40).length + 1}
                         </div>
                         <div>
-                          <h4 className="font-semibold text-white text-sm mb-1">
+                          <h4 className="font-medium text-white text-sm mb-1.5">
                             Monitor Recovery
                           </h4>
-                          <p className="text-xs text-gray-300">
+                          <p className="text-sm text-white/60 leading-relaxed">
                             Track your recovery daily. Log rest days and monitor how body parts feel before resuming full training intensity.
                           </p>
                         </div>
                       </div>
                     </div>
 
-                    <div className="mt-4 p-3 bg-blue-900/30 rounded-lg border border-blue-700">
-                      <div className="flex gap-2">
-                        <TrendingUp className="h-4 w-4 text-blue-300 flex-shrink-0" />
-                        <p className="text-xs text-blue-100">
-                          <span className="font-semibold">Data-Driven:</span> Following these recommendations can reduce injury risk by up to 60% based on your activity patterns.
+                    <div className="mt-5 p-4 bg-blue-500/5 rounded-lg border border-blue-500/20">
+                      <div className="flex gap-2.5">
+                        <TrendingUp className="h-4 w-4 text-blue-400 flex-shrink-0 mt-0.5" />
+                        <p className="text-sm text-white/70 leading-relaxed">
+                          <span className="font-semibold text-blue-400">Data-Driven:</span> Following these recommendations can reduce injury risk by up to 60% based on your activity patterns.
                         </p>
                       </div>
                     </div>
@@ -1053,12 +1050,14 @@ export default function InjuryAnalysisPage() {
             {/* Right: Human Anatomy & Analysis */}
             <div className="flex flex-col space-y-6">
               {/* Human Anatomy Visualization */}
-              <Card className="border border-gray-800 bg-gray-900/50 backdrop-blur-sm shadow-lg flex-1 flex flex-col">
-                <CardHeader>
+              <Card className="border-red-500/20 flex-1 flex flex-col">
+                <CardHeader className="border-b border-white/10">
                   <div className="flex items-start justify-between">
                     <div>
-                      <CardTitle className="text-white flex items-center gap-2">
-                        <Activity className="h-5 w-5 text-red-600" />
+                      <CardTitle className="text-white flex items-center gap-2 text-lg">
+                        <div className="h-8 w-8 rounded-md bg-red-500/10 flex items-center justify-center">
+                          <Activity className="h-4 w-4 text-red-400" />
+                        </div>
                         Body Injury Risk Map
                       </CardTitle>
                       <CardDescription>
@@ -1077,30 +1076,30 @@ export default function InjuryAnalysisPage() {
                             <div className={`${stat.color} text-white text-xs font-bold rounded-full w-7 h-7 flex items-center justify-center mb-1`}>
                               {stat.count}
                             </div>
-                            <span className="text-[10px] text-gray-400">{stat.label}</span>
+                            <span className="text-[10px] text-white/50">{stat.label}</span>
                           </div>
                         ))}
                       </div>
                     )}
                   </div>
                 </CardHeader>
-                <CardContent className="flex-1 flex flex-col">
-                  <div className="bg-gradient-to-br from-gray-900 to-gray-800 rounded-xl p-8 flex items-center justify-center border border-gray-700 flex-1 relative">
+                  <CardContent className="flex-1 flex flex-col pt-5">
+                  <div className="bg-black rounded-lg p-8 flex items-center justify-center border border-white/5 flex-1 relative">
                     {/* Injury & High Risk Alert Banner */}
                     {showResults && (injuryRiskData.filter(d => d.isInjured).length > 0 || injuryRiskData.filter(d => d.percentage >= 60).length > 0) && (
                       <div className="absolute top-4 left-4 right-4 z-10 space-y-2">
                         {/* Active Injuries Alert */}
                         {injuryRiskData.filter(d => d.isInjured).length > 0 && (
-                          <div className="bg-gradient-to-r from-purple-900/90 to-fuchsia-900/90 border-2 border-purple-500 rounded-lg p-3 backdrop-blur-sm animate-in fade-in slide-in-from-top duration-500">
+                          <div className="bg-purple-500/10 border border-purple-500/20 rounded-md p-3 backdrop-blur-sm animate-in fade-in slide-in-from-top duration-500">
                             <div className="flex items-center gap-3">
                               <div className="flex-shrink-0">
                                 <AlertTriangle className="h-5 w-5 text-purple-400 animate-pulse" />
                               </div>
                               <div className="flex-1">
-                                <p className="text-sm font-bold text-white">
+                                <p className="text-sm font-medium text-white">
                                   {injuryRiskData.filter(d => d.isInjured).length} Active Injur{injuryRiskData.filter(d => d.isInjured).length > 1 ? 'ies' : 'y'} Detected
                                 </p>
-                                <p className="text-xs text-purple-200">
+                                <p className="text-xs text-purple-300 mt-0.5">
                                   Purple areas indicate recent injuries (last 7 days)
                                 </p>
                               </div>
@@ -1110,16 +1109,16 @@ export default function InjuryAnalysisPage() {
                         
                         {/* High Risk Alert */}
                         {injuryRiskData.filter(d => !d.isInjured && d.percentage >= 60).length > 0 && (
-                          <div className="bg-gradient-to-r from-red-900/90 to-orange-900/90 border-2 border-red-500 rounded-lg p-3 backdrop-blur-sm animate-in fade-in slide-in-from-top duration-500">
+                          <div className="bg-red-500/10 border border-red-500/20 rounded-md p-3 backdrop-blur-sm animate-in fade-in slide-in-from-top duration-500">
                             <div className="flex items-center gap-3">
                               <div className="flex-shrink-0">
                                 <AlertTriangle className="h-5 w-5 text-red-400 animate-pulse" />
                               </div>
                               <div className="flex-1">
-                                <p className="text-sm font-bold text-white">
+                                <p className="text-sm font-medium text-white">
                                   {injuryRiskData.filter(d => !d.isInjured && d.percentage >= 60).length} High Risk Area{injuryRiskData.filter(d => !d.isInjured && d.percentage >= 60).length > 1 ? 's' : ''} Detected
                                 </p>
-                                <p className="text-xs text-red-200">
+                                <p className="text-xs text-red-300 mt-0.5">
                                   Click highlighted areas for detailed analysis
                                 </p>
                               </div>
@@ -1137,15 +1136,15 @@ export default function InjuryAnalysisPage() {
                   {showResults && (
                     <div className="mt-6 space-y-4">
                       {selectedBodyPart && (
-                        <div className="p-4 bg-gradient-to-br from-purple-50 to-pink-50 dark:from-purple-950/30 dark:to-pink-950/30 rounded-lg border-2 border-purple-200 dark:border-purple-800">
-                          <h4 className="font-semibold text-purple-900 dark:text-purple-100 mb-2 capitalize flex items-center gap-2">
-                            <Target className="h-4 w-4" />
+                        <div className="p-4 bg-purple-500/10 rounded-lg border border-purple-500/20">
+                          <h4 className="font-medium text-white mb-2 capitalize flex items-center gap-2">
+                            <Target className="h-4 w-4 text-purple-400" />
                             {selectedBodyPart.replace('-', ' ')}
                           </h4>
-                          <p className="text-sm text-purple-800 dark:text-purple-200">
-                            <span className="font-semibold">Risk Level:</span> <span className="capitalize">{getRiskLevel(selectedBodyPart)}</span>
+                          <p className="text-sm text-white/70">
+                            <span className="font-medium">Risk Level:</span> <span className="capitalize text-purple-300">{getRiskLevel(selectedBodyPart)}</span>
                           </p>
-                          <p className="text-xs text-purple-700 dark:text-purple-300 mt-2">
+                          <p className="text-xs text-white/50 mt-2">
                             Click "Log New Activity" to record training data for AI analysis.
                           </p>
                         </div>
@@ -1154,16 +1153,18 @@ export default function InjuryAnalysisPage() {
                   )}
 
                   {!showResults && (
-                    <div className="mt-6 p-6 bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-950/30 dark:to-indigo-950/30 rounded-lg border-2 border-blue-200 dark:border-blue-800 text-center">
-                      <Brain className="h-12 w-12 text-blue-600 mx-auto mb-3" />
-                      <h4 className="font-semibold text-white mb-2">
+                    <div className="mt-6 p-6 bg-blue-500/5 rounded-lg border border-blue-500/20 text-center">
+                      <div className="h-12 w-12 rounded-lg bg-blue-500/10 flex items-center justify-center mx-auto mb-4">
+                        <Brain className="h-6 w-6 text-blue-400" />
+                      </div>
+                      <h4 className="font-medium text-white mb-2">
                         Ready for Analysis
                       </h4>
-                      <p className="text-sm text-gray-400 mb-4">
+                      <p className="text-sm text-white/50 mb-5">
                         Log training or match data to generate an AI-powered injury risk assessment
                       </p>
                       <Button 
-                        variant="gradient"
+                        variant="default"
                         onClick={() => setIsModalOpen(true)}
                       >
                         <Plus className="h-4 w-4 mr-2" />
@@ -1179,33 +1180,35 @@ export default function InjuryAnalysisPage() {
                 <>
                   {/* Active Injuries - Priority Card */}
                   {injuryRiskData.filter(r => r.isInjured).length > 0 && (
-                    <Card className="border border-purple-800 bg-gray-900/50 backdrop-blur-sm bg-gradient-to-br from-purple-950/30 to-fuchsia-950/30 border border-purple-900/50 flex-1">
-                      <CardHeader>
-                        <CardTitle className="text-purple-100 flex items-center gap-2">
-                          <AlertTriangle className="h-5 w-5 text-purple-400 animate-pulse" />
+                    <Card className="flex-1 border-purple-500/20">
+                      <CardHeader className="border-b border-white/10">
+                        <CardTitle className="text-white flex items-center gap-2 text-lg">
+                          <div className="h-8 w-8 rounded-md bg-purple-500/10 flex items-center justify-center">
+                            <AlertTriangle className="h-4 w-4 text-purple-400 animate-pulse" />
+                          </div>
                           Active Injuries
                         </CardTitle>
-                        <CardDescription className="text-purple-800 dark:text-purple-200">
+                        <CardDescription className="text-xs mt-1">
                           Recently reported injuries (last 7 days)
                         </CardDescription>
                       </CardHeader>
-                      <CardContent className="space-y-4">
+                      <CardContent className="space-y-3 pt-5">
                         {injuryRiskData
                           .filter(r => r.isInjured)
                           .map((risk, idx) => (
-                            <div key={idx} className="p-4 bg-purple-900/30 rounded-lg border-2 border-purple-700">
+                            <div key={idx} className="p-4 bg-purple-500/10 rounded-lg border border-purple-500/20">
                               <div className="flex items-center justify-between mb-2">
-                                <span className="font-semibold text-white capitalize">{risk.part.replace('-', ' ')}</span>
-                                <span className="px-3 py-1 bg-purple-500 text-white rounded-full text-xs font-semibold flex items-center gap-1">
+                                <span className="font-medium text-white capitalize text-base">{risk.part.replace('-', ' ')}</span>
+                                <span className="px-3 py-1.5 bg-purple-500/20 text-purple-300 rounded-full text-xs font-medium flex items-center gap-1 border border-purple-500/30">
                                   <AlertTriangle className="h-3 w-3" />
                                   INJURED
                                 </span>
                               </div>
-                              <p className="text-sm text-purple-200">
+                              <p className="text-sm text-white/70 leading-relaxed">
                                 {risk.message}
                               </p>
-                              <div className="mt-3 p-2 bg-purple-950/50 rounded border border-purple-800">
-                                <p className="text-xs text-purple-300">
+                              <div className="mt-3 p-3 bg-purple-500/5 rounded-md border border-purple-500/10">
+                                <p className="text-xs text-white/60 leading-relaxed">
                                   ⚠️ Avoid exercises targeting this area. Consult medical staff before resuming activity.
                                 </p>
                               </div>
@@ -1221,39 +1224,41 @@ export default function InjuryAnalysisPage() {
 
           {/* Second Row: Weekly Performance */}
           {showResults && logs.length > 0 && (
-            <Card className="border border-gray-800 bg-gray-900/50 backdrop-blur-sm shadow-lg mb-6">
-              <CardHeader>
-                <CardTitle className="text-white flex items-center gap-2">
-                  <BarChart3 className="h-5 w-5 text-blue-600" />
+            <Card className="border-blue-500/20 mb-6">
+              <CardHeader className="border-b border-white/10">
+                <CardTitle className="text-white flex items-center gap-2 text-xl">
+                  <div className="h-9 w-9 rounded-md bg-blue-500/10 flex items-center justify-center">
+                    <BarChart3 className="h-5 w-5 text-blue-400" />
+                  </div>
                   Performance Metrics
                 </CardTitle>
-                <CardDescription>
+                <CardDescription className="mt-2">
                   Key performance indicators from logged activities
                 </CardDescription>
               </CardHeader>
-              <CardContent>
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                  <div className="p-4 bg-gradient-to-br from-blue-50 to-blue-100 dark:from-blue-950/30 dark:to-blue-900/30 rounded-lg border-2 border-blue-200 dark:border-blue-800">
-                    <div className="flex items-center gap-3 mb-2">
-                      <div className="p-2 bg-blue-600 rounded-lg">
-                        <Zap className="h-5 w-5 text-white" />
+              <CardContent className="pt-6">
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-5">
+                  <div className="p-4 bg-blue-500/5 rounded-lg border border-blue-500/10">
+                    <div className="flex items-center gap-3 mb-3">
+                      <div className="p-2 bg-blue-500/10 rounded-lg">
+                        <Zap className="h-5 w-5 text-blue-400" />
                       </div>
                       <div>
-                        <p className="text-xs text-gray-400">Total Sessions</p>
-                        <p className="text-2xl font-bold text-blue-600">{logs.length}</p>
+                        <p className="text-xs text-white/50 font-medium">Total Sessions</p>
+                        <p className="text-2xl font-bold text-blue-400">{logs.length}</p>
                       </div>
                     </div>
-                    <p className="text-xs text-gray-500 dark:text-gray-400">All time</p>
+                    <p className="text-xs text-white/40">All time</p>
                   </div>
 
-                  <div className="p-4 bg-gradient-to-br from-green-50 to-green-100 dark:from-green-950/30 dark:to-green-900/30 rounded-lg border-2 border-green-200 dark:border-green-800">
-                    <div className="flex items-center gap-3 mb-2">
-                      <div className="p-2 bg-green-600 rounded-lg">
-                        <Heart className="h-5 w-5 text-white" />
+                  <div className="p-4 bg-green-500/5 rounded-lg border border-green-500/10">
+                    <div className="flex items-center gap-3 mb-3">
+                      <div className="p-2 bg-green-500/10 rounded-lg">
+                        <Heart className="h-5 w-5 text-green-400" />
                       </div>
                       <div>
-                        <p className="text-xs text-gray-400">Avg Heart Rate</p>
-                        <p className="text-2xl font-bold text-green-600">
+                        <p className="text-xs text-white/50 font-medium">Avg Heart Rate</p>
+                        <p className="text-2xl font-bold text-green-400">
                           {(() => {
                             const logsWithHR = logs.filter((l: any) => l.heartRateAvg);
                             if (logsWithHR.length === 0) return '-';
@@ -1265,17 +1270,17 @@ export default function InjuryAnalysisPage() {
                         </p>
                       </div>
                     </div>
-                    <p className="text-xs text-gray-500 dark:text-gray-400">bpm</p>
+                    <p className="text-xs text-white/40">bpm</p>
                   </div>
 
-                  <div className="p-4 bg-gradient-to-br from-orange-50 to-orange-100 dark:from-orange-950/30 dark:to-orange-900/30 rounded-lg border-2 border-orange-200 dark:border-orange-800">
-                    <div className="flex items-center gap-3 mb-2">
-                      <div className="p-2 bg-orange-600 rounded-lg">
-                        <Flame className="h-5 w-5 text-white" />
+                  <div className="p-4 bg-orange-500/5 rounded-lg border border-orange-500/10">
+                    <div className="flex items-center gap-3 mb-3">
+                      <div className="p-2 bg-orange-500/10 rounded-lg">
+                        <Flame className="h-5 w-5 text-orange-400" />
                       </div>
                       <div>
-                        <p className="text-xs text-gray-400">Calories Burned</p>
-                        <p className="text-2xl font-bold text-orange-600">
+                        <p className="text-xs text-white/50 font-medium">Calories Burned</p>
+                        <p className="text-2xl font-bold text-orange-400">
                           {(() => {
                             const total = logs.reduce((sum: number, l: any) => sum + (l.caloriesBurned || 0), 0);
                             return total > 0 ? total.toLocaleString() : '-';
@@ -1283,22 +1288,22 @@ export default function InjuryAnalysisPage() {
                         </p>
                       </div>
                     </div>
-                    <p className="text-xs text-gray-500 dark:text-gray-400">kcal total</p>
+                    <p className="text-xs text-white/40">kcal total</p>
                   </div>
 
-                  <div className="p-4 bg-gradient-to-br from-purple-50 to-purple-100 dark:from-purple-950/30 dark:to-purple-900/30 rounded-lg border-2 border-purple-200 dark:border-purple-800">
-                    <div className="flex items-center gap-3 mb-2">
-                      <div className="p-2 bg-purple-600 rounded-lg">
-                        <Timer className="h-5 w-5 text-white" />
+                  <div className="p-4 bg-purple-500/5 rounded-lg border border-purple-500/10">
+                    <div className="flex items-center gap-3 mb-3">
+                      <div className="p-2 bg-purple-500/10 rounded-lg">
+                        <Timer className="h-5 w-5 text-purple-400" />
                       </div>
                       <div>
-                        <p className="text-xs text-gray-400">Active Hours</p>
-                        <p className="text-2xl font-bold text-purple-600">
+                        <p className="text-xs text-white/50 font-medium">Active Hours</p>
+                        <p className="text-2xl font-bold text-purple-400">
                           {(logs.reduce((sum: number, l: any) => sum + (l.duration || 0), 0) / 60).toFixed(1)}
                         </p>
                       </div>
                     </div>
-                    <p className="text-xs text-gray-500 dark:text-gray-400">hours</p>
+                    <p className="text-xs text-white/40">hours</p>
                   </div>
                 </div>
               </CardContent>
@@ -1306,15 +1311,17 @@ export default function InjuryAnalysisPage() {
           )}
 
           {/* Third Row: Activity History */}
-          <Card className="border border-gray-800 bg-gray-900/50 backdrop-blur-sm shadow-lg">
-            <CardHeader>
+          <Card>
+            <CardHeader className="border-b border-white/10">
               <div className="flex items-center justify-between">
                 <div>
-                  <CardTitle className="text-white flex items-center gap-2">
-                    <FileText className="h-5 w-5 text-blue-600" />
+                  <CardTitle className="text-white flex items-center gap-2 text-xl">
+                    <div className="h-9 w-9 rounded-md bg-blue-500/10 flex items-center justify-center">
+                      <FileText className="h-5 w-5 text-blue-400" />
+                    </div>
                     Activity History
                   </CardTitle>
-                  <CardDescription>
+                  <CardDescription className="mt-2">
                     Complete training and match log timeline
                   </CardDescription>
                 </div>
@@ -1330,18 +1337,21 @@ export default function InjuryAnalysisPage() {
             </CardHeader>
             <CardContent>
               {logs.length === 0 ? (
-                <div className="text-center py-12">
-                  <Calendar className="h-16 w-16 text-gray-300 dark:text-gray-600 mx-auto mb-4" />
-                  <h3 className="text-lg font-semibold text-white mb-2">
+                <div className="text-center py-16">
+                  <div className="h-20 w-20 rounded-lg bg-blue-500/10 flex items-center justify-center mx-auto mb-5">
+                    <Calendar className="h-10 w-10 text-blue-400" />
+                  </div>
+                  <h3 className="text-xl font-medium text-white mb-2">
                     No Activities Logged Yet
                   </h3>
-                  <p className="text-sm text-gray-500 dark:text-gray-400 mb-4 max-w-md mx-auto">
+                  <p className="text-sm text-white/50 mb-6 max-w-md mx-auto leading-relaxed">
                     Start tracking {selectedAthlete?.name || 'athlete'}'s training sessions and matches to generate AI-powered injury risk assessments
                   </p>
                   <Button 
-                    variant="gradient"
+                    variant="default"
                     onClick={() => setIsModalOpen(true)}
                     disabled={!selectedAthlete}
+                    size="lg"
                   >
                     <Plus className="h-4 w-4 mr-2" />
                     Log First Activity
@@ -1353,46 +1363,46 @@ export default function InjuryAnalysisPage() {
                     <div 
                       key={(log as any).id || index}
                       onClick={() => handleActivityClick(log)}
-                      className="p-4 bg-gradient-to-br from-gray-50 to-white dark:from-gray-800/50 dark:to-gray-800 rounded-lg border border-gray-800 bg-gray-900/50 backdrop-blur-sm hover:border-blue-500 dark:hover:border-blue-500 transition-all hover:shadow-lg hover:shadow-blue-900/20 cursor-pointer group"
+                      className="p-4 bg-white/[0.02] rounded-lg border border-white/5 hover:border-white/20 transition-all cursor-pointer group hover:bg-white/[0.04]"
                     >
                       <div className="flex items-start justify-between mb-3">
                         <div className="flex items-center gap-2">
                           {'sport' in log ? (
-                            <div className="p-2 bg-purple-100 dark:bg-purple-900/30 rounded-lg group-hover:bg-purple-600 transition-colors">
-                              <Trophy className="h-4 w-4 text-purple-600 group-hover:text-white transition-colors" />
+                            <div className="p-2 bg-purple-500/10 rounded-lg group-hover:bg-purple-500/20 transition-colors border border-purple-500/20">
+                              <Trophy className="h-4 w-4 text-purple-400" />
                             </div>
                           ) : (
-                            <div className="p-2 bg-blue-100 dark:bg-blue-900/30 rounded-lg group-hover:bg-blue-600 transition-colors">
-                              <Activity className="h-4 w-4 text-blue-600 group-hover:text-white transition-colors" />
+                            <div className="p-2 bg-blue-500/10 rounded-lg group-hover:bg-blue-500/20 transition-colors border border-blue-500/20">
+                              <Activity className="h-4 w-4 text-blue-400" />
                             </div>
                           )}
-                          <span className="text-xs font-semibold text-gray-500 dark:text-gray-400 group-hover:text-blue-400 transition-colors">
+                          <span className="text-xs font-medium text-white/50 group-hover:text-white/70 transition-colors">
                             {'sport' in log ? 'Match' : 'Workout'}
                           </span>
                         </div>
                         <div className="flex flex-col items-end">
-                          <span className="text-xs text-gray-400 dark:text-gray-500 group-hover:text-blue-400 transition-colors">
+                          <span className="text-xs text-white/50 group-hover:text-white/70 transition-colors">
                             {new Date(log.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
                           </span>
-                          <span className="text-[10px] text-gray-500 dark:text-gray-600 mt-0.5 group-hover:text-blue-500 transition-colors">
+                          <span className="text-[10px] text-white/40 mt-0.5 group-hover:text-blue-400 transition-colors">
                             Click to view
                           </span>
                         </div>
                       </div>
                       
-                      <h4 className="font-semibold text-white mb-2">
+                      <h4 className="font-medium text-white mb-3 group-hover:text-white transition-colors">
                         {'sport' in log ? log.sport : log.workoutType}
                       </h4>
                       
-                      <div className="space-y-1">
+                      <div className="space-y-2">
                         <div className="flex items-center justify-between text-xs">
-                          <span className="text-gray-400">Duration</span>
-                          <span className="font-medium text-white">{log.duration} mins</span>
+                          <span className="text-white/50">Duration</span>
+                          <span className="font-medium text-white/70">{log.duration} mins</span>
                         </div>
                         {'heartRateAvg' in log && log.heartRateAvg && (
                           <div className="flex items-center justify-between text-xs">
-                            <span className="text-gray-400">Avg HR</span>
-                            <span className="font-medium text-white">{log.heartRateAvg} bpm</span>
+                            <span className="text-white/50">Avg HR</span>
+                            <span className="font-medium text-white/70">{log.heartRateAvg} bpm</span>
                           </div>
                         )}
                       </div>
@@ -1414,21 +1424,21 @@ export default function InjuryAnalysisPage() {
             />
             
             {/* Side Panel */}
-            <div className="fixed right-0 top-0 bottom-0 w-full md:w-[480px] bg-gradient-to-br from-gray-900 via-black to-gray-900 border-l border-gray-800 z-50 shadow-2xl overflow-y-auto animate-in slide-in-from-right duration-300">
+            <div className="fixed right-0 top-0 bottom-0 w-full md:w-[480px] bg-[#0a0a0a] border-l border-white/10 z-50 shadow-2xl overflow-y-auto animate-in slide-in-from-right duration-300">
               <div className="p-6 space-y-6">
                 {/* Header */}
-                <div className="flex items-start justify-between sticky top-0 bg-gradient-to-br from-gray-900 via-black to-gray-900 pb-4 border-b border-gray-800">
+                <div className="flex items-start justify-between sticky top-0 bg-[#0a0a0a] pb-4 border-b border-white/10">
                   <div>
                     <h2 className="text-2xl font-bold text-white capitalize mb-1">
                       {selectedBodyPart.replace('-', ' ')}
                     </h2>
-                    <p className="text-sm text-gray-400">Detailed Injury Risk Analysis</p>
+                    <p className="text-sm text-white/50">Detailed Injury Risk Analysis</p>
                   </div>
                   <button
                     onClick={() => setShowDetailPanel(false)}
-                    className="p-2 hover:bg-gray-800 rounded-lg transition-colors"
+                    className="p-2 hover:bg-white/5 rounded-lg transition-colors"
                   >
-                    <svg className="w-6 h-6 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <svg className="w-6 h-6 text-white/50 hover:text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                     </svg>
                   </button>
@@ -1449,65 +1459,65 @@ export default function InjuryAnalysisPage() {
                   const colorScheme = getRiskColor();
                   const colorClasses = {
                     purple: {
-                      bg: "from-purple-950/30 to-fuchsia-950/30",
-                      border: "border-purple-800",
+                      bg: "bg-purple-500/10",
+                      border: "border-purple-500/20",
                       text: "text-purple-400",
-                      badge: "bg-purple-500",
+                      badge: "bg-purple-500/20 text-purple-300 border border-purple-500/30",
                     },
                     red: {
-                      bg: "from-red-950/30 to-red-900/30",
-                      border: "border-red-800",
+                      bg: "bg-red-500/10",
+                      border: "border-red-500/20",
                       text: "text-red-400",
-                      badge: "bg-red-500",
+                      badge: "bg-red-500/20 text-red-300 border border-red-500/30",
                     },
                     orange: {
-                      bg: "from-orange-950/30 to-orange-900/30",
-                      border: "border-orange-800",
+                      bg: "bg-orange-500/10",
+                      border: "border-orange-500/20",
                       text: "text-orange-400",
-                      badge: "bg-orange-500",
+                      badge: "bg-orange-500/20 text-orange-300 border border-orange-500/30",
                     },
                     amber: {
-                      bg: "from-amber-950/30 to-amber-900/30",
-                      border: "border-amber-800",
+                      bg: "bg-amber-500/10",
+                      border: "border-amber-500/20",
                       text: "text-amber-400",
-                      badge: "bg-amber-500",
+                      badge: "bg-amber-500/20 text-amber-300 border border-amber-500/30",
                     },
                     green: {
-                      bg: "from-green-950/30 to-green-900/30",
-                      border: "border-green-800",
+                      bg: "bg-green-500/10",
+                      border: "border-green-500/20",
                       text: "text-green-400",
-                      badge: "bg-green-500",
+                      badge: "bg-green-500/20 text-green-300 border border-green-500/30",
                     },
                   }[colorScheme];
 
                   return (
                     <>
                       {/* Risk Score Card */}
-                      <div className={`bg-gradient-to-br ${colorClasses.bg} border-2 ${colorClasses.border} rounded-xl p-6`}>
-                        <div className="flex items-center justify-between mb-4">
+                      <div className={`${colorClasses.bg} border ${colorClasses.border} rounded-lg p-6`}>
+                        <div className="flex items-center justify-between mb-5">
                           <div>
-                            <p className="text-xs text-gray-400 uppercase tracking-wide mb-1">Injury Risk Score</p>
+                            <p className="text-xs text-white/50 uppercase tracking-wide mb-2 font-medium">Injury Risk Score</p>
                             <div className="flex items-baseline gap-2">
-                              <span className={`text-5xl font-black ${colorClasses.text}`}>
+                              <span className={`text-5xl font-bold ${colorClasses.text}`}>
                                 {riskData.percentage}
                               </span>
-                              <span className="text-2xl text-gray-500 font-medium">/100</span>
+                              <span className="text-2xl text-white/40 font-medium">/100</span>
                             </div>
                           </div>
-                          <div className={`${colorClasses.badge} text-white px-4 py-2 rounded-lg text-xs font-bold uppercase`}>
+                          <div className={`${colorClasses.badge} px-4 py-2 rounded-lg text-xs font-bold uppercase`}>
                             {riskData.risk}
                           </div>
                         </div>
 
                         {/* Progress visualization */}
                         <div className="space-y-2">
-                          <div className="h-3 bg-gray-800 rounded-full overflow-hidden relative">
+                          <div className="h-3 bg-white/5 rounded-full overflow-hidden relative">
                             <div 
-                              className={`h-full ${colorClasses.badge} transition-all duration-1000 ease-out`}
+                              className={`h-full ${colorClasses.bg} transition-all duration-1000 ease-out`}
                               style={{ width: `${riskData.percentage}%` }}
                             />
                           </div>
-                          <div className="flex justify-between text-xs text-gray-500">
+                          <div className="flex justify-between text-xs text-white/40 font-medium">
                             <span>Minimal Risk</span>
                             <span>Critical Risk</span>
                           </div>
@@ -1515,14 +1525,14 @@ export default function InjuryAnalysisPage() {
                       </div>
 
                       {/* Assessment Message */}
-                      <div className="bg-gray-800/50 border border-gray-700 rounded-xl p-5">
+                      <div className="bg-white/[0.02] border border-white/5 rounded-lg p-5">
                         <div className="flex items-start gap-3">
                           <div className="flex-shrink-0 mt-0.5">
                             <AlertTriangle className={`h-5 w-5 ${colorClasses.text}`} />
                           </div>
                           <div>
                             <h3 className="font-semibold text-white mb-2">{riskData.isInjured ? 'Injury Status' : 'AI Assessment'}</h3>
-                            <p className="text-sm text-gray-300 leading-relaxed">
+                            <p className="text-sm text-white/70 leading-relaxed">
                               {riskData.message}
                             </p>
                           </div>
@@ -1531,41 +1541,41 @@ export default function InjuryAnalysisPage() {
 
                       {/* Special Injured Warning */}
                       {riskData.isInjured && (
-                        <div className="bg-gradient-to-r from-purple-900/50 to-fuchsia-900/50 border-2 border-purple-700 rounded-xl p-5 animate-pulse-slow">
+                        <div className="bg-purple-500/10 border border-purple-500/20 rounded-lg p-5">
                           <div className="flex items-start gap-3">
                             <div className="flex-shrink-0">
                               <AlertTriangle className="h-6 w-6 text-purple-400 animate-pulse" />
                             </div>
                             <div>
-                              <h3 className="font-bold text-purple-200 mb-3 text-lg">⚠️ Medical Protocol Required</h3>
+                              <h3 className="font-bold text-white mb-3 text-lg">⚠️ Medical Protocol Required</h3>
                               <div className="space-y-3">
                                 <div className="flex items-start gap-2">
                                   <div className="w-1.5 h-1.5 rounded-full bg-purple-400 mt-1.5 flex-shrink-0"></div>
-                                  <p className="text-sm text-purple-100">
+                                  <p className="text-sm text-white/70">
                                     <span className="font-semibold">Immediate Action:</span> No training involving this body part
                                   </p>
                                 </div>
                                 <div className="flex items-start gap-2">
                                   <div className="w-1.5 h-1.5 rounded-full bg-purple-400 mt-1.5 flex-shrink-0"></div>
-                                  <p className="text-sm text-purple-100">
+                                  <p className="text-sm text-white/70">
                                     <span className="font-semibold">Medical Clearance:</span> Consult team medical staff before resuming activity
                                   </p>
                                 </div>
                                 <div className="flex items-start gap-2">
                                   <div className="w-1.5 h-1.5 rounded-full bg-purple-400 mt-1.5 flex-shrink-0"></div>
-                                  <p className="text-sm text-purple-100">
+                                  <p className="text-sm text-white/70">
                                     <span className="font-semibold">Recovery Protocol:</span> Follow prescribed rehabilitation program
                                   </p>
                                 </div>
                                 <div className="flex items-start gap-2">
                                   <div className="w-1.5 h-1.5 rounded-full bg-purple-400 mt-1.5 flex-shrink-0"></div>
-                                  <p className="text-sm text-purple-100">
+                                  <p className="text-sm text-white/70">
                                     <span className="font-semibold">Monitoring:</span> Daily assessment required until cleared
                                   </p>
                                 </div>
                               </div>
-                              <div className="mt-4 p-3 bg-purple-950/50 rounded-lg border border-purple-800">
-                                <p className="text-xs text-purple-200 text-center font-medium">
+                              <div className="mt-4 p-3 bg-purple-500/5 rounded-lg border border-purple-500/10">
+                                <p className="text-xs text-white/60 text-center font-medium">
                                   🏥 This injury was reported in the last 7 days. Contact medical team immediately if symptoms worsen.
                                 </p>
                               </div>
@@ -1576,46 +1586,46 @@ export default function InjuryAnalysisPage() {
 
                       {/* Contributing Factors */}
                       {!riskData.isInjured && (
-                      <div className="bg-gray-800/50 border border-gray-700 rounded-xl p-5">
-                        <h3 className="font-semibold text-white mb-4 flex items-center gap-2">
+                      <div className="bg-white/[0.02] border border-white/5 rounded-lg p-5">
+                        <h3 className="font-medium text-white mb-4 flex items-center gap-2">
                           <BarChart3 className="h-5 w-5 text-blue-400" />
                           Contributing Factors
                         </h3>
-                        <div className="space-y-3">
+                        <div className="space-y-4">
                           <div>
-                            <div className="flex items-center justify-between mb-1.5">
-                              <span className="text-sm text-gray-300">Training Load</span>
-                              <span className="text-sm font-semibold text-red-400">High</span>
+                            <div className="flex items-center justify-between mb-2">
+                              <span className="text-sm text-white/70 font-medium">Training Load</span>
+                              <span className="text-sm font-medium text-red-400">High</span>
                             </div>
-                            <div className="h-2 bg-gray-700 rounded-full overflow-hidden">
-                              <div className="h-full bg-gradient-to-r from-red-500 to-red-400 w-[78%]" />
+                            <div className="h-2 bg-white/5 rounded-full overflow-hidden">
+                              <div className="h-full bg-red-400 w-[78%]" />
                             </div>
                           </div>
                           <div>
-                            <div className="flex items-center justify-between mb-1.5">
-                              <span className="text-sm text-gray-300">Fatigue Index</span>
-                              <span className="text-sm font-semibold text-orange-400">Medium</span>
+                            <div className="flex items-center justify-between mb-2">
+                              <span className="text-sm text-white/70 font-medium">Fatigue Index</span>
+                              <span className="text-sm font-medium text-orange-400">Medium</span>
                             </div>
-                            <div className="h-2 bg-gray-700 rounded-full overflow-hidden">
-                              <div className="h-full bg-gradient-to-r from-orange-500 to-orange-400 w-[56%]" />
-                            </div>
-                          </div>
-                          <div>
-                            <div className="flex items-center justify-between mb-1.5">
-                              <span className="text-sm text-gray-300">Recovery Time</span>
-                              <span className="text-sm font-semibold text-amber-400">Medium</span>
-                            </div>
-                            <div className="h-2 bg-gray-700 rounded-full overflow-hidden">
-                              <div className="h-full bg-gradient-to-r from-amber-500 to-amber-400 w-[45%]" />
+                            <div className="h-2 bg-white/5 rounded-full overflow-hidden">
+                              <div className="h-full bg-orange-400 w-[56%]" />
                             </div>
                           </div>
                           <div>
-                            <div className="flex items-center justify-between mb-1.5">
-                              <span className="text-sm text-gray-300">Movement Patterns</span>
-                              <span className="text-sm font-semibold text-green-400">Normal</span>
+                            <div className="flex items-center justify-between mb-2">
+                              <span className="text-sm text-white/70 font-medium">Recovery Time</span>
+                              <span className="text-sm font-medium text-amber-400">Medium</span>
                             </div>
-                            <div className="h-2 bg-gray-700 rounded-full overflow-hidden">
-                              <div className="h-full bg-gradient-to-r from-green-500 to-green-400 w-[25%]" />
+                            <div className="h-2 bg-white/5 rounded-full overflow-hidden">
+                              <div className="h-full bg-amber-400 w-[45%]" />
+                            </div>
+                          </div>
+                          <div>
+                            <div className="flex items-center justify-between mb-2">
+                              <span className="text-sm text-white/70 font-medium">Movement Patterns</span>
+                              <span className="text-sm font-medium text-green-400">Normal</span>
+                            </div>
+                            <div className="h-2 bg-white/5 rounded-full overflow-hidden">
+                              <div className="h-full bg-green-400 w-[25%]" />
                             </div>
                           </div>
                         </div>
@@ -1623,38 +1633,38 @@ export default function InjuryAnalysisPage() {
                       )}
 
                       {/* Recommendations */}
-                      <div className="bg-gradient-to-br from-blue-950/30 to-indigo-950/30 border border-blue-800 rounded-xl p-5">
-                        <h3 className="font-semibold text-white mb-4 flex items-center gap-2">
+                      <div className="bg-blue-500/10 border border-blue-500/20 rounded-lg p-5">
+                        <h3 className="font-medium text-white mb-4 flex items-center gap-2">
                           <Shield className="h-5 w-5 text-blue-400" />
                           Recommendations
                         </h3>
-                        <div className="space-y-3">
+                        <div className="space-y-4">
                           <div className="flex gap-3">
-                            <div className="flex-shrink-0 w-6 h-6 rounded-full bg-blue-600 text-white flex items-center justify-center text-xs font-bold">
+                            <div className="flex-shrink-0 w-7 h-7 rounded-full bg-blue-500/10 text-blue-400 flex items-center justify-center text-xs font-bold border border-blue-500/20">
                               1
                             </div>
                             <div>
-                              <p className="text-sm text-gray-300">
+                              <p className="text-sm text-white/70 leading-relaxed">
                                 Reduce training intensity by 20-30% for the next 3-5 days
                               </p>
                             </div>
                           </div>
                           <div className="flex gap-3">
-                            <div className="flex-shrink-0 w-6 h-6 rounded-full bg-blue-600 text-white flex items-center justify-center text-xs font-bold">
+                            <div className="flex-shrink-0 w-7 h-7 rounded-full bg-blue-500/10 text-blue-400 flex items-center justify-center text-xs font-bold border border-blue-500/20">
                               2
                             </div>
                             <div>
-                              <p className="text-sm text-gray-300">
+                              <p className="text-sm text-white/70 leading-relaxed">
                                 Implement targeted stretching and mobility work
                               </p>
                             </div>
                           </div>
                           <div className="flex gap-3">
-                            <div className="flex-shrink-0 w-6 h-6 rounded-full bg-blue-600 text-white flex items-center justify-center text-xs font-bold">
+                            <div className="flex-shrink-0 w-7 h-7 rounded-full bg-blue-500/10 text-blue-400 flex items-center justify-center text-xs font-bold border border-blue-500/20">
                               3
                             </div>
                             <div>
-                              <p className="text-sm text-gray-300">
+                              <p className="text-sm text-white/70 leading-relaxed">
                                 Schedule physiotherapy assessment within 7 days
                               </p>
                             </div>
@@ -1675,7 +1685,7 @@ export default function InjuryAnalysisPage() {
                                 <p className="text-sm font-medium text-white">
                                   {'sport' in log ? log.sport : log.workoutType}
                                 </p>
-                                <p className="text-xs text-gray-400">
+                                <p className="text-xs text-white/50">
                                   {new Date(log.date).toLocaleDateString()} • {log.duration} mins
                                 </p>
                               </div>
@@ -1683,12 +1693,12 @@ export default function InjuryAnalysisPage() {
                                 <p className={`text-xs font-bold ${colorClasses.text}`}>
                                   +{Math.floor(Math.random() * 15 + 5)}%
                                 </p>
-                                <p className="text-xs text-gray-500">strain</p>
+                                <p className="text-xs text-white/40">strain</p>
                               </div>
                             </div>
                           ))}
                           {logs.length === 0 && (
-                            <p className="text-sm text-gray-400 text-center py-4">
+                            <p className="text-sm text-white/50 text-center py-4">
                               No recent activities logged
                             </p>
                           )}
