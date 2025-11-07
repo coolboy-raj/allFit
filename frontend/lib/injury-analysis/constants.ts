@@ -342,3 +342,4 @@ export function calculateInjuryRisk(params: {
   return Math.min(Math.max(Math.round(baseRisk), 0), 100);
 }
 
+

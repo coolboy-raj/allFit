@@ -435,9 +435,9 @@ export function LoggingModal({ isOpen, onClose, onSubmit, athleteName }: Logging
         <TabsContent value="workout">
           <div className="space-y-6">
             {/* Minimalistic Session Info */}
-            <div className="bg-gray-900/30 border border-gray-800 rounded-lg p-5">
+            <div className="bg-white/[0.02] border border-white/5 rounded-lg p-5">
               <div className="flex items-center justify-between mb-4">
-                <h3 className="text-sm font-semibold text-gray-300 uppercase tracking-wide">
+                <h3 className="text-sm font-medium text-white/70 uppercase tracking-wide">
                   Session Info
                 </h3>
               </div>
@@ -455,18 +455,17 @@ export function LoggingModal({ isOpen, onClose, onSubmit, athleteName }: Logging
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label className="text-xs text-gray-400">Start Time (optional)</Label>
+                  <Label>Start Time (optional)</Label>
                   <Input
                     id="workout-time"
                     type="time"
                     value={workoutData.startTime}
                     onChange={(e) => setWorkoutData({...workoutData, startTime: e.target.value})}
-                    className="bg-gray-950/50 border-gray-700"
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label className="text-xs text-gray-400">
-                    Duration (min) <span className="text-red-500">*</span>
+                  <Label>
+                    Duration (min) <span className="text-red-400">*</span>
                   </Label>
                   <Input
                     id="workout-duration"
@@ -476,19 +475,17 @@ export function LoggingModal({ isOpen, onClose, onSubmit, athleteName }: Logging
                     max="300"
                     value={workoutData.duration}
                     onChange={(e) => setWorkoutData({...workoutData, duration: parseInt(e.target.value) || 0})}
-                    className="bg-gray-950/50 border-gray-700"
                     required
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label className="text-xs text-gray-400">
-                    Workout Type <span className="text-red-500">*</span>
+                  <Label>
+                    Workout Type <span className="text-red-400">*</span>
                   </Label>
                   <Select
                     id="workout-type"
                     value={workoutData.workoutType}
                     onChange={(e) => setWorkoutData({...workoutData, workoutType: e.target.value})}
-                    className="bg-gray-950/50 border-gray-700"
                     required
                   >
                     {WORKOUT_TYPE_OPTIONS.map((option) => (
@@ -502,20 +499,21 @@ export function LoggingModal({ isOpen, onClose, onSubmit, athleteName }: Logging
             </div>
 
             {/* Exercises Grid */}
-            <div className="bg-gray-900/30 border border-gray-800 rounded-lg p-5">
+            <div className="bg-white/[0.02] border border-white/5 rounded-lg p-5">
               <div className="flex items-center justify-between mb-5">
-                <h3 className="text-sm font-semibold text-gray-300 uppercase tracking-wide">
+                <h3 className="text-sm font-medium text-white/70 uppercase tracking-wide">
                   Exercises ({workoutData.workoutExercises.length}/9)
                 </h3>
-                <button
+                <Button
                   type="button"
                   onClick={addWorkoutExercise}
                   disabled={workoutData.workoutExercises.length >= 9}
-                  className="text-xs px-3 py-1.5 bg-blue-600 hover:bg-blue-700 disabled:bg-gray-700 disabled:cursor-not-allowed text-white rounded-md transition-colors flex items-center gap-1.5"
+                  size="sm"
+                  className="text-xs"
                 >
-                  <Plus className="h-3.5 w-3.5" />
+                  <Plus className="h-3.5 w-3.5 mr-1.5" />
                   Add Exercise
-                </button>
+                </Button>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -535,10 +533,10 @@ export function LoggingModal({ isOpen, onClose, onSubmit, athleteName }: Logging
                   <button
                     type="button"
                     onClick={addWorkoutExercise}
-                    className="bg-gray-900/30 border-2 border-dashed border-gray-700 rounded-lg p-6 hover:border-blue-600 hover:bg-blue-600/5 transition-all duration-200 flex flex-col items-center justify-center min-h-[280px] group"
+                    className="bg-white/[0.02] border-2 border-dashed border-white/10 rounded-lg p-6 hover:border-blue-500/30 hover:bg-blue-500/5 transition-all duration-200 flex flex-col items-center justify-center min-h-[280px] group"
                   >
-                    <Plus className="h-10 w-10 text-gray-600 group-hover:text-blue-600 mb-2 transition-colors" />
-                    <span className="text-sm font-medium text-gray-500 group-hover:text-blue-500 transition-colors">
+                    <Plus className="h-10 w-10 text-white/30 group-hover:text-blue-400 mb-2 transition-colors" />
+                    <span className="text-sm font-medium text-white/40 group-hover:text-blue-400 transition-colors">
                       Add Exercise
                     </span>
                   </button>
@@ -547,13 +545,13 @@ export function LoggingModal({ isOpen, onClose, onSubmit, athleteName }: Logging
             </div>
 
             {/* Additional Details */}
-            <div className="bg-gray-900/30 border border-gray-800 rounded-lg p-5">
-              <h3 className="text-sm font-semibold text-gray-300 uppercase tracking-wide mb-4">
+            <div className="bg-white/[0.02] border border-white/5 rounded-lg p-5">
+              <h3 className="text-sm font-semibold text-white/70 uppercase tracking-wide mb-4">
                 Additional Details
               </h3>
               <div className="grid md:grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <Label className="text-xs text-gray-400">Equipment Used</Label>
+                  <Label className="text-xs text-white/50">Equipment Used</Label>
                   <MultiSelect
                     options={EQUIPMENT_OPTIONS.map(e => ({ value: e.value, label: e.label }))}
                     value={workoutData.equipmentUsed}
@@ -562,11 +560,11 @@ export function LoggingModal({ isOpen, onClose, onSubmit, athleteName }: Logging
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label className="text-xs text-gray-400">Recovery Status</Label>
+                  <Label className="text-xs text-white/50">Recovery Status</Label>
                   <Select
                     value={workoutData.recoveryStatus}
                     onChange={(e) => setWorkoutData({...workoutData, recoveryStatus: e.target.value})}
-                    className="bg-gray-950/50 border-gray-700"
+                    className="bg-black border-white/10"
                   >
                     {RECOVERY_STATUS_OPTIONS.map((option) => (
                       <option key={option.value} value={option.value}>
@@ -579,13 +577,13 @@ export function LoggingModal({ isOpen, onClose, onSubmit, athleteName }: Logging
             </div>
 
             {/* Physiological & Performance */}
-            <div className="bg-gray-900/30 border border-gray-800 rounded-lg p-5">
-              <h3 className="text-sm font-semibold text-gray-300 uppercase tracking-wide mb-4">
+            <div className="bg-white/[0.02] border border-white/5 rounded-lg p-5">
+              <h3 className="text-sm font-semibold text-white/70 uppercase tracking-wide mb-4">
                 Physiological & Performance
               </h3>
               <div className="grid grid-cols-4 gap-4">
                 <div className="space-y-2">
-                  <Label className="text-xs text-gray-400">Avg HR (bpm)</Label>
+                  <Label className="text-xs text-white/50">Avg HR (bpm)</Label>
                   <Input
                     id="hr-avg"
                     type="number"
@@ -594,11 +592,11 @@ export function LoggingModal({ isOpen, onClose, onSubmit, athleteName }: Logging
                     max="220"
                     value={workoutData.heartRateAvg || ""}
                     onChange={(e) => setWorkoutData({...workoutData, heartRateAvg: e.target.value ? parseInt(e.target.value) : undefined})}
-                    className="bg-gray-950/50 border-gray-700"
+                    className="bg-black border-white/10"
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label className="text-xs text-gray-400">Max HR (bpm)</Label>
+                  <Label className="text-xs text-white/50">Max HR (bpm)</Label>
                   <Input
                     id="hr-max"
                     type="number"
@@ -607,11 +605,11 @@ export function LoggingModal({ isOpen, onClose, onSubmit, athleteName }: Logging
                     max="220"
                     value={workoutData.heartRateMax || ""}
                     onChange={(e) => setWorkoutData({...workoutData, heartRateMax: e.target.value ? parseInt(e.target.value) : undefined})}
-                    className="bg-gray-950/50 border-gray-700"
+                    className="bg-black border-white/10"
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label className="text-xs text-gray-400">Calories</Label>
+                  <Label className="text-xs text-white/50">Calories</Label>
                   <Input
                     id="calories"
                     type="number"
@@ -619,11 +617,11 @@ export function LoggingModal({ isOpen, onClose, onSubmit, athleteName }: Logging
                     min="0"
                     value={workoutData.caloriesBurned || ""}
                     onChange={(e) => setWorkoutData({...workoutData, caloriesBurned: e.target.value ? parseInt(e.target.value) : undefined})}
-                    className="bg-gray-950/50 border-gray-700"
+                    className="bg-black border-white/10"
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label className="text-xs text-gray-400">Fatigue (1-10)</Label>
+                  <Label className="text-xs text-white/50">Fatigue (1-10)</Label>
                   <Input
                     id="fatigue"
                     type="number"
@@ -631,29 +629,29 @@ export function LoggingModal({ isOpen, onClose, onSubmit, athleteName }: Logging
                     max="10"
                     value={workoutData.fatigueLevel}
                     onChange={(e) => setWorkoutData({...workoutData, fatigueLevel: parseInt(e.target.value) || 5})}
-                    className="bg-gray-950/50 border-gray-700"
+                    className="bg-black border-white/10"
                   />
                 </div>
               </div>
               <div className="mt-4 space-y-2">
-                <Label className="text-xs text-gray-400">Performance Notes (Optional)</Label>
+                <Label className="text-xs text-white/50">Performance Notes (Optional)</Label>
                 <Textarea
                   id="performance-notes"
                   rows={3}
                   placeholder="Coach observations, technique notes, progress markers..."
                   value={workoutData.performanceNotes}
                   onChange={(e) => setWorkoutData({...workoutData, performanceNotes: e.target.value})}
-                  className="bg-gray-950/50 border-gray-700 resize-none"
+                  className="bg-black border-white/10 resize-none"
                 />
               </div>
               <div className="mt-4 space-y-2">
-                <Label className="text-xs text-gray-400">Weather Conditions (Optional)</Label>
+                <Label className="text-xs text-white/50">Weather Conditions (Optional)</Label>
                 <Input
                   id="weather-conditions"
                   placeholder="Sunny, 75°F, Clear..."
                   value={workoutData.weatherConditions}
                   onChange={(e) => setWorkoutData({...workoutData, weatherConditions: e.target.value})}
-                  className="bg-gray-950/50 border-gray-700"
+                  className="bg-black border-white/10"
                 />
               </div>
             </div>
@@ -664,15 +662,15 @@ export function LoggingModal({ isOpen, onClose, onSubmit, athleteName }: Logging
         <TabsContent value="sports">
           <div className="space-y-6">
             {/* Match Information */}
-            <div className="bg-gray-900/30 border border-gray-800 rounded-lg p-5">
+            <div className="bg-white/[0.02] border border-white/5 rounded-lg p-5">
               <div className="flex items-center justify-between mb-4">
-                <h3 className="text-sm font-semibold text-gray-300 uppercase tracking-wide">
+                <h3 className="text-sm font-semibold text-white/70 uppercase tracking-wide">
                   Match Information
                 </h3>
               </div>
               <div className="grid grid-cols-4 gap-4">
                 <div className="space-y-2">
-                  <Label className="text-xs text-gray-400">
+                  <Label className="text-xs text-white/50">
                     Date <span className="text-red-500">*</span>
                   </Label>
                   <Input
@@ -680,19 +678,19 @@ export function LoggingModal({ isOpen, onClose, onSubmit, athleteName }: Logging
                     type="date"
                     value={sportsData.date}
                     onChange={(e) => setSportsData({...sportsData, date: e.target.value})}
-                    className="bg-gray-950/50 border-gray-700"
+                    className="bg-black border-white/10"
                     required
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label className="text-xs text-gray-400">
+                  <Label className="text-xs text-white/50">
                     Sport <span className="text-red-500">*</span>
                   </Label>
                   <Select
                     id="sport"
                     value={sportsData.sport}
                     onChange={(e) => setSportsData({...sportsData, sport: e.target.value, position: ""})}
-                    className="bg-gray-950/50 border-gray-700"
+                    className="bg-black border-white/10"
                     required
                   >
                     <option value="">Select sport...</option>
@@ -704,13 +702,13 @@ export function LoggingModal({ isOpen, onClose, onSubmit, athleteName }: Logging
                   </Select>
                 </div>
                 <div className="space-y-2">
-                  <Label className="text-xs text-gray-400">Position</Label>
+                  <Label className="text-xs text-white/50">Position</Label>
                   <Select
                     id="position"
                     value={sportsData.position}
                     onChange={(e) => setSportsData({...sportsData, position: e.target.value})}
                     disabled={!sportsData.sport}
-                    className="bg-gray-950/50 border-gray-700"
+                    className="bg-black border-white/10"
                   >
                     <option value="">Select position...</option>
                     {availablePositions.map((position) => (
@@ -721,14 +719,14 @@ export function LoggingModal({ isOpen, onClose, onSubmit, athleteName }: Logging
                   </Select>
                 </div>
                 <div className="space-y-2">
-                  <Label className="text-xs text-gray-400">
+                  <Label className="text-xs text-white/50">
                     Match Type <span className="text-red-500">*</span>
                   </Label>
                   <Select
                     id="match-type"
                     value={sportsData.matchType}
                     onChange={(e) => setSportsData({...sportsData, matchType: e.target.value})}
-                    className="bg-gray-950/50 border-gray-700"
+                    className="bg-black border-white/10"
                     required
                   >
                     {MATCH_TYPE_OPTIONS.map((option) => (
@@ -741,7 +739,7 @@ export function LoggingModal({ isOpen, onClose, onSubmit, athleteName }: Logging
               </div>
               <div className="grid grid-cols-3 gap-4 mt-4">
                 <div className="space-y-2">
-                  <Label className="text-xs text-gray-400">
+                  <Label className="text-xs text-white/50">
                     Duration (min) <span className="text-red-500">*</span>
                   </Label>
                   <Input
@@ -752,12 +750,12 @@ export function LoggingModal({ isOpen, onClose, onSubmit, athleteName }: Logging
                     max="300"
                     value={sportsData.duration}
                     onChange={(e) => setSportsData({...sportsData, duration: parseInt(e.target.value) || 0})}
-                    className="bg-gray-950/50 border-gray-700"
+                    className="bg-black border-white/10"
                     required
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label className="text-xs text-gray-400">Minutes Played</Label>
+                  <Label className="text-xs text-white/50">Minutes Played</Label>
                   <Input
                     id="minutes-played"
                     type="number"
@@ -766,15 +764,15 @@ export function LoggingModal({ isOpen, onClose, onSubmit, athleteName }: Logging
                     max={sportsData.duration || 300}
                     value={sportsData.minutesPlayed}
                     onChange={(e) => setSportsData({...sportsData, minutesPlayed: parseInt(e.target.value) || 0})}
-                    className="bg-gray-950/50 border-gray-700"
+                    className="bg-black border-white/10"
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label className="text-xs text-gray-400">Intensity Level</Label>
+                  <Label className="text-xs text-white/50">Intensity Level</Label>
                   <Select
                     value={sportsData.intensityLevel}
                     onChange={(e) => setSportsData({...sportsData, intensityLevel: e.target.value})}
-                    className="bg-gray-950/50 border-gray-700"
+                    className="bg-black border-white/10"
                   >
                     {INTENSITY_LEVELS.map((option) => (
                       <option key={option.value} value={option.value}>
@@ -787,50 +785,50 @@ export function LoggingModal({ isOpen, onClose, onSubmit, athleteName }: Logging
             </div>
 
             {/* Match Context */}
-            <div className="bg-gray-900/30 border border-gray-800 rounded-lg p-5">
-              <h3 className="text-sm font-semibold text-gray-300 uppercase tracking-wide mb-4">
+            <div className="bg-white/[0.02] border border-white/5 rounded-lg p-5">
+              <h3 className="text-sm font-semibold text-white/70 uppercase tracking-wide mb-4">
                 Match Context
               </h3>
               <div className="grid grid-cols-3 gap-4">
                 <div className="space-y-2">
-                  <Label className="text-xs text-gray-400">Venue</Label>
+                  <Label className="text-xs text-white/50">Venue</Label>
                   <Input
                     id="location"
                     placeholder="Home / Away / Neutral"
                     value={sportsData.location}
                     onChange={(e) => setSportsData({...sportsData, location: e.target.value})}
-                    className="bg-gray-950/50 border-gray-700"
+                    className="bg-black border-white/10"
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label className="text-xs text-gray-400">Opponent</Label>
+                  <Label className="text-xs text-white/50">Opponent</Label>
                   <Input
                     id="opponent"
                     placeholder="Team name"
                     value={sportsData.opponent}
                     onChange={(e) => setSportsData({...sportsData, opponent: e.target.value})}
-                    className="bg-gray-950/50 border-gray-700"
+                    className="bg-black border-white/10"
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label className="text-xs text-gray-400">Result</Label>
+                  <Label className="text-xs text-white/50">Result</Label>
                   <Input
                     id="result"
                     placeholder="W 3-2, L 78-85..."
                     value={sportsData.result}
                     onChange={(e) => setSportsData({...sportsData, result: e.target.value})}
-                    className="bg-gray-950/50 border-gray-700"
+                    className="bg-black border-white/10"
                   />
                 </div>
               </div>
               <div className="grid grid-cols-2 gap-4 mt-4">
                 <div className="space-y-2">
-                  <Label className="text-xs text-gray-400">Surface Type</Label>
+                  <Label className="text-xs text-white/50">Surface Type</Label>
                   <Select
                     id="surface"
                     value={sportsData.surfaceType}
                     onChange={(e) => setSportsData({...sportsData, surfaceType: e.target.value})}
-                    className="bg-gray-950/50 border-gray-700"
+                    className="bg-black border-white/10"
                   >
                     <option value="">Select surface...</option>
                     {SURFACE_TYPE_OPTIONS.map((option) => (
@@ -841,26 +839,26 @@ export function LoggingModal({ isOpen, onClose, onSubmit, athleteName }: Logging
                   </Select>
                 </div>
                 <div className="space-y-2">
-                  <Label className="text-xs text-gray-400">Weather Conditions</Label>
+                  <Label className="text-xs text-white/50">Weather Conditions</Label>
                   <Input
                     id="weather"
                     placeholder="Sunny, 75°F, Clear..."
                     value={sportsData.weatherConditions}
                     onChange={(e) => setSportsData({...sportsData, weatherConditions: e.target.value})}
-                    className="bg-gray-950/50 border-gray-700"
+                    className="bg-black border-white/10"
                   />
                 </div>
               </div>
             </div>
 
             {/* Performance Metrics */}
-            <div className="bg-gray-900/30 border border-gray-800 rounded-lg p-5">
-              <h3 className="text-sm font-semibold text-gray-300 uppercase tracking-wide mb-4">
+            <div className="bg-white/[0.02] border border-white/5 rounded-lg p-5">
+              <h3 className="text-sm font-semibold text-white/70 uppercase tracking-wide mb-4">
                 Performance Metrics
               </h3>
               <div className="grid grid-cols-4 gap-4">
                 <div className="space-y-2">
-                  <Label className="text-xs text-gray-400">Sprint Distance (m)</Label>
+                  <Label className="text-xs text-white/50">Sprint Distance (m)</Label>
                   <Input
                     id="sprint-distance"
                     type="number"
@@ -874,11 +872,11 @@ export function LoggingModal({ isOpen, onClose, onSubmit, athleteName }: Logging
                         sprintDistance: e.target.value ? parseInt(e.target.value) : undefined
                       }
                     })}
-                    className="bg-gray-950/50 border-gray-700"
+                    className="bg-black border-white/10"
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label className="text-xs text-gray-400">Top Speed (km/h)</Label>
+                  <Label className="text-xs text-white/50">Top Speed (km/h)</Label>
                   <Input
                     id="top-speed"
                     type="number"
@@ -893,11 +891,11 @@ export function LoggingModal({ isOpen, onClose, onSubmit, athleteName }: Logging
                         topSpeed: e.target.value ? parseFloat(e.target.value) : undefined
                       }
                     })}
-                    className="bg-gray-950/50 border-gray-700"
+                    className="bg-black border-white/10"
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label className="text-xs text-gray-400">Jumps/Verticals</Label>
+                  <Label className="text-xs text-white/50">Jumps/Verticals</Label>
                   <Input
                     id="jumps"
                     type="number"
@@ -911,11 +909,11 @@ export function LoggingModal({ isOpen, onClose, onSubmit, athleteName }: Logging
                         jumps: e.target.value ? parseInt(e.target.value) : undefined
                       }
                     })}
-                    className="bg-gray-950/50 border-gray-700"
+                    className="bg-black border-white/10"
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label className="text-xs text-gray-400">Tackles/Contacts</Label>
+                  <Label className="text-xs text-white/50">Tackles/Contacts</Label>
                   <Input
                     id="tackles"
                     type="number"
@@ -929,20 +927,20 @@ export function LoggingModal({ isOpen, onClose, onSubmit, athleteName }: Logging
                         tackles: e.target.value ? parseInt(e.target.value) : undefined
                       }
                     })}
-                    className="bg-gray-950/50 border-gray-700"
+                    className="bg-black border-white/10"
                   />
                 </div>
               </div>
             </div>
 
             {/* Physiological & Health */}
-            <div className="bg-gray-900/30 border border-gray-800 rounded-lg p-5">
-              <h3 className="text-sm font-semibold text-gray-300 uppercase tracking-wide mb-4">
+            <div className="bg-white/[0.02] border border-white/5 rounded-lg p-5">
+              <h3 className="text-sm font-semibold text-white/70 uppercase tracking-wide mb-4">
                 Physiological & Health
               </h3>
               <div className="grid grid-cols-3 gap-4">
                 <div className="space-y-2">
-                  <Label className="text-xs text-gray-400">Avg HR (bpm)</Label>
+                  <Label className="text-xs text-white/50">Avg HR (bpm)</Label>
                   <Input
                     id="sports-hr-avg"
                     type="number"
@@ -951,11 +949,11 @@ export function LoggingModal({ isOpen, onClose, onSubmit, athleteName }: Logging
                     max="220"
                     value={sportsData.heartRateAvg || ""}
                     onChange={(e) => setSportsData({...sportsData, heartRateAvg: e.target.value ? parseInt(e.target.value) : undefined})}
-                    className="bg-gray-950/50 border-gray-700"
+                    className="bg-black border-white/10"
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label className="text-xs text-gray-400">Max HR (bpm)</Label>
+                  <Label className="text-xs text-white/50">Max HR (bpm)</Label>
                   <Input
                     id="sports-hr-max"
                     type="number"
@@ -964,16 +962,16 @@ export function LoggingModal({ isOpen, onClose, onSubmit, athleteName }: Logging
                     max="220"
                     value={sportsData.heartRateMax || ""}
                     onChange={(e) => setSportsData({...sportsData, heartRateMax: e.target.value ? parseInt(e.target.value) : undefined})}
-                    className="bg-gray-950/50 border-gray-700"
+                    className="bg-black border-white/10"
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label className="text-xs text-gray-400">Recovery Status</Label>
+                  <Label className="text-xs text-white/50">Recovery Status</Label>
                   <Select
                     id="recovery-status"
                     value={sportsData.recoveryStatus}
                     onChange={(e) => setSportsData({...sportsData, recoveryStatus: e.target.value})}
-                    className="bg-gray-950/50 border-gray-700"
+                    className="bg-black border-white/10"
                   >
                     {RECOVERY_STATUS_OPTIONS.map((option) => (
                       <option key={option.value} value={option.value}>
@@ -986,31 +984,35 @@ export function LoggingModal({ isOpen, onClose, onSubmit, athleteName }: Logging
             </div>
 
             {/* Injury Tracking */}
-            <div className="bg-gray-900/30 border border-gray-800 rounded-lg p-5">
+            <div className="bg-white/[0.02] border border-white/5 rounded-lg p-5">
               <div className="flex items-center justify-between mb-4">
                 <div>
-                  <h3 className="text-sm font-semibold text-gray-300 uppercase tracking-wide">
+                  <h3 className="text-sm font-semibold text-white/70 uppercase tracking-wide">
                     Injury Tracking
                   </h3>
-                  <p className="text-xs text-gray-500 mt-1">
+                  <p className="text-xs text-white/40 mt-1">
                     Log any injuries sustained during the match
                   </p>
                 </div>
-                <button
+                <Button
                   onClick={addInjury}
                   disabled={sportsData.injuries.length >= 9}
-                  className="flex items-center gap-2 px-3 py-1.5 bg-red-950/30 hover:bg-red-900/40 border border-red-800/50 rounded-md text-xs text-red-300 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                  size="sm"
+                  variant="outline"
+                  className="text-xs border-red-500/30 text-red-400 hover:bg-red-500/10"
                 >
-                  <Plus className="h-3.5 w-3.5" />
+                  <Plus className="h-3.5 w-3.5 mr-1.5" />
                   Add Injury
-                </button>
+                </Button>
               </div>
               
               {sportsData.injuries.length === 0 ? (
-                <div className="text-center py-8 border-2 border-dashed border-gray-700 rounded-lg">
-                  <AlertCircle className="h-8 w-8 text-gray-500 mx-auto mb-2" />
-                  <p className="text-sm text-gray-400">No injuries logged</p>
-                  <p className="text-xs text-gray-500 mt-1">Click "Add Injury" to track any injuries</p>
+                <div className="text-center py-8 border-2 border-dashed border-white/10 rounded-lg">
+                  <div className="h-12 w-12 rounded-lg bg-white/5 flex items-center justify-center mx-auto mb-3">
+                    <AlertCircle className="h-6 w-6 text-white/30" />
+                  </div>
+                  <p className="text-sm text-white/50">No injuries logged</p>
+                  <p className="text-xs text-white/30 mt-1">Click "Add Injury" to track any injuries</p>
                 </div>
               ) : (
                 <div className="grid grid-cols-3 gap-4">
@@ -1028,17 +1030,17 @@ export function LoggingModal({ isOpen, onClose, onSubmit, athleteName }: Logging
             </div>
 
             {/* Medical Attention */}
-            <div className="bg-gray-900/30 border border-gray-800 rounded-lg p-5">
-              <h3 className="text-sm font-semibold text-gray-300 uppercase tracking-wide mb-4">
+            <div className="bg-white/[0.02] border border-white/5 rounded-lg p-5">
+              <h3 className="text-sm font-semibold text-white/70 uppercase tracking-wide mb-4">
                 Medical Attention
               </h3>
               <div className="space-y-2">
-                <Label className="text-xs text-gray-400">Required Medical Attention</Label>
+                <Label className="text-xs text-white/50">Required Medical Attention</Label>
                 <Select
                   id="medical-attention"
                   value={sportsData.medicalAttention}
                   onChange={(e) => setSportsData({...sportsData, medicalAttention: e.target.value})}
-                  className="bg-gray-950/50 border-gray-700"
+                  className="bg-black border-white/10"
                 >
                   <option value="none">None</option>
                   <option value="on-field">On-field Treatment</option>
@@ -1050,8 +1052,8 @@ export function LoggingModal({ isOpen, onClose, onSubmit, athleteName }: Logging
             </div>
 
             {/* Additional Notes */}
-            <div className="bg-gray-900/30 border border-gray-800 rounded-lg p-5">
-              <h3 className="text-sm font-semibold text-gray-300 uppercase tracking-wide mb-4">
+            <div className="bg-white/[0.02] border border-white/5 rounded-lg p-5">
+              <h3 className="text-sm font-semibold text-white/70 uppercase tracking-wide mb-4">
                 Additional Notes
               </h3>
               <Textarea
@@ -1060,7 +1062,7 @@ export function LoggingModal({ isOpen, onClose, onSubmit, athleteName }: Logging
                 placeholder="Performance assessment, observations, concerns, recommendations..."
                 value={sportsData.coachFeedback}
                 onChange={(e) => setSportsData({...sportsData, coachFeedback: e.target.value})}
-                className="bg-gray-950/50 border-gray-700 resize-none"
+                className="bg-black border-white/10 resize-none"
               />
             </div>
           </div>
@@ -1069,11 +1071,11 @@ export function LoggingModal({ isOpen, onClose, onSubmit, athleteName }: Logging
 
       {/* Validation Errors */}
       {validationErrors.length > 0 && (
-        <div className="mt-6 p-4 bg-red-50 dark:bg-red-950/30 border-2 border-red-200 dark:border-red-800 rounded-lg animate-in fade-in duration-200">
+        <div className="mt-6 p-4 bg-red-500/10 border border-red-500/30 rounded-lg animate-in fade-in duration-200">
           <div className="flex items-start gap-3">
-            <AlertCircle className="h-5 w-5 text-red-600 flex-shrink-0 mt-0.5" />
+            <AlertCircle className="h-5 w-5 text-red-400 flex-shrink-0 mt-0.5" />
             <div className="flex-1">
-              <h4 className="text-sm font-semibold text-red-900 dark:text-red-100 mb-2 flex items-center gap-2">
+              <h4 className="text-sm font-medium text-white mb-2 flex items-center gap-2">
                 {activeTab === "workout" ? (
                   <>
                     <Dumbbell className="h-4 w-4" />
@@ -1088,7 +1090,7 @@ export function LoggingModal({ isOpen, onClose, onSubmit, athleteName }: Logging
               </h4>
               <ul className="list-disc list-inside space-y-1">
                 {validationErrors.map((error, index) => (
-                  <li key={index} className="text-sm text-red-800 dark:text-red-200">
+                  <li key={index} className="text-sm text-red-300">
                     {error}
                   </li>
                 ))}
@@ -1099,12 +1101,12 @@ export function LoggingModal({ isOpen, onClose, onSubmit, athleteName }: Logging
       )}
 
       {/* Action Buttons */}
-      <div className="flex items-center justify-end gap-3 mt-8 pt-6 border-t border-gray-200 dark:border-gray-700">
+      <div className="flex items-center justify-end gap-3 mt-8 pt-6 border-t border-white/10">
         <Button variant="outline" onClick={onClose} disabled={isSubmitting}>
           Cancel
         </Button>
         <Button 
-          variant="gradient" 
+          variant="default" 
           size="lg"
           onClick={handleSubmit}
           disabled={isSubmitting}

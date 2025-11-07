@@ -1052,18 +1052,13 @@ export default function InjuryAnalysisPage() {
               {/* Human Anatomy Visualization */}
               <Card className="border-red-500/20 flex-1 flex flex-col">
                 <CardHeader className="border-b border-white/10">
-                  <div className="flex items-start justify-between">
-                    <div>
-                      <CardTitle className="text-white flex items-center gap-2 text-lg">
-                        <div className="h-8 w-8 rounded-md bg-red-500/10 flex items-center justify-center">
-                          <Activity className="h-4 w-4 text-red-400" />
-                        </div>
-                        Body Injury Risk Map
-                      </CardTitle>
-                      <CardDescription>
-                        Interactive visualization showing injury-prone areas. Click body parts for details.
-                      </CardDescription>
-                    </div>
+                  <div className="flex items-center justify-between">
+                    <CardTitle className="text-white flex items-center gap-2 text-lg">
+                      <div className="h-8 w-8 rounded-md bg-red-500/10 flex items-center justify-center">
+                        <Activity className="h-4 w-4 text-red-400" />
+                      </div>
+                      Risk & Injury Breakdown
+                    </CardTitle>
                     {showResults && (
                       <div className="flex gap-2">
                         {[
@@ -1085,46 +1080,24 @@ export default function InjuryAnalysisPage() {
                 </CardHeader>
                   <CardContent className="flex-1 flex flex-col pt-5">
                   <div className="bg-black rounded-lg p-8 flex items-center justify-center border border-white/5 flex-1 relative">
-                    {/* Injury & High Risk Alert Banner */}
-                    {showResults && (injuryRiskData.filter(d => d.isInjured).length > 0 || injuryRiskData.filter(d => d.percentage >= 60).length > 0) && (
-                      <div className="absolute top-4 left-4 right-4 z-10 space-y-2">
-                        {/* Active Injuries Alert */}
-                        {injuryRiskData.filter(d => d.isInjured).length > 0 && (
-                          <div className="bg-purple-500/10 border border-purple-500/20 rounded-md p-3 backdrop-blur-sm animate-in fade-in slide-in-from-top duration-500">
-                            <div className="flex items-center gap-3">
-                              <div className="flex-shrink-0">
-                                <AlertTriangle className="h-5 w-5 text-purple-400 animate-pulse" />
-                              </div>
-                              <div className="flex-1">
-                                <p className="text-sm font-medium text-white">
-                                  {injuryRiskData.filter(d => d.isInjured).length} Active Injur{injuryRiskData.filter(d => d.isInjured).length > 1 ? 'ies' : 'y'} Detected
-                                </p>
-                                <p className="text-xs text-purple-300 mt-0.5">
-                                  Purple areas indicate recent injuries (last 7 days)
-                                </p>
-                              </div>
+                    {/* High Risk Alert Banner */}
+                    {showResults && injuryRiskData.filter(d => !d.isInjured && d.percentage >= 60).length > 0 && (
+                      <div className="absolute top-4 left-4 right-4 z-10">
+                        <div className="bg-red-500/10 border border-red-500/20 rounded-md p-3 backdrop-blur-sm animate-in fade-in slide-in-from-top duration-500">
+                          <div className="flex items-center gap-3">
+                            <div className="flex-shrink-0">
+                              <AlertTriangle className="h-5 w-5 text-red-400 animate-pulse" />
+                            </div>
+                            <div className="flex-1">
+                              <p className="text-sm font-medium text-white">
+                                {injuryRiskData.filter(d => !d.isInjured && d.percentage >= 60).length} High Risk Area{injuryRiskData.filter(d => !d.isInjured && d.percentage >= 60).length > 1 ? 's' : ''} Detected
+                              </p>
+                              <p className="text-xs text-red-300 mt-0.5">
+                                Click highlighted areas for detailed analysis
+                              </p>
                             </div>
                           </div>
-                        )}
-                        
-                        {/* High Risk Alert */}
-                        {injuryRiskData.filter(d => !d.isInjured && d.percentage >= 60).length > 0 && (
-                          <div className="bg-red-500/10 border border-red-500/20 rounded-md p-3 backdrop-blur-sm animate-in fade-in slide-in-from-top duration-500">
-                            <div className="flex items-center gap-3">
-                              <div className="flex-shrink-0">
-                                <AlertTriangle className="h-5 w-5 text-red-400 animate-pulse" />
-                              </div>
-                              <div className="flex-1">
-                                <p className="text-sm font-medium text-white">
-                                  {injuryRiskData.filter(d => !d.isInjured && d.percentage >= 60).length} High Risk Area{injuryRiskData.filter(d => !d.isInjured && d.percentage >= 60).length > 1 ? 's' : ''} Detected
-                                </p>
-                                <p className="text-xs text-red-300 mt-0.5">
-                                  Click highlighted areas for detailed analysis
-                                </p>
-                              </div>
-                            </div>
-                          </div>
-                        )}
+                        </div>
                       </div>
                     )}
                     <HumanAnatomy 
@@ -1358,7 +1331,7 @@ export default function InjuryAnalysisPage() {
                   </Button>
                 </div>
               ) : (
-                <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+                <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 pt-5">
                   {logs.map((log, index) => (
                     <div 
                       key={(log as any).id || index}

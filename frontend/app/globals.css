@@ -193,3 +193,61 @@ body {
 .injury-tooltip::-webkit-scrollbar-thumb:hover {
   background: rgba(38, 38, 38, 0.9);
 }
+
+/* Chart.js Custom Styling (Black Dashboard Theme) */
+canvas {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.chart-area {
+  position: relative;
+  width: 100%;
+  min-height: 300px;
+}
+
+/* Card styling for chart cards */
+.card-chart {
+  background: linear-gradient(180deg, #27293d 0%, #1e1e2e 100%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 0.875rem;
+  transition: all 0.3s ease;
+}
+
+.card-chart:hover {
+  border-color: rgba(29, 140, 248, 0.3);
+  box-shadow: 0 4px 20px rgba(29, 140, 248, 0.1);
+}
+
+/* Chart legends */
+.chartjs-legend {
+  display: flex;
+  justify-content: center;
+  padding: 15px 0;
+}
+
+.chartjs-legend ul {
+  display: flex;
+  gap: 20px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.chartjs-legend li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #9a9a9a;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.chartjs-legend li span {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  display: inline-block;
+}

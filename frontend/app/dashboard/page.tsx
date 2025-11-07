@@ -144,8 +144,11 @@ export default function DashboardPage() {
                 </CardContent>
               </Card>
 
-              {/* Athlete Roster - Coming Soon */}
-              <Card className="group hover:border-white/10 transition-colors relative">
+              {/* Athlete Roster - ACTIVE */}
+              <Card 
+                className="group hover:border-white/10 transition-colors cursor-pointer border-blue-500/20"
+                onClick={() => router.push('/athlete-roster')}
+              >
                 <CardHeader>
                   <div className="h-10 w-10 bg-blue-500/10 rounded-md flex items-center justify-center mb-4 group-hover:bg-blue-500/20 transition-colors">
                     <Users className="h-5 w-5 text-blue-400" />
@@ -156,22 +159,22 @@ export default function DashboardPage() {
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <div className="inline-flex items-center gap-1.5 px-2 py-1 bg-white/5 border border-white/10 rounded-md">
-                    <Clock className="h-3 w-3 text-white/50" />
-                    <span className="text-xs font-medium text-white/50">Coming Soon</span>
+                  <div className="inline-flex items-center gap-1.5 px-2 py-1 bg-green-500/10 border border-green-500/20 rounded-md">
+                    <div className="h-1.5 w-1.5 bg-green-400 rounded-full animate-pulse"></div>
+                    <span className="text-xs font-medium text-green-400">Active</span>
                   </div>
                 </CardContent>
               </Card>
 
-              {/* Recovery Monitoring - Coming Soon */}
+              {/* Performance Analysis - Coming Soon */}
               <Card className="group hover:border-white/10 transition-colors relative">
                 <CardHeader>
                   <div className="h-10 w-10 bg-purple-500/10 rounded-md flex items-center justify-center mb-4 group-hover:bg-purple-500/20 transition-colors">
-                    <Clock className="h-5 w-5 text-purple-400" />
+                    <TrendingUp className="h-5 w-5 text-purple-400" />
                   </div>
-                  <CardTitle>Recovery Monitoring</CardTitle>
+                  <CardTitle>Performance Analysis</CardTitle>
                   <CardDescription>
-                    Track recovery metrics and optimize rest periods
+                    Track performance metrics and optimize training
                   </CardDescription>
                 </CardHeader>
                 <CardContent>

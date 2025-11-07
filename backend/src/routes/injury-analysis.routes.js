@@ -453,6 +453,56 @@ router.delete('/activities/:activityId', async (req, res) => {
 });
 
 /**
+ * GET /api/athletes/:athleteId/body-part-workloads
+ * Get all body part workload history for an athlete
+ */
+router.get('/athletes/:athleteId/body-part-workloads', async (req, res) => {
+  try {
+    const { athleteId } = req.params;
+    const { limit = 100 } = req.query;
+
+    const { data, error } = await supabase
+      .from('body_part_workload')
+      .select('*')
+      .eq('athlete_id', athleteId)
+      .order('date', { ascending: false })
+      .limit(limit);
+
+    if (error) throw error;
+
+    res.json({ success: true, data });
+  } catch (error) {
+    console.error('[Injury Analysis] Error fetching body part workloads:', error);
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
+
+/**
+ * GET /api/athletes/:athleteId/injury-risk-history
+ * Get injury risk snapshots history for an athlete
+ */
+router.get('/athletes/:athleteId/injury-risk-history', async (req, res) => {
+  try {
+    const { athleteId } = req.params;
+    const { limit = 30 } = req.query;
+
+    const { data, error } = await supabase
+      .from('injury_risk_snapshots')
+      .select('*')
+      .eq('athlete_id', athleteId)
+      .order('date', { ascending: false })
+      .limit(limit);
+
+    if (error) throw error;
+
+    res.json({ success: true, data });
+  } catch (error) {
+    console.error('[Injury Analysis] Error fetching injury risk history:', error);
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
+
+/**
  * POST /api/recovery/daily-update
  * Daily recovery task - updates recovery rates for all athletes
  * In production, this would be triggered by a cron job

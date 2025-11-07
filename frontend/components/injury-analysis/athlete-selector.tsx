@@ -26,10 +26,10 @@ export function AthleteSelector({
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case "active": return "bg-green-500";
-      case "recovering": return "bg-amber-500";
-      case "injured": return "bg-red-500";
-      default: return "bg-gray-500";
+      case "active": return "bg-green-400";
+      case "recovering": return "bg-amber-400";
+      case "injured": return "bg-red-400";
+      default: return "bg-white/30";
     }
   };
 
@@ -40,18 +40,18 @@ export function AthleteSelector({
         variant="outline"
         size="lg"
         onClick={() => setIsOpen(!isOpen)}
-        className="w-full justify-between bg-gray-900 border-gray-700 text-white hover:bg-gray-800 hover:border-gray-600"
+        className="w-full justify-between bg-white/[0.10] border-white/10 text-white hover:bg-white/5 hover:border-white/20 h-[47]"
       >
-        <div className="flex items-center gap-2">
-          <div className="h-8 w-8 rounded-full bg-blue-600 flex items-center justify-center text-sm font-bold">
+        <div className="flex items-center gap-3">
+          <div className="h-8 w-8 rounded-full bg-blue-500/10 flex items-center justify-center text-sm font-bold text-blue-400 border border-blue-500/20">
             {selectedAthlete ? selectedAthlete.name.split(' ').map(n => n[0]).join('').substring(0, 2) : '?'}
           </div>
           <div className="text-left">
-            <p className="text-sm font-semibold">
+            <p className="text-sm font-medium">
               {selectedAthlete ? selectedAthlete.name : 'Select Athlete'}
             </p>
             {selectedAthlete && (
-              <p className="text-xs text-gray-400">
+              <p className="text-xs text-white/50">
                 {selectedAthlete.primary_sport} • {selectedAthlete.position || 'No position'}
               </p>
             )}
@@ -70,20 +70,21 @@ export function AthleteSelector({
           />
 
           {/* Dropdown Content */}
-          <div className="absolute top-full left-0 right-0 mt-2 bg-gray-900 border border-gray-700 rounded-lg shadow-xl z-50 max-h-96 overflow-y-auto">
+          <div className="absolute top-full left-0 right-0 mt-2 bg-black border border-white/10 rounded-lg shadow-xl z-50 max-h-96 overflow-y-auto">
             {/* Athletes List */}
             <div className="p-2">
               {athletes.length === 0 ? (
                 <div className="px-4 py-8 text-center">
-                  <User className="h-12 w-12 text-gray-600 mx-auto mb-3" />
-                  <p className="text-sm text-gray-400 mb-4">No athletes yet</p>
+                  <div className="h-12 w-12 rounded-lg bg-blue-500/10 flex items-center justify-center mx-auto mb-3">
+                    <User className="h-6 w-6 text-blue-400" />
+                  </div>
+                  <p className="text-sm text-white/50 mb-4">No athletes yet</p>
                   <Button
                     size="sm"
                     onClick={() => {
                       setIsOpen(false);
                       onCreateAthlete();
                     }}
-                    className="bg-blue-600 hover:bg-blue-700"
                   >
                     <Plus className="h-4 w-4 mr-2" />
                     Create First Athlete
@@ -94,8 +95,8 @@ export function AthleteSelector({
                   {athletes.map((athlete) => (
                     <div
                       key={athlete.id}
-                      className={`group relative flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gray-800 transition-colors ${
-                        selectedAthlete?.id === athlete.id ? 'bg-gray-800 border border-blue-500' : ''
+                      className={`group relative flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-white/5 transition-colors ${
+                        selectedAthlete?.id === athlete.id ? 'bg-white/[0.03] border border-blue-500/30' : ''
                       }`}
                     >
                       <button
@@ -107,23 +108,23 @@ export function AthleteSelector({
                       >
                         {/* Avatar */}
                         <div className="relative">
-                          <div className="h-10 w-10 rounded-full bg-gradient-to-br from-blue-600 to-blue-700 flex items-center justify-center text-sm font-bold text-white">
+                          <div className="h-10 w-10 rounded-full bg-blue-500/10 flex items-center justify-center text-sm font-bold text-blue-400 border border-blue-500/20">
                             {athlete.name.split(' ').map(n => n[0]).join('').substring(0, 2)}
                           </div>
-                          <div className={`absolute -bottom-0.5 -right-0.5 h-3 w-3 rounded-full border-2 border-gray-900 ${getStatusColor(athlete.status)}`} />
+                          <div className={`absolute -bottom-0.5 -right-0.5 h-3 w-3 rounded-full border-2 border-black ${getStatusColor(athlete.status)}`} />
                         </div>
 
                         {/* Info */}
                         <div className="flex-1 min-w-0">
                           <div className="flex items-center gap-2">
-                            <p className="text-sm font-semibold text-white truncate">
+                            <p className="text-sm font-medium text-white truncate">
                               {athlete.name}
                             </p>
                             {selectedAthlete?.id === athlete.id && (
-                              <CheckCircle className="h-4 w-4 text-blue-500 flex-shrink-0" />
+                              <CheckCircle className="h-4 w-4 text-blue-400 flex-shrink-0" />
                             )}
                           </div>
-                          <p className="text-xs text-gray-400 truncate">
+                          <p className="text-xs text-white/50 truncate">
                             {athlete.primary_sport} 
                             {athlete.position && ` • ${athlete.position}`}
                             {athlete.team && ` • ${athlete.team}`}
@@ -139,7 +140,7 @@ export function AthleteSelector({
                             setIsOpen(false);
                             onEditAthlete(athlete);
                           }}
-                          className="p-1.5 hover:bg-gray-700 rounded text-gray-400 hover:text-blue-400"
+                          className="p-1.5 hover:bg-white/5 rounded text-white/50 hover:text-blue-400"
                           title="Edit"
                         >
                           <Edit className="h-4 w-4" />
@@ -152,7 +153,7 @@ export function AthleteSelector({
                                 onDeleteAthlete(athlete);
                               }
                             }}
-                            className="p-1.5 hover:bg-gray-700 rounded text-gray-400 hover:text-red-400"
+                            className="p-1.5 hover:bg-white/5 rounded text-white/50 hover:text-red-400"
                             title="Delete"
                           >
                             <Trash2 className="h-4 w-4" />
@@ -168,7 +169,7 @@ export function AthleteSelector({
                       setIsOpen(false);
                       onCreateAthlete();
                     }}
-                    className="w-full flex items-center gap-2 px-3 py-2 mt-2 text-sm text-blue-400 hover:bg-gray-800 rounded-lg transition-colors border-t border-gray-800 pt-3"
+                    className="w-full flex items-center gap-2 px-3 py-2.5 mt-2 text-sm text-blue-400 hover:bg-white/5 rounded-lg transition-colors border-t border-white/5 pt-3 font-medium"
                   >
                     <Plus className="h-4 w-4" />
                     Add New Athlete
