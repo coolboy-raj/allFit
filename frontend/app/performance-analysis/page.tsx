@@ -36,6 +36,7 @@ import {
   Legend,
   Filler,
 } from 'chart.js';
+
 import { Line, Bar } from 'react-chartjs-2';
 import {
   createLineChartData,
@@ -45,7 +46,11 @@ import {
   lineChartOptions,
   barChartOptions,
   multiLineChartOptions,
+  multiBarChartOptions,
+  CHART_COLORS,
 } from '@/lib/performance-charts';
+
+import { allExamples } from '@/lib/chart-examples';
 
 // Register Chart.js components
 ChartJS.register(
@@ -75,6 +80,14 @@ export default function PerformanceAnalysisPage() {
   const weeklyChartRef = useRef<ChartJS<'bar'>>(null);
   const riskChartRef = useRef<ChartJS<'line'>>(null);
   const bodyPartChartRef = useRef<ChartJS<'bar'>>(null);
+
+  // Chart refs
+  const chart1Ref = useRef<ChartJS<'line'>>(null);
+  const chart2Ref = useRef<ChartJS<'bar'>>(null);
+  const chart3Ref = useRef<ChartJS<'line'>>(null);
+  const chart4Ref = useRef<ChartJS<'line'>>(null);
+  const chart5Ref = useRef<ChartJS<'bar'>>(null);
+  const chart6Ref = useRef<ChartJS<'line'>>(null);
 
   useEffect(() => {
     if (!isAuthenticated()) {
@@ -511,127 +524,166 @@ export default function PerformanceAnalysisPage() {
             {/* Main Charts Row */}
             <div className="grid lg:grid-cols-2 gap-6">
               {/* Daily Activity Pattern */}
-              <Card className="border-white/10 bg-[#27293d]">
-                <CardHeader className="border-b border-white/5 pb-4">
-                  <div>
-                    <CardTitle className="text-white text-lg font-semibold flex items-center gap-2">
-                      <div className="p-2 bg-blue-500/10 rounded-lg border border-blue-500/20">
-                        <Calendar className="h-4 w-4 text-blue-400" />
-                      </div>
-                      Daily Activity Pattern
-                    </CardTitle>
-                    <CardDescription className="mt-2 text-white/40">Training frequency over last 30 days</CardDescription>
-                  </div>
-                </CardHeader>
-                <CardContent className="pt-6">
-                  <div className="h-[300px]">
-                    <Line
-                      ref={dailyChartRef}
-                      data={(canvas) => createLineChartData(canvas, dailyActivityData.labels, dailyActivityData.data, '#1f8ef1') || { labels: [], datasets: [] }}
-                      options={lineChartOptions}
-                    />
-                  </div>
-                </CardContent>
-              </Card>
+            <Card className="border-white/10 bg-[#27293d]">
+              <CardHeader className="border-b border-white/5 pb-4">
+                <div>
+                  <CardTitle className="text-white text-lg font-semibold flex items-center gap-2">
+                    <div className="p-2 bg-blue-500/10 rounded-lg border border-blue-500/20">
+                      <TrendingUp className="h-4 w-4 text-blue-400" />
+                    </div>
+                    {allExamples.performanceTrend.title}
+                  </CardTitle>
+                  <CardDescription className="mt-2 text-white/40">
+                    {allExamples.performanceTrend.description}
+                  </CardDescription>
+                </div>
+              </CardHeader>
+              <CardContent className="pt-6">
+                <div className="h-[300px]">
+                  <Line
+                    ref={chart1Ref}
+                    data={(canvas) => createLineChartData(
+                      canvas,
+                      allExamples.performanceTrend.sampleData.labels,
+                      allExamples.performanceTrend.sampleData.data,
+                      allExamples.performanceTrend.color
+                    ) || { labels: [], datasets: [] }}
+                    options={lineChartOptions}
+                  />
+                </div>
+              </CardContent>
+            </Card>
+
 
               {/* Weekly Volume */}
               <Card className="border-white/10 bg-[#27293d]">
-                <CardHeader className="border-b border-white/5 pb-4">
-                  <div>
-                    <CardTitle className="text-white text-lg font-semibold flex items-center gap-2">
-                      <div className="p-2 bg-purple-500/10 rounded-lg border border-purple-500/20">
-                        <BarChart3 className="h-4 w-4 text-purple-400" />
-                      </div>
-                      Weekly Training Volume
-                    </CardTitle>
-                    <CardDescription className="mt-2 text-white/40">Workouts vs Sports activities by week</CardDescription>
-                  </div>
-                </CardHeader>
-                <CardContent className="pt-6">
-                  <div className="h-[300px]">
-                    <Bar
-                      ref={weeklyChartRef}
-                      data={(canvas) => createMultiBarChartData(canvas, weeklyVolumeData.labels, [
-                        { label: 'Workouts', data: weeklyVolumeData.workouts, color: '#1f8ef1' },
-                        { label: 'Sports', data: weeklyVolumeData.sports, color: '#e14eca' },
-                      ]) || { labels: [], datasets: [] }}
-                      options={{
-                        ...barChartOptions,
-                        plugins: {
-                          ...barChartOptions.plugins,
-                          legend: {
-                            display: true,
-                            labels: {
-                              color: '#9a9a9a',
-                              padding: 15,
-                            },
-                          },
-                        },
-                      }}
-                    />
-                  </div>
-                </CardContent>
-              </Card>
+              <CardHeader className="border-b border-white/5 pb-4">
+                <div>
+                  <CardTitle className="text-white text-lg font-semibold flex items-center gap-2">
+                    <div className="p-2 bg-purple-500/10 rounded-lg border border-purple-500/20">
+                      <BarChart3 className="h-4 w-4 text-purple-400" />
+                    </div>
+                    {allExamples.trainingVolume.title}
+                  </CardTitle>
+                  <CardDescription className="mt-2 text-white/40">
+                    {allExamples.trainingVolume.description}
+                  </CardDescription>
+                </div>
+              </CardHeader>
+              <CardContent className="pt-6">
+                <div className="h-[300px]">
+                  <Bar
+                    ref={chart2Ref}
+                    data={(canvas) => createBarChartData(
+                      canvas,
+                      allExamples.trainingVolume.sampleData.labels,
+                      allExamples.trainingVolume.sampleData.data,
+                      allExamples.trainingVolume.color
+                    ) || { labels: [], datasets: [] }}
+                    options={barChartOptions}
+                  />
+                </div>
+              </CardContent>
+            </Card>
             </div>
 
             {/* Risk and Body Part Analysis */}
             <div className="grid lg:grid-cols-2 gap-6">
               {/* Injury Risk Trend */}
               {riskLoadData.labels.length > 0 && (
-                <Card className="border-white/10 bg-[#27293d]">
-                  <CardHeader className="border-b border-white/5 pb-4">
-                    <div>
-                      <CardTitle className="text-white text-lg font-semibold flex items-center gap-2">
-                        <div className="p-2 bg-red-500/10 rounded-lg border border-red-500/20">
-                          <AlertTriangle className="h-4 w-4 text-red-400" />
-                        </div>
-                        Injury Risk & Recovery Trend
-                      </CardTitle>
-                      <CardDescription className="mt-2 text-white/40">Track risk levels with training load and recovery</CardDescription>
-                    </div>
-                  </CardHeader>
-                  <CardContent className="pt-6">
-                    <div className="h-[300px]">
-                      <Line
-                        ref={riskChartRef}
-                        data={(canvas) => createMultiLineChartData(canvas, riskLoadData.labels, [
-                          { label: 'Risk Score', data: riskLoadData.risk, color: '#fd5d93' },
-                          { label: 'Training Load', data: riskLoadData.trainingLoad, color: '#f96332' },
-                          { label: 'Recovery', data: riskLoadData.recovery, color: '#00f2c3' },
-                        ]) || { labels: [], datasets: [] }}
-                        options={multiLineChartOptions}
-                      />
-                    </div>
-                  </CardContent>
-                </Card>
+            <Card className="border-white/10 bg-[#27293d]">
+            <CardHeader className="border-b border-white/5 pb-4">
+              <div>
+                <CardTitle className="text-white text-lg font-semibold flex items-center gap-2">
+                  <div className="p-2 bg-green-500/10 rounded-lg border border-green-500/20">
+                    <Heart className="h-4 w-4 text-green-400" />
+                  </div>
+                  {allExamples.recoveryStatus.title}
+                </CardTitle>
+                <CardDescription className="mt-2 text-white/40">
+                  {allExamples.recoveryStatus.description}
+                </CardDescription>
+              </div>
+            </CardHeader>
+            <CardContent className="pt-6">
+              <div className="h-[300px]">
+                <Line
+                  ref={chart3Ref}
+                  data={(canvas) => createLineChartData(
+                    canvas,
+                    allExamples.recoveryStatus.sampleData.labels,
+                    allExamples.recoveryStatus.sampleData.data,
+                    allExamples.recoveryStatus.color
+                  ) || { labels: [], datasets: [] }}
+                  options={lineChartOptions}
+                />
+              </div>
+            </CardContent>
+          </Card>
               )}
 
               {/* Body Part Risk */}
               {bodyPartData.labels.length > 0 && (
-                <Card className="border-white/10 bg-[#27293d]">
-                  <CardHeader className="border-b border-white/5 pb-4">
-                    <div>
-                      <CardTitle className="text-white text-lg font-semibold flex items-center gap-2">
-                        <div className="p-2 bg-amber-500/10 rounded-lg border border-amber-500/20">
-                          <Target className="h-4 w-4 text-amber-400" />
-                        </div>
-                        Body Part Risk Analysis
-                      </CardTitle>
-                      <CardDescription className="mt-2 text-white/40">Current injury risk by body part</CardDescription>
-                    </div>
-                  </CardHeader>
-                  <CardContent className="pt-6">
-                    <div className="h-[300px]">
-                      <Bar
-                        ref={bodyPartChartRef}
-                        data={(canvas) => createBarChartData(canvas, bodyPartData.labels, bodyPartData.risk, '#d048b6') || { labels: [], datasets: [] }}
-                        options={barChartOptions}
-                      />
-                    </div>
-                  </CardContent>
-                </Card>
+            <Card className="border-white/10 bg-[#27293d]">
+            <CardHeader className="border-b border-white/5 pb-4">
+              <div>
+                <CardTitle className="text-white text-lg font-semibold flex items-center gap-2">
+                  <div className="p-2 bg-pink-500/10 rounded-lg border border-pink-500/20">
+                    <AlertTriangle className="h-4 w-4 text-pink-400" />
+                  </div>
+                  {allExamples.injuryRisk.title}
+                </CardTitle>
+                <CardDescription className="mt-2 text-white/40">
+                  {allExamples.injuryRisk.description}
+                </CardDescription>
+              </div>
+            </CardHeader>
+            <CardContent className="pt-6">
+              <div className="h-[300px]">
+                <Line
+                  ref={chart6Ref}
+                  data={(canvas) => createLineChartData(
+                    canvas,
+                    allExamples.injuryRisk.sampleData.labels,
+                    allExamples.injuryRisk.sampleData.data,
+                    allExamples.injuryRisk.color
+                  ) || { labels: [], datasets: [] }}
+                  options={lineChartOptions}
+                />
+              </div>
+            </CardContent>
+          </Card>
               )}
             </div>
+
+            <Card className="border-white/10 bg-[#27293d]">
+            <CardHeader className="border-b border-white/5 pb-4">
+              <div>
+                <CardTitle className="text-white text-lg font-semibold flex items-center gap-2">
+                  <div className="p-2 bg-blue-500/10 rounded-lg border border-blue-500/20">
+                    <Activity className="h-4 w-4 text-blue-400" />
+                  </div>
+                  {allExamples.multiMetric.title}
+                </CardTitle>
+                <CardDescription className="mt-2 text-white/40">
+                  {allExamples.multiMetric.description}
+                </CardDescription>
+              </div>
+            </CardHeader>
+            <CardContent className="pt-6">
+              <div className="h-[400px]">
+                <Line
+                  ref={chart4Ref}
+                  data={(canvas) => createMultiLineChartData(
+                    canvas,
+                    allExamples.multiMetric.sampleLabels,
+                    allExamples.multiMetric.datasets
+                  ) || { labels: [], datasets: [] }}
+                  options={multiLineChartOptions}
+                />
+              </div>
+            </CardContent>
+          </Card>
 
             {/* Summary Stats */}
             <Card className="border-white/10 bg-[#27293d]">
