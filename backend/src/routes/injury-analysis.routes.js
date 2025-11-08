@@ -596,5 +596,258 @@ router.post('/recovery/daily-update', async (req, res) => {
   }
 });
 
+/**
+ * GET /api/athletes/:athleteId/performance-metrics
+ * Get comprehensive performance metrics for charts
+ */
+router.get('/athletes/:athleteId/performance-metrics', async (req, res) => {
+  try {
+    const { athleteId } = req.params;
+    const { days = 90 } = req.query;
+
+    const startDate = new Date();
+    startDate.setDate(startDate.getDate() - days);
+    const startDateStr = startDate.toISOString().split('T')[0];
+
+    // Get all activities in date range
+    const { data: activities, error } = await supabase
+      .from('activity_logs')
+      .select('*')
+      .eq('athlete_id', athleteId)
+      .gte('date', startDateStr)
+      .order('date', { ascending: true });
+
+    if (error) throw error;
+
+    // Calculate metrics
+    const metrics = {
+      // Daily activity count (last 30 days)
+      dailyActivityCount: calculateDailyActivityCount(activities, 30),
+      
+      // Weekly training hours (last 12 weeks)
+      weeklyTrainingHours: calculateWeeklyTrainingHours(activities, 12),
+      
+      // Heart rate trend (last 30 days)
+      heartRateTrend: calculateHeartRateTrend(activities, 30),
+      
+      // Multi-metric comparison (last 30 days)
+      multiMetricComparison: calculateMultiMetricComparison(activities, 30),
+      
+      // Training intensity distribution (last 30 days)
+      intensityDistribution: calculateIntensityDistribution(activities, 30),
+    };
+
+    res.json({ success: true, data: metrics });
+  } catch (error) {
+    console.error('[Injury Analysis] Error fetching performance metrics:', error);
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
+
+// Helper functions for metric calculations
+function calculateDailyActivityCount(activities, days) {
+  const counts = {};
+  const today = new Date();
+  
+  // Initialize all days
+  for (let i = days - 1; i >= 0; i--) {
+    const date = new Date(today);
+    date.setDate(date.getDate() - i);
+    const dateStr = date.toISOString().split('T')[0];
+    counts[dateStr] = 0;
+  }
+  
+  // Count activities per day
+  activities.forEach(activity => {
+    if (counts.hasOwnProperty(activity.date)) {
+      counts[activity.date]++;
+    }
+  });
+  
+  const labels = Object.keys(counts).map(date => {
+    const d = new Date(date);
+    return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+  });
+  
+  return {
+    labels,
+    data: Object.values(counts),
+  };
+}
+
+function calculateWeeklyTrainingHours(activities, weeks) {
+  const weeklyData = {};
+  const today = new Date();
+  
+  // Initialize weeks
+  for (let i = weeks - 1; i >= 0; i--) {
+    const weekStart = new Date(today);
+    weekStart.setDate(weekStart.getDate() - (weekStart.getDay() + (7 * i)));
+    const weekKey = weekStart.toISOString().split('T')[0];
+    weeklyData[weekKey] = 0;
+  }
+  
+  // Sum duration by week
+  activities.forEach(activity => {
+    const date = new Date(activity.date);
+    const weekStart = new Date(date);
+    weekStart.setDate(date.getDate() - date.getDay());
+    const weekKey = weekStart.toISOString().split('T')[0];
+    
+    if (weeklyData.hasOwnProperty(weekKey)) {
+      weeklyData[weekKey] += (activity.duration || 0);
+    }
+  });
+  
+  const labels = Object.keys(weeklyData).map(date => {
+    const d = new Date(date);
+    return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+  });
+  
+  // Convert minutes to hours
+  const data = Object.values(weeklyData).map(minutes => Math.round(minutes / 60 * 10) / 10);
+  
+  return {
+    labels,
+    data,
+  };
+}
+
+function calculateHeartRateTrend(activities, days) {
+  const hrData = {};
+  const today = new Date();
+  
+  // Initialize all days
+  for (let i = days - 1; i >= 0; i--) {
+    const date = new Date(today);
+    date.setDate(date.getDate() - i);
+    const dateStr = date.toISOString().split('T')[0];
+    hrData[dateStr] = { sum: 0, count: 0 };
+  }
+  
+  // Calculate average HR per day
+  activities.forEach(activity => {
+    if (activity.heart_rate_avg && hrData.hasOwnProperty(activity.date)) {
+      hrData[activity.date].sum += activity.heart_rate_avg;
+      hrData[activity.date].count++;
+    }
+  });
+  
+  const labels = Object.keys(hrData).map(date => {
+    const d = new Date(date);
+    return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+  });
+  
+  const data = Object.values(hrData).map(day => 
+    day.count > 0 ? Math.round(day.sum / day.count) : null
+  );
+  
+  return {
+    labels,
+    data,
+  };
+}
+
+function calculateMultiMetricComparison(activities, days) {
+  const today = new Date();
+  const dailyData = {};
+  
+  // Initialize all days
+  for (let i = days - 1; i >= 0; i--) {
+    const date = new Date(today);
+    date.setDate(date.getDate() - i);
+    const dateStr = date.toISOString().split('T')[0];
+    dailyData[dateStr] = {
+      hrSum: 0, hrCount: 0,
+      caloriesSum: 0, caloriesCount: 0,
+      fatigueSum: 0, fatigueCount: 0,
+    };
+  }
+  
+  // Aggregate metrics per day
+  activities.forEach(activity => {
+    if (dailyData.hasOwnProperty(activity.date)) {
+      const day = dailyData[activity.date];
+      
+      if (activity.heart_rate_avg) {
+        day.hrSum += activity.heart_rate_avg;
+        day.hrCount++;
+      }
+      if (activity.calories_burned) {
+        day.caloriesSum += activity.calories_burned;
+        day.caloriesCount++;
+      }
+      if (activity.fatigue_level) {
+        day.fatigueSum += activity.fatigue_level;
+        day.fatigueCount++;
+      }
+    }
+  });
+  
+  const labels = Object.keys(dailyData).map(date => {
+    const d = new Date(date);
+    return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+  });
+  
+  return {
+    labels,
+    datasets: [
+      {
+        label: 'Heart Rate (bpm)',
+        data: Object.values(dailyData).map(d => 
+          d.hrCount > 0 ? Math.round(d.hrSum / d.hrCount) : null
+        ),
+        color: '#1f8ef1', // blue
+        fill: true,
+      },
+      {
+        label: 'Calories (x10)',
+        data: Object.values(dailyData).map(d => 
+          d.caloriesCount > 0 ? Math.round(d.caloriesSum / d.caloriesCount / 10) : null
+        ),
+        color: '#f96332', // orange
+        fill: false,
+      },
+      {
+        label: 'Fatigue Level (x10)',
+        data: Object.values(dailyData).map(d => 
+          d.fatigueCount > 0 ? Math.round((d.fatigueSum / d.fatigueCount) * 10) : null
+        ),
+        color: '#fd5d93', // pink
+        fill: false,
+      },
+    ],
+  };
+}
+
+function calculateIntensityDistribution(activities, days) {
+  const startDate = new Date();
+  startDate.setDate(startDate.getDate() - days);
+  
+  const recentActivities = activities.filter(a => 
+    new Date(a.date) >= startDate
+  );
+  
+  const intensityCounts = {
+    'very-light': 0,
+    'light': 0,
+    'moderate': 0,
+    'hard': 0,
+    'very-hard': 0,
+    'maximum': 0,
+  };
+  
+  recentActivities.forEach(activity => {
+    if (activity.intensity_level && intensityCounts.hasOwnProperty(activity.intensity_level)) {
+      intensityCounts[activity.intensity_level]++;
+    }
+  });
+  
+  return {
+    labels: ['Very Light', 'Light', 'Moderate', 'Hard', 'Very Hard', 'Maximum'],
+    data: Object.values(intensityCounts),
+  };
+}
+
 module.exports = router;
 

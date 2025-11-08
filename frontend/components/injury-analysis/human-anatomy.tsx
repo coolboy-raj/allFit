@@ -551,7 +551,7 @@ export function HumanAnatomy({
       <svg 
         id="right-leg" 
         className={partClass("right-leg")}
-        style={{ marginLeft: "-110px", top: "420px", zIndex: 9999 }}
+        style={{ marginLeft: "-110px", top: "420px" }}
         width="162" 
         height="350" 
         viewBox="0 0 162 756" 
@@ -596,7 +596,7 @@ export function HumanAnatomy({
       <svg 
         id="left-leg" 
         className={partClass("left-leg")}
-        style={{ marginLeft: "-10px", top: "415px", zIndex: 9999 }}
+        style={{ marginLeft: "-10px", top: "415px" }}
         width="156" 
         height="350" 
         viewBox="0 0 156 769" 

@@ -42,15 +42,11 @@ import {
   createLineChartData,
   createBarChartData,
   createMultiLineChartData,
-  createMultiBarChartData,
   lineChartOptions,
   barChartOptions,
   multiLineChartOptions,
-  multiBarChartOptions,
   CHART_COLORS,
 } from '@/lib/performance-charts';
-
-import { allExamples } from '@/lib/chart-examples';
 
 // Register Chart.js components
 ChartJS.register(
@@ -74,20 +70,14 @@ export default function PerformanceAnalysisPage() {
   const [activities, setActivities] = useState<any[]>([]);
   const [injuryRiskHistory, setInjuryRiskHistory] = useState<any[]>([]);
   const [bodyPartWorkloads, setBodyPartWorkloads] = useState<any[]>([]);
-
-  // Chart refs
-  const dailyChartRef = useRef<ChartJS<'line'>>(null);
-  const weeklyChartRef = useRef<ChartJS<'bar'>>(null);
-  const riskChartRef = useRef<ChartJS<'line'>>(null);
-  const bodyPartChartRef = useRef<ChartJS<'bar'>>(null);
+  const [performanceMetrics, setPerformanceMetrics] = useState<any>(null);
 
   // Chart refs
   const chart1Ref = useRef<ChartJS<'line'>>(null);
   const chart2Ref = useRef<ChartJS<'bar'>>(null);
   const chart3Ref = useRef<ChartJS<'line'>>(null);
   const chart4Ref = useRef<ChartJS<'line'>>(null);
-  const chart5Ref = useRef<ChartJS<'bar'>>(null);
-  const chart6Ref = useRef<ChartJS<'line'>>(null);
+  const chart6Ref = useRef<ChartJS<'bar'>>(null);
 
   useEffect(() => {
     if (!isAuthenticated()) {
@@ -155,6 +145,17 @@ export default function PerformanceAnalysisPage() {
       } catch (e) {
         console.log('Injury risk history not available');
       }
+
+      // Fetch performance metrics for charts
+      try {
+        const metricsResponse = await fetch(`http://localhost:5000/api/athletes/${athleteId}/performance-metrics?days=90`);
+        if (metricsResponse.ok) {
+          const metricsResult = await metricsResponse.json();
+          setPerformanceMetrics(metricsResult.data || null);
+        }
+      } catch (e) {
+        console.log('Performance metrics not available');
+      }
     } catch (error) {
       console.error('Error loading performance data:', error);
     } finally {
@@ -162,120 +163,6 @@ export default function PerformanceAnalysisPage() {
     }
   }
 
-  // Daily activity data
-  const dailyActivityData = useMemo(() => {
-    if (!activities.length) return { labels: [], data: [] };
-
-    const last30Days: any[] = [];
-    const today = new Date();
-    
-    for (let i = 29; i >= 0; i--) {
-      const date = new Date(today);
-      date.setDate(date.getDate() - i);
-      const dateStr = date.toISOString().split('T')[0];
-      
-      const dayActivities = activities.filter(a => a.date === dateStr);
-
-      last30Days.push({
-        date: date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }),
-        count: dayActivities.length,
-      });
-    }
-
-    return {
-      labels: last30Days.map(d => d.date),
-      data: last30Days.map(d => d.count),
-    };
-  }, [activities]);
-
-  // Weekly volume data
-  const weeklyVolumeData = useMemo(() => {
-    if (!activities.length) return { labels: [], workouts: [], sports: [] };
-
-    const weeklyData: { [key: string]: { workouts: number; sports: number } } = {};
-    
-    activities.forEach(activity => {
-      const date = new Date(activity.date);
-      const weekStart = new Date(date);
-      weekStart.setDate(date.getDate() - date.getDay());
-      const weekKey = weekStart.toISOString().split('T')[0];
-
-      if (!weeklyData[weekKey]) {
-        weeklyData[weekKey] = { workouts: 0, sports: 0 };
-      }
-
-      if (activity.activity_type === 'workout') {
-        weeklyData[weekKey].workouts++;
-      } else {
-        weeklyData[weekKey].sports++;
-      }
-    });
-
-    const sorted = Object.entries(weeklyData)
-      .map(([date, data]) => ({
-        week: new Date(date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }),
-        workouts: data.workouts,
-        sports: data.sports,
-      }))
-      .slice(-12);
-
-    return {
-      labels: sorted.map(d => d.week),
-      workouts: sorted.map(d => d.workouts),
-      sports: sorted.map(d => d.sports),
-    };
-  }, [activities]);
-
-  // Risk and load data
-  const riskLoadData = useMemo(() => {
-    if (!injuryRiskHistory.length) return { labels: [], risk: [], trainingLoad: [], recovery: [] };
-
-    const data = injuryRiskHistory
-      .slice(-20)
-      .reverse()
-      .map((snapshot: any) => ({
-        date: new Date(snapshot.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }),
-        risk: snapshot.overall_risk_score,
-        trainingLoad: Math.round(snapshot.training_load_score || 0),
-        recovery: Math.round(snapshot.recovery_score || 100),
-      }));
-
-    return {
-      labels: data.map(d => d.date),
-      risk: data.map(d => d.risk),
-      trainingLoad: data.map(d => d.trainingLoad),
-      recovery: data.map(d => d.recovery),
-    };
-  }, [injuryRiskHistory]);
-
-  // Body part data
-  const bodyPartData = useMemo(() => {
-    if (!bodyPartWorkloads.length) return { labels: [], risk: [] };
-
-    const latestWorkloads: { [key: string]: any } = {};
-    
-    bodyPartWorkloads.forEach(workload => {
-      const part = workload.body_part;
-      if (!latestWorkloads[part] || new Date(workload.date) > new Date(latestWorkloads[part].date)) {
-        latestWorkloads[part] = workload;
-      }
-    });
-
-    const sorted = Object.values(latestWorkloads)
-      .map((w: any) => ({
-        name: w.body_part.replace('-', ' ').split(' ').map((word: string) => 
-          word.charAt(0).toUpperCase() + word.slice(1)
-        ).join(' '),
-        risk: w.injury_risk_percentage,
-      }))
-      .sort((a, b) => b.risk - a.risk)
-      .slice(0, 8);
-
-    return {
-      labels: sorted.map(d => d.name),
-      risk: sorted.map(d => d.risk),
-    };
-  }, [bodyPartWorkloads]);
 
   // Performance metrics
   const metrics = useMemo(() => {
@@ -526,158 +413,184 @@ export default function PerformanceAnalysisPage() {
               <CardHeader>
                 <div className="flex items-center gap-3">
                   <div className="h-9 w-9 bg-blue-500/10 rounded-md flex items-center justify-center">
-                    <TrendingUp className="h-4 w-4 text-blue-400" />
+                    <Calendar className="h-4 w-4 text-blue-400" />
                   </div>
                   <div>
-                    <CardTitle className="text-base">{allExamples.performanceTrend.title}</CardTitle>
+                    <CardTitle className="text-base">Daily Activity Frequency</CardTitle>
                   </div>
                 </div>
                 <CardDescription className="mt-2">
-                  {allExamples.performanceTrend.description}
+                  Number of activities per day over the last 30 days
                 </CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="h-[300px]">
-                  <Line
-                    ref={chart1Ref}
-                    data={(canvas) => createLineChartData(
-                      canvas,
-                      allExamples.performanceTrend.sampleData.labels,
-                      allExamples.performanceTrend.sampleData.data,
-                      allExamples.performanceTrend.color
-                    ) || { labels: [], datasets: [] }}
-                    options={lineChartOptions}
-                  />
+                  {performanceMetrics?.dailyActivityCount ? (
+                    <Line
+                      ref={chart1Ref}
+                      data={(canvas) => createLineChartData(
+                        canvas,
+                        performanceMetrics.dailyActivityCount.labels,
+                        performanceMetrics.dailyActivityCount.data,
+                        CHART_COLORS.blue
+                      ) || { labels: [], datasets: [] }}
+                      options={lineChartOptions}
+                    />
+                  ) : (
+                    <div className="flex items-center justify-center h-full text-white/40">
+                      No activity data available
+                    </div>
+                  )}
                 </div>
               </CardContent>
             </Card>
 
-              {/* Weekly Volume */}
+              {/* Weekly Training Hours */}
               <Card>
               <CardHeader>
                 <div className="flex items-center gap-3">
                   <div className="h-9 w-9 bg-purple-500/10 rounded-md flex items-center justify-center">
-                    <BarChart3 className="h-4 w-4 text-purple-400" />
+                    <Timer className="h-4 w-4 text-purple-400" />
                   </div>
                   <div>
-                    <CardTitle className="text-base">{allExamples.trainingVolume.title}</CardTitle>
+                    <CardTitle className="text-base">Weekly Training Hours</CardTitle>
                   </div>
                 </div>
                 <CardDescription className="mt-2">
-                  {allExamples.trainingVolume.description}
+                  Total training time per week over the last 12 weeks
                 </CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="h-[300px]">
-                  <Bar
-                    ref={chart2Ref}
-                    data={(canvas) => createBarChartData(
-                      canvas,
-                      allExamples.trainingVolume.sampleData.labels,
-                      allExamples.trainingVolume.sampleData.data,
-                      allExamples.trainingVolume.color
-                    ) || { labels: [], datasets: [] }}
-                    options={barChartOptions}
-                  />
+                  {performanceMetrics?.weeklyTrainingHours ? (
+                    <Bar
+                      ref={chart2Ref}
+                      data={(canvas) => createBarChartData(
+                        canvas,
+                        performanceMetrics.weeklyTrainingHours.labels,
+                        performanceMetrics.weeklyTrainingHours.data,
+                        CHART_COLORS.purple
+                      ) || { labels: [], datasets: [] }}
+                      options={barChartOptions}
+                    />
+                  ) : (
+                    <div className="flex items-center justify-center h-full text-white/40">
+                      No training data available
+                    </div>
+                  )}
                 </div>
               </CardContent>
             </Card>
             </div>
 
-            {/* Risk and Body Part Analysis */}
+            {/* Secondary Metrics Row */}
             <div className="grid lg:grid-cols-2 gap-4">
-              {/* Injury Risk Trend */}
-              {riskLoadData.labels.length > 0 && (
+              {/* Heart Rate Trend */}
             <Card>
             <CardHeader>
               <div className="flex items-center gap-3">
-                <div className="h-9 w-9 bg-green-500/10 rounded-md flex items-center justify-center">
-                  <Heart className="h-4 w-4 text-green-400" />
+                <div className="h-9 w-9 bg-red-500/10 rounded-md flex items-center justify-center">
+                  <Heart className="h-4 w-4 text-red-400" />
                 </div>
                 <div>
-                  <CardTitle className="text-base">{allExamples.recoveryStatus.title}</CardTitle>
+                  <CardTitle className="text-base">Heart Rate Trend</CardTitle>
                 </div>
               </div>
               <CardDescription className="mt-2">
-                {allExamples.recoveryStatus.description}
+                Average heart rate (BPM) over the last 30 days
               </CardDescription>
             </CardHeader>
             <CardContent>
               <div className="h-[300px]">
-                <Line
-                  ref={chart3Ref}
-                  data={(canvas) => createLineChartData(
-                    canvas,
-                    allExamples.recoveryStatus.sampleData.labels,
-                    allExamples.recoveryStatus.sampleData.data,
-                    allExamples.recoveryStatus.color
-                  ) || { labels: [], datasets: [] }}
-                  options={lineChartOptions}
-                />
+                {performanceMetrics?.heartRateTrend ? (
+                  <Line
+                    ref={chart3Ref}
+                    data={(canvas) => createLineChartData(
+                      canvas,
+                      performanceMetrics.heartRateTrend.labels,
+                      performanceMetrics.heartRateTrend.data,
+                      CHART_COLORS.red
+                    ) || { labels: [], datasets: [] }}
+                    options={lineChartOptions}
+                  />
+                ) : (
+                  <div className="flex items-center justify-center h-full text-white/40">
+                    No heart rate data available
+                  </div>
+                )}
               </div>
             </CardContent>
           </Card>
-              )}
 
-              {/* Body Part Risk */}
-              {bodyPartData.labels.length > 0 && (
+              {/* Training Intensity Distribution */}
             <Card>
             <CardHeader>
               <div className="flex items-center gap-3">
-                <div className="h-9 w-9 bg-pink-500/10 rounded-md flex items-center justify-center">
-                  <AlertTriangle className="h-4 w-4 text-pink-400" />
+                <div className="h-9 w-9 bg-orange-500/10 rounded-md flex items-center justify-center">
+                  <Zap className="h-4 w-4 text-orange-400" />
                 </div>
                 <div>
-                  <CardTitle className="text-base">{allExamples.injuryRisk.title}</CardTitle>
+                  <CardTitle className="text-base">Training Intensity Distribution</CardTitle>
                 </div>
               </div>
               <CardDescription className="mt-2">
-                {allExamples.injuryRisk.description}
+                Breakdown of workout intensity levels in the last 30 days
               </CardDescription>
             </CardHeader>
             <CardContent>
               <div className="h-[300px]">
-                <Line
-                  ref={chart6Ref}
-                  data={(canvas) => createLineChartData(
-                    canvas,
-                    allExamples.injuryRisk.sampleData.labels,
-                    allExamples.injuryRisk.sampleData.data,
-                    allExamples.injuryRisk.color
-                  ) || { labels: [], datasets: [] }}
-                  options={lineChartOptions}
-                />
+                {performanceMetrics?.intensityDistribution ? (
+                  <Bar
+                    ref={chart6Ref}
+                    data={(canvas) => createBarChartData(
+                      canvas,
+                      performanceMetrics.intensityDistribution.labels,
+                      performanceMetrics.intensityDistribution.data,
+                      CHART_COLORS.orange
+                    ) || { labels: [], datasets: [] }}
+                    options={barChartOptions}
+                  />
+                ) : (
+                  <div className="flex items-center justify-center h-full text-white/40">
+                    No intensity data available
+                  </div>
+                )}
               </div>
             </CardContent>
           </Card>
-              )}
             </div>
 
             <Card>
             <CardHeader>
               <div className="flex items-center gap-3">
                 <div className="h-9 w-9 bg-blue-500/10 rounded-md flex items-center justify-center">
-                  <Activity className="h-4 w-4 text-blue-400" />
+                  <BarChart3 className="h-4 w-4 text-blue-400" />
                 </div>
                 <div>
-                  <CardTitle className="text-base">{allExamples.multiMetric.title}</CardTitle>
+                  <CardTitle className="text-base">Multi-Metric Comparison</CardTitle>
                 </div>
               </div>
               <CardDescription className="mt-2">
-                {allExamples.multiMetric.description}
+                Compare heart rate, calories, and fatigue levels over time
               </CardDescription>
             </CardHeader>
             <CardContent>
               <div className="h-[400px]">
-                <Line
-                  ref={chart4Ref}
-                  data={(canvas) => createMultiLineChartData(
-                    canvas,
-                    allExamples.multiMetric.sampleLabels,
-                    allExamples.multiMetric.datasets
-                  ) || { labels: [], datasets: [] }}
-                  options={multiLineChartOptions}
-                />
+                {performanceMetrics?.multiMetricComparison ? (
+                  <Line
+                    ref={chart4Ref}
+                    data={(canvas) => createMultiLineChartData(
+                      canvas,
+                      performanceMetrics.multiMetricComparison.labels,
+                      performanceMetrics.multiMetricComparison.datasets
+                    ) || { labels: [], datasets: [] }}
+                    options={multiLineChartOptions}
+                  />
+                ) : (
+                  <div className="flex items-center justify-center h-full text-white/40">
+                    No comparison data available
+                  </div>
+                )}
               </div>
             </CardContent>
           </Card>

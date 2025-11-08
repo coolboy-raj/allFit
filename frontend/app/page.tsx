@@ -33,6 +33,13 @@ export default function Home() {
     initiateGoogleAuth();
   };
 
+  const scrollToFeatures = () => {
+    const featuresSection = document.getElementById('features');
+    if (featuresSection) {
+      featuresSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
+
   return (
     <div className="min-h-screen bg-black">
       {/* Header/Navigation - Floating over video */}
@@ -104,7 +111,12 @@ export default function Home() {
                 </svg>
                 Get Started Free
               </Button>
-              <Button variant="outline" size="lg" className="backdrop-blur-md bg-white/5 h-[44px]">
+              <Button 
+                variant="outline" 
+                size="lg" 
+                className="backdrop-blur-md bg-white/5 h-[44px]"
+                onClick={scrollToFeatures}
+              >
                 Learn More
               </Button>
             </div>
@@ -135,7 +147,7 @@ export default function Home() {
       </section>
 
       {/* Features Grid */}
-      <section className="container mx-auto px-4 py-20">
+      <section id="features" className="container mx-auto px-4 py-20">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-medium text-white mb-4">
             Everything You Need to Manage Your Team
