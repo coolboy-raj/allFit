@@ -87,7 +87,7 @@ export default function Home() {
               <br />
               <span className="relative inline-block">
                 <span className="relative z-10 bg-gradient-to-r from-blue-400 via-purple-400 to-blue-400 bg-clip-text text-transparent animate-gradient-shimmer bg-[length:200%_auto]">
-                  AI-Powered Insights
+                  Probabilistic Algorithmic Calculations
                 </span>
                 <span className="absolute inset-0 blur-2xl bg-gradient-to-r from-blue-500/20 via-purple-500/20 to-blue-500/20 animate-gradient-shimmer" />
               </span>
@@ -187,7 +187,7 @@ export default function Home() {
               <div className="h-10 w-10 bg-purple-500/10 rounded-md flex items-center justify-center mb-4 group-hover:bg-purple-500/20 transition-colors">
                 <Brain className="h-5 w-5 text-purple-400" />
               </div>
-              <CardTitle>AI Recommendations</CardTitle>
+              <CardTitle>Personalized Recommendations</CardTitle>
               <CardDescription>
                 Personalized training recommendations for each athlete based on workload, recovery, and performance data.
               </CardDescription>
@@ -278,7 +278,7 @@ export default function Home() {
                 <div className="h-14 w-14 bg-green-500/10 text-green-400 rounded-md flex items-center justify-center text-2xl font-medium mx-auto mb-4 group-hover:bg-green-500/20 transition-colors">
                   3
                 </div>
-                <CardTitle className="text-lg">Get AI Insights</CardTitle>
+                <CardTitle className="text-lg">Get Mathematical Insights</CardTitle>
               </CardHeader>
               <CardContent className="text-center">
                 <CardDescription>

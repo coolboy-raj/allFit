@@ -994,7 +994,7 @@ export default function InjuryAnalysisPage() {
                       <div className="h-8 w-8 rounded-md bg-green-500/10 flex items-center justify-center">
                         <Shield className="h-4 w-4 text-green-400" />
                       </div>
-                      AI Recommendations
+                      Recommendations
                     </CardTitle>
                     <CardDescription className="text-xs mt-1">
                       Body-part-specific injury prevention strategies
@@ -1522,7 +1522,7 @@ export default function InjuryAnalysisPage() {
                             <AlertTriangle className={`h-5 w-5 ${colorClasses.text}`} />
                           </div>
                           <div>
-                            <h3 className="font-semibold text-white mb-2">{riskData.isInjured ? 'Injury Status' : 'AI Assessment'}</h3>
+                            <h3 className="font-semibold text-white mb-2">{riskData.isInjured ? 'Injury Status' : 'Assessment'}</h3>
                             <p className="text-sm text-white/70 leading-relaxed">
                               {riskData.message}
                             </p>

@@ -157,7 +157,7 @@ export default function DashboardPage() {
                   </div>
                   <CardTitle>Injury Analysis</CardTitle>
                   <CardDescription>
-                    AI-powered injury prediction and prevention
+                    Mathematically backed injury prediction and prevention
                   </CardDescription>
                 </CardHeader>
                 <CardContent>

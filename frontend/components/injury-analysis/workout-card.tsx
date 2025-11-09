@@ -158,3 +158,4 @@ export function WorkoutCard({ workout, index, onUpdate, onRemove, canRemove }: W
 
 
 
+
