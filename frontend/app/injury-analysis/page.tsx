@@ -78,6 +78,13 @@ export default function InjuryAnalysisPage() {
     message: string;
     isInjured?: boolean;
   }>>([]);
+  const [recommendations, setRecommendations] = useState<Array<{
+    priority: string;
+    title: string;
+    description: string;
+    bodyPart?: string;
+    riskLevel?: string;
+  }>>([]);
   const [isLoggingActivity, setIsLoggingActivity] = useState(false);
 
   // Check authentication and load data on mount
@@ -250,9 +257,18 @@ export default function InjuryAnalysisPage() {
         });
 
         setInjuryRiskData(transformedRisks);
+        
+        // Extract body-part-specific recommendations from the API
+        if (riskAnalysis.overall_risk && riskAnalysis.overall_risk.recommendations) {
+          setRecommendations(riskAnalysis.overall_risk.recommendations);
+        } else {
+          setRecommendations([]);
+        }
+        
         setShowResults(true);
       } else {
         setInjuryRiskData([]);
+        setRecommendations([]);
         setShowResults(false);
       }
 
@@ -981,67 +997,69 @@ export default function InjuryAnalysisPage() {
                       AI Recommendations
                     </CardTitle>
                     <CardDescription className="text-xs mt-1">
-                      Personalized injury prevention strategies
+                      Body-part-specific injury prevention strategies
                     </CardDescription>
                   </CardHeader>
                   <CardContent className="pt-5">
-                    <div className="space-y-4">
-                      {injuryRiskData.filter(r => r.percentage >= 60).length > 0 && (
-                        <div className="flex gap-3">
-                          <div className="flex-shrink-0 w-7 h-7 rounded-full bg-green-500/10 text-green-400 flex items-center justify-center font-bold text-xs border border-green-500/20">
-                            1
-                          </div>
-                          <div>
-                            <h4 className="font-medium text-white text-sm mb-1.5">
-                              Immediate Rest Required
-                            </h4>
-                            <p className="text-sm text-white/60 leading-relaxed">
-                              High risk detected in {injuryRiskData.filter(r => r.percentage >= 60).length} area(s). 
-                              Take 2-3 days of complete rest for affected body parts. Consider ice therapy and gentle mobility work.
-                            </p>
-                          </div>
-                        </div>
-                      )}
+                    {recommendations.length > 0 ? (
+                      <div className="space-y-4">
+                        {recommendations.slice(0, 6).map((rec, index) => {
+                          // Get priority color
+                          const priorityColor = rec.priority === 'high' 
+                            ? 'bg-red-500/10 text-red-400 border-red-500/20' 
+                            : rec.priority === 'medium' 
+                            ? 'bg-amber-500/10 text-amber-400 border-amber-500/20'
+                            : 'bg-green-500/10 text-green-400 border-green-500/20';
+                          
+                          // Format body part name
+                          const bodyPartDisplay = rec.bodyPart && rec.bodyPart !== 'general'
+                            ? rec.bodyPart.split('-').map((word: string) => 
+                                word.charAt(0).toUpperCase() + word.slice(1)
+                              ).join(' ')
+                            : null;
+                          
+                          return (
+                            <div key={index} className="flex gap-3">
+                              <div className={`flex-shrink-0 w-7 h-7 rounded-full ${priorityColor} flex items-center justify-center font-bold text-xs border`}>
+                                {index + 1}
+                              </div>
+                              <div className="flex-1">
+                                <div className="flex items-center gap-2 mb-1.5">
+                                  <h4 className="font-medium text-white text-sm">
+                                    {rec.title}
+                                  </h4>
+                                  {bodyPartDisplay && (
+                                    <span className="text-xs px-2 py-0.5 rounded-full bg-blue-500/10 text-blue-400 border border-blue-500/20">
+                                      {bodyPartDisplay}
+                                    </span>
+                                  )}
+                                </div>
+                                <p className="text-sm text-white/60 leading-relaxed">
+                                  {rec.description}
+                                </p>
+                              </div>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    ) : (
+                      <div className="text-center py-8 text-white/50">
+                        <Shield className="h-12 w-12 mx-auto mb-3 opacity-50" />
+                        <p className="text-sm">No specific recommendations at this time.</p>
+                        <p className="text-xs mt-1">Continue monitoring your training patterns.</p>
+                      </div>
+                    )}
 
-                      {injuryRiskData.filter(r => r.percentage >= 40 && r.percentage < 60).length > 0 && (
-                        <div className="flex gap-3">
-                          <div className="flex-shrink-0 w-7 h-7 rounded-full bg-green-500/10 text-green-400 flex items-center justify-center font-bold text-xs border border-green-500/20">
-                            {injuryRiskData.filter(r => r.percentage >= 60).length > 0 ? '2' : '1'}
-                          </div>
-                          <div>
-                            <h4 className="font-medium text-white text-sm mb-1.5">
-                              Reduce Training Volume
-                            </h4>
-                            <p className="text-sm text-white/60 leading-relaxed">
-                              Moderate fatigue detected. Reduce training intensity by 20-30% for affected areas in the next 3-5 days.
-                            </p>
-                          </div>
-                        </div>
-                      )}
-
-                      <div className="flex gap-3">
-                        <div className="flex-shrink-0 w-7 h-7 rounded-full bg-green-500/10 text-green-400 flex items-center justify-center font-bold text-xs border border-green-500/20">
-                          {injuryRiskData.filter(r => r.percentage >= 40).length + 1}
-                        </div>
-                        <div>
-                          <h4 className="font-medium text-white text-sm mb-1.5">
-                            Monitor Recovery
-                          </h4>
-                          <p className="text-sm text-white/60 leading-relaxed">
-                            Track your recovery daily. Log rest days and monitor how body parts feel before resuming full training intensity.
+                    {recommendations.length > 0 && (
+                      <div className="mt-5 p-4 bg-blue-500/5 rounded-lg border border-blue-500/20">
+                        <div className="flex gap-2.5">
+                          <TrendingUp className="h-4 w-4 text-blue-400 flex-shrink-0 mt-0.5" />
+                          <p className="text-sm text-white/70 leading-relaxed">
+                            <span className="font-semibold text-blue-400">Evidence-Based:</span> These body-part-specific recommendations are generated using validated sports science algorithms and can reduce injury risk by up to 60% when properly followed.
                           </p>
                         </div>
                       </div>
-                    </div>
-
-                    <div className="mt-5 p-4 bg-blue-500/5 rounded-lg border border-blue-500/20">
-                      <div className="flex gap-2.5">
-                        <TrendingUp className="h-4 w-4 text-blue-400 flex-shrink-0 mt-0.5" />
-                        <p className="text-sm text-white/70 leading-relaxed">
-                          <span className="font-semibold text-blue-400">Data-Driven:</span> Following these recommendations can reduce injury risk by up to 60% based on your activity patterns.
-                        </p>
-                      </div>
-                    </div>
+                    )}
                   </CardContent>
                 </Card>
               )}

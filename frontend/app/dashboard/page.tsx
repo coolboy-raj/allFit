@@ -26,6 +26,8 @@ export default function DashboardPage() {
   const router = useRouter();
   const [user, setUser] = useState<any>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [profileImage, setProfileImage] = useState<string | null>(null);
+  const [profileName, setProfileName] = useState<string>("");
 
   useEffect(() => {
     // Check authentication
@@ -36,6 +38,21 @@ export default function DashboardPage() {
 
     const currentUser = getCurrentUser();
     setUser(currentUser);
+
+    // Load custom profile from localStorage
+    const savedImage = localStorage.getItem('coach_profile_image');
+    if (savedImage) {
+      setProfileImage(savedImage);
+    }
+
+    const savedProfile = localStorage.getItem('coach_profile');
+    if (savedProfile) {
+      const profile = JSON.parse(savedProfile);
+      setProfileName(profile.name || currentUser?.name || "");
+    } else {
+      setProfileName(currentUser?.name || "");
+    }
+
     setIsLoading(false);
   }, [router]);
 
@@ -91,16 +108,23 @@ export default function DashboardPage() {
           {user && (
             <div className="mt-6 flex items-center justify-between py-6 px-6 bg-white/[0.03] rounded-lg border border-white/10">
               <div className="flex items-center gap-4">
-                {user.picture ? (
-                  <img src={user.picture} alt={user.name} className="h-14 w-14 rounded-full ring-2 ring-white/10" />
+                {profileImage || user.picture ? (
+                  <img 
+                    src={profileImage || user.picture} 
+                    alt={profileName || user.name} 
+                    className="h-14 w-14 rounded-full ring-2 ring-white/10 object-cover" 
+                    onError={(e) => {
+                      (e.target as HTMLImageElement).src = `https://ui-avatars.com/api/?name=${encodeURIComponent(profileName || user.name || 'Coach')}&size=128&background=6366f1&color=fff`;
+                    }}
+                  />
                 ) : (
                   <div className="h-14 w-14 bg-white/10 rounded-full flex items-center justify-center text-white text-xl font-medium ring-2 ring-white/10">
-                    {user.name?.charAt(0) || 'C'}
+                    {profileName?.charAt(0) || user.name?.charAt(0) || 'C'}
                   </div>
                 )}
                 <div>
                   <div className="font-medium text-white text-lg mb-0.5">
-                    Coach {user.name}
+                    Coach {profileName || user.name}
                   </div>
                   <div className="text-sm text-white/50">
                     Professional Athlete Management Dashboard

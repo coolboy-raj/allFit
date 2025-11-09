@@ -7,6 +7,7 @@ const { supabase } = require('../config/database');
 const { calculateBodyPartWorkload, calculateRecoveryRate } = require('./workload.service');
 const { calculateInjuryRiskPercentage, getRiskLevel, getRiskMessage } = require('./injury-risk.service');
 const { EXERCISE_BODY_PART_MAP, getBodyPartIntensityMultiplier } = require('./body-part-mapping.service');
+const { generateBodyPartRecommendations } = require('./body-part-recommendations.service');
 
 /**
  * Update body part workloads after activity
@@ -178,27 +179,49 @@ async function calculateAthleteInjuryRisk(athleteId) {
     const avgRecovery = workloads.reduce((sum, w) => sum + parseFloat(w.recovery_rate || 100), 0) / workloads.length;
     const fatigueIndex = 100 - avgRecovery;
 
-    // Generate recommendations
+    // Generate body-part-specific recommendations
     const recommendations = [];
-    if (overallRiskScore >= 60) {
-      recommendations.push({
-        priority: 'high',
-        title: 'Reduce Training Intensity',
-        description: 'High injury risk detected. Reduce training intensity by 30-40% for the next 3-5 days.',
-      });
+    
+    // Get recommendations for all high-risk body parts (60%+)
+    const highRiskWorkloads = workloads.filter(w => w.injury_risk_percentage >= 60);
+    for (const workload of highRiskWorkloads) {
+      const bodyPartRecs = generateBodyPartRecommendations(
+        workload.body_part,
+        workload.injury_risk_percentage,
+        {
+          cumulative7day: workload.cumulative_7day,
+          cumulative30day: workload.cumulative_30day,
+          recoveryRate: workload.recovery_rate,
+          activityCount: workload.activity_count,
+        }
+      );
+      recommendations.push(...bodyPartRecs);
     }
-    if (highRiskParts.length > 0) {
-      recommendations.push({
-        priority: 'high',
-        title: 'Target Recovery for High-Risk Areas',
-        description: `Focus recovery efforts on: ${highRiskParts.join(', ')}. Consider physiotherapy or additional rest.`,
-      });
+    
+    // Get recommendations for medium-risk body parts (40-59%)
+    const mediumRiskWorkloads = workloads.filter(w => w.injury_risk_percentage >= 40 && w.injury_risk_percentage < 60);
+    for (const workload of mediumRiskWorkloads) {
+      const bodyPartRecs = generateBodyPartRecommendations(
+        workload.body_part,
+        workload.injury_risk_percentage,
+        {
+          cumulative7day: workload.cumulative_7day,
+          cumulative30day: workload.cumulative_30day,
+          recoveryRate: workload.recovery_rate,
+          activityCount: workload.activity_count,
+        }
+      );
+      recommendations.push(...bodyPartRecs);
     }
-    if (avgRecovery < 70) {
+    
+    // Add general recovery recommendation if average recovery is low
+    if (avgRecovery < 70 && recommendations.length < 10) {
       recommendations.push({
         priority: 'medium',
-        title: 'Increase Recovery Time',
-        description: 'Recovery deficit detected. Schedule additional rest days and ensure adequate sleep (8+ hours).',
+        title: 'Prioritize Overall Recovery',
+        description: `Recovery score is ${Math.round(avgRecovery)}%. Ensure 8+ hours of quality sleep, stay hydrated, and consider active recovery days with light mobility work.`,
+        bodyPart: 'general',
+        riskLevel: 'medium',
       });
     }
 

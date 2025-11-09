@@ -122,6 +122,8 @@ export interface InjuryRiskSnapshot {
     priority: string;
     title: string;
     description: string;
+    bodyPart?: string;
+    riskLevel?: string;
   }>;
   created_at?: string;
 }
