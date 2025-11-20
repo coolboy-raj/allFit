@@ -1,4 +1,4 @@
-# TotalFit: AI Health Advisor
+# TotalFit: Health Advisor
 
 > Connect your Google Fit app, get AI-powered health insights and injury risk warnings based on your daily activity data.
 
